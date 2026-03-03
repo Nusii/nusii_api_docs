@@ -6,7 +6,8 @@
       "WebFetch(domain:localhost)",
       "Bash(curl:*)",
       "Bash(bundle exec:*)",
-      "Bash(rsync:*)"
+      "Bash(rsync:*)",
+      "Bash(gh repo:*)"
     ]
   }
 }

@@ -461,7 +461,7 @@ curl -X PUT \
 ```
 
 ```shell--cli
-nusii proposals send 100
+nusii proposals send 100 --email "your_client@email.com" --subject "Your Proposal"
 ```
 
 ```ruby
@@ -493,7 +493,11 @@ curl -X PUT \
 ```
 
 ```shell--cli
-nusii proposals send 100
+nusii proposals send 100 \
+  --subject "Your Proposal" \
+  --message "Please review the attached proposal." \
+  --sender-email "sender@example.com" \
+  --recipients '[{"name": "Alice", "email": "alice@example.com", "eligible_to_sign": true}, {"name": "Bob", "email": "bob@example.com", "eligible_to_sign": false}]'
 ```
 
 ```ruby
