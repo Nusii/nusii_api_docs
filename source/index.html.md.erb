@@ -1,0 +1,103 @@
+---
+title: Nusii API Reference
+
+language_tabs: # must be one of https://git.io/vQNgJ
+  - shell--curl: cURL
+  - shell--cli: Nusii CLI
+  - ruby: Ruby
+
+toc_footers:
+  - <a href='https://app.nusii.com/settings/integrations'>Get your API Key</a>
+  - <a href='https://github.com/Nusii/nusii-cli'>Nusii CLI on GitHub</a>
+
+search: true
+
+code_clipboard: true
+
+meta:
+  - name: description
+    content: Documentation for the Nusii Proposal Software API
+
+---
+
+# Introduction
+
+Welcome to the Nusii API! You can use our API to access Nusii API endpoints. All endpoint URLs begin with `https://app.nusii.com/api/v2/`. All requests must be serialized in JSON and Nusii uses the [jsonapi.org](http://jsonapi.org/) specification.
+
+# Nusii CLI
+
+The [Nusii CLI](https://github.com/Nusii/nusii-cli) is a command-line tool for the Nusii API. It can be used standalone or with AI coding agents like Claude Code, Codex, and others.
+
+It auto-detects piped output and returns JSON, supports `--no-input` for non-interactive use, and uses structured exit codes for automation.
+
+```shell--cli
+# Install with Homebrew
+brew install nusii/tap/nusii
+
+# Or install from source
+go install github.com/nusii/nusii-cli@latest
+
+# Login (saves your key to ~/.config/nusii/config.yaml)
+nusii auth login --api-key YOUR_API_KEY
+
+# Check auth status
+nusii auth status
+```
+
+```shell--curl
+# The Nusii CLI is an alternative to using cURL.
+# Install: brew install nusii/tap/nusii
+```
+
+```ruby
+# The Nusii CLI is an alternative to the Ruby gem.
+# Install: brew install nusii/tap/nusii
+```
+
+# Authentication
+
+> We offer a token based authentication. You can find your API access token [here](https://app.nusii.com). Tokens need to be added in the HTTP_AUTHORIZATION header as `Token token=YOUR_API_KEY`
+
+
+```shell--curl
+# With shell, you can just pass the correct header with each request
+curl -H 'User-Agent: Your App Name (www.yourapp.com)' \
+  -H 'Content-Type: application/json' \
+  -H "Authorization: Token token=YOUR_API_KEY" \
+  "https://app.nusii.com/api/v2/proposals"
+```
+
+```shell--cli
+nusii auth login --api-key YOUR_API_KEY
+```
+
+```ruby
+require 'nusii-ruby'
+
+Nusii.api_key = 'YOUR_API_KEY'
+Nusii.user_agent = 'Your App Name (www.yourapp.com)'
+```
+
+> Make sure to replace `YOUR_API_KEY` with your API key.
+
+Nusii expects the API key to be included in all API requests to the server in a header that looks like the following:
+
+`Authorization: Token token=YOUR_API_KEY`
+
+<aside class="notice">
+  You must replace <code>YOUR_API_KEY</code> with your personal API key.
+</aside>
+
+<%= partial("includes/resources/account") %>
+<%= partial("includes/resources/clients") %>
+<%= partial("includes/resources/proposals") %>
+<%= partial("includes/resources/sections") %>
+<%= partial("includes/resources/line_items") %>
+<%= partial("includes/resources/proposal_activities") %>
+<%= partial("includes/resources/users") %>
+<%= partial("includes/resources/themes") %>
+<%= partial("includes/resources/webhooks") %>
+
+<%= partial("includes/pagination") %>
+<%= partial("includes/rate_limiting") %>
+<%= partial("includes/errors") %>
