@@ -8,6 +8,7 @@ language_tabs: # must be one of https://github.com/rouge-ruby/rouge/wiki/List-of
 
 toc_footers:
   - <a href='https://app.nusii.com/settings/integrations'>Get your API Key</a>
+  - <a href='https://app.nusii.com/settings/api'>Register an OAuth App</a>
   - <a href='https://github.com/Nusii/nusii-cli'>Nusii CLI on GitHub</a>
 
 includes:
@@ -103,3 +104,326 @@ You can get your API key from [Settings > Integrations](https://app.nusii.com/se
 <aside class="notice">
 You must replace <code>YOUR_API_KEY</code> with your personal API key.
 </aside>
+
+# OAuth Authentication
+
+If you're building a third-party integration that connects to Nusii on behalf of other users, you should use OAuth 2.0 instead of API tokens. OAuth lets users authorize your app without sharing their API key.
+
+Nusii implements the **Authorization Code** grant with **PKCE** (Proof Key for Code Exchange), which is the recommended flow for both server-side and public client applications.
+
+## Registering Your App
+
+Before you can authenticate users, you need to register an OAuth application.
+
+1. Go to [Settings > API](https://app.nusii.com/settings/api)
+2. Create a new OAuth application
+3. Enter your app name and redirect URI(s)
+4. Choose the scopes your app needs: `read`, `write`, or both
+5. Save your **Client ID** and **Client Secret**
+
+<aside class="notice">
+Your Client Secret is only shown once when you create the app. Store it securely.
+</aside>
+
+## Scopes
+
+Scope | Description
+----- | -----------
+`read` | Read-only access. Allows GET requests to all API endpoints.
+`write` | Write access. Allows POST, PUT, and DELETE requests. Must be combined with `read`.
+
+## Authorization Flow
+
+### Step 1: Generate a PKCE Code Verifier
+
+```shell--curl
+# Generate a random code verifier (43-128 characters)
+CODE_VERIFIER=$(openssl rand -base64 96 | tr -d '=+/' | head -c 128)
+
+# Create the code challenge (S256)
+CODE_CHALLENGE=$(echo -n "$CODE_VERIFIER" | openssl dgst -sha256 -binary | openssl base64 | tr '+/' '-_' | tr -d '=')
+
+echo "Code Verifier: $CODE_VERIFIER"
+echo "Code Challenge: $CODE_CHALLENGE"
+```
+
+```shell--cli
+# The Nusii CLI uses API tokens for authentication.
+# OAuth is designed for third-party integrations.
+```
+
+```ruby
+require 'securerandom'
+require 'digest'
+require 'base64'
+
+code_verifier = SecureRandom.urlsafe_base64(96)
+code_challenge = Base64.urlsafe_encode64(
+  Digest::SHA256.digest(code_verifier), padding: false
+)
+```
+
+PKCE protects the authorization flow by ensuring the app that started the flow is the same one exchanging the code. Generate a random `code_verifier` and derive a `code_challenge` from it.
+
+### Step 2: Redirect the User to Authorize
+
+```shell--curl
+# Redirect the user's browser to:
+https://app.nusii.com/oauth/authorize?\
+  client_id=YOUR_CLIENT_ID&\
+  redirect_uri=YOUR_REDIRECT_URI&\
+  response_type=code&\
+  scope=read+write&\
+  code_challenge=CODE_CHALLENGE&\
+  code_challenge_method=S256
+```
+
+```shell--cli
+# OAuth is designed for third-party integrations.
+```
+
+```ruby
+# Build the authorization URL
+params = {
+  client_id: 'YOUR_CLIENT_ID',
+  redirect_uri: 'YOUR_REDIRECT_URI',
+  response_type: 'code',
+  scope: 'read write',
+  code_challenge: code_challenge,
+  code_challenge_method: 'S256'
+}
+
+auth_url = "https://app.nusii.com/oauth/authorize?#{URI.encode_www_form(params)}"
+# Redirect the user to auth_url
+```
+
+Redirect the user's browser to the authorization URL. They'll be asked to sign in to Nusii (if not already) and approve your app's access.
+
+If the user belongs to multiple Nusii accounts, they'll be asked to select which account to authorize.
+
+Parameter | Required | Description
+--------- | -------- | -----------
+`client_id` | Yes | Your app's Client ID.
+`redirect_uri` | Yes | Must match one of the redirect URIs registered with your app.
+`response_type` | Yes | Must be `code`.
+`scope` | Yes | Space-separated list of scopes (e.g. `read` or `read write`).
+`code_challenge` | Yes | The PKCE code challenge derived from your code verifier.
+`code_challenge_method` | Yes | Must be `S256`.
+
+### Step 3: Exchange the Code for Tokens
+
+> After the user approves, they're redirected to your `redirect_uri` with a `code` parameter:
+
+```shell--curl
+# Exchange the authorization code for tokens
+curl -X POST \
+  -H 'Content-Type: application/x-www-form-urlencoded' \
+  -d "grant_type=authorization_code" \
+  -d "code=AUTHORIZATION_CODE" \
+  -d "redirect_uri=YOUR_REDIRECT_URI" \
+  -d "client_id=YOUR_CLIENT_ID" \
+  -d "client_secret=YOUR_CLIENT_SECRET" \
+  -d "code_verifier=YOUR_CODE_VERIFIER" \
+  "https://app.nusii.com/oauth/token"
+```
+
+```shell--cli
+# OAuth is designed for third-party integrations.
+```
+
+```ruby
+require 'net/http'
+require 'json'
+
+uri = URI('https://app.nusii.com/oauth/token')
+response = Net::HTTP.post_form(uri, {
+  grant_type: 'authorization_code',
+  code: 'AUTHORIZATION_CODE',
+  redirect_uri: 'YOUR_REDIRECT_URI',
+  client_id: 'YOUR_CLIENT_ID',
+  client_secret: 'YOUR_CLIENT_SECRET',
+  code_verifier: code_verifier
+})
+
+tokens = JSON.parse(response.body)
+access_token = tokens['access_token']
+refresh_token = tokens['refresh_token']
+```
+
+> A successful response returns:
+
+```json
+{
+  "access_token": "eyJhbGciOiJIUzI1NiJ9...",
+  "token_type": "Bearer",
+  "expires_in": 86400,
+  "refresh_token": "a1b2c3d4e5f6...",
+  "scope": "read write",
+  "created_at": 1709510400
+}
+```
+
+Exchange the authorization code for an access token and refresh token.
+
+Parameter | Required | Description
+--------- | -------- | -----------
+`grant_type` | Yes | Must be `authorization_code`.
+`code` | Yes | The authorization code from the redirect.
+`redirect_uri` | Yes | The same redirect URI used in Step 2.
+`client_id` | Yes | Your app's Client ID.
+`client_secret` | Yes | Your app's Client Secret. Not required for public clients using PKCE.
+`code_verifier` | Yes | The original PKCE code verifier from Step 1.
+
+<aside class="notice">
+Access tokens expire after <strong>24 hours</strong>. Use the refresh token to get a new access token without requiring the user to re-authorize.
+</aside>
+
+## Making Authenticated Requests
+
+> Use the Bearer token in the Authorization header:
+
+```shell--curl
+curl -X GET \
+  -H 'User-Agent: Your App Name (www.yourapp.com)' \
+  -H 'Content-Type: application/json' \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
+  "https://app.nusii.com/api/v2/clients"
+```
+
+```shell--cli
+# The Nusii CLI uses API tokens for authentication.
+# OAuth is designed for third-party integrations.
+```
+
+```ruby
+require 'net/http'
+require 'json'
+
+uri = URI('https://app.nusii.com/api/v2/clients')
+request = Net::HTTP::Get.new(uri)
+request['Authorization'] = 'Bearer YOUR_ACCESS_TOKEN'
+request['Content-Type'] = 'application/json'
+request['User-Agent'] = 'Your App Name (www.yourapp.com)'
+
+response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
+  http.request(request)
+end
+
+data = JSON.parse(response.body)
+```
+
+Once you have an access token, include it in the `Authorization` header as a Bearer token:
+
+`Authorization: Bearer YOUR_ACCESS_TOKEN`
+
+The token's scope determines what you can do — `read` scope allows GET requests, `write` scope allows POST, PUT, and DELETE requests.
+
+## Refreshing Tokens
+
+> When your access token expires, use the refresh token to get a new one:
+
+```shell--curl
+curl -X POST \
+  -H 'Content-Type: application/x-www-form-urlencoded' \
+  -d "grant_type=refresh_token" \
+  -d "refresh_token=YOUR_REFRESH_TOKEN" \
+  -d "client_id=YOUR_CLIENT_ID" \
+  -d "client_secret=YOUR_CLIENT_SECRET" \
+  "https://app.nusii.com/oauth/token"
+```
+
+```shell--cli
+# OAuth is designed for third-party integrations.
+```
+
+```ruby
+uri = URI('https://app.nusii.com/oauth/token')
+response = Net::HTTP.post_form(uri, {
+  grant_type: 'refresh_token',
+  refresh_token: 'YOUR_REFRESH_TOKEN',
+  client_id: 'YOUR_CLIENT_ID',
+  client_secret: 'YOUR_CLIENT_SECRET'
+})
+
+tokens = JSON.parse(response.body)
+new_access_token = tokens['access_token']
+new_refresh_token = tokens['refresh_token']
+```
+
+> A successful response returns a new token pair:
+
+```json
+{
+  "access_token": "new_access_token...",
+  "token_type": "Bearer",
+  "expires_in": 86400,
+  "refresh_token": "new_refresh_token...",
+  "scope": "read write",
+  "created_at": 1709596800
+}
+```
+
+Access tokens expire after 24 hours. Use the refresh token to get a new access token without requiring the user to re-authorize.
+
+Parameter | Required | Description
+--------- | -------- | -----------
+`grant_type` | Yes | Must be `refresh_token`.
+`refresh_token` | Yes | The refresh token from a previous token response.
+`client_id` | Yes | Your app's Client ID.
+`client_secret` | Yes | Your app's Client Secret. Not required for public clients.
+
+<aside class="warning">
+Always store the new refresh token from the response. The previous refresh token may be invalidated after use.
+</aside>
+
+## Revoking Tokens
+
+> Revoke a token when the user disconnects your app:
+
+```shell--curl
+curl -X POST \
+  -H 'Content-Type: application/x-www-form-urlencoded' \
+  -d "token=YOUR_ACCESS_TOKEN" \
+  -d "client_id=YOUR_CLIENT_ID" \
+  -d "client_secret=YOUR_CLIENT_SECRET" \
+  "https://app.nusii.com/oauth/revoke"
+```
+
+```shell--cli
+# OAuth is designed for third-party integrations.
+```
+
+```ruby
+uri = URI('https://app.nusii.com/oauth/revoke')
+Net::HTTP.post_form(uri, {
+  token: 'YOUR_ACCESS_TOKEN',
+  client_id: 'YOUR_CLIENT_ID',
+  client_secret: 'YOUR_CLIENT_SECRET'
+})
+```
+
+Revoke a token when a user disconnects your app or you no longer need access. You can revoke either the access token or the refresh token.
+
+Parameter | Required | Description
+--------- | -------- | -----------
+`token` | Yes | The access token or refresh token to revoke.
+`client_id` | Yes | Your app's Client ID.
+`client_secret` | Yes | Your app's Client Secret. Not required for public clients.
+
+## OAuth Endpoints Summary
+
+Endpoint | Method | Description
+-------- | ------ | -----------
+`/oauth/authorize` | GET | Show the authorization page to the user.
+`/oauth/authorize` | POST | User approves or denies access (handled by Nusii).
+`/oauth/token` | POST | Exchange an authorization code or refresh token for tokens.
+`/oauth/revoke` | POST | Revoke an access or refresh token.
+
+## OAuth Rate Limits
+
+OAuth endpoints have their own rate limits:
+
+Endpoint | Limit
+-------- | -----
+API requests (Bearer token) | 100 requests per 30 seconds
+`/oauth/token` | 20 requests per 60 seconds
