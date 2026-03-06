@@ -30,7 +30,7 @@ require 'nusii-ruby'
 Nusii.api_key = 'YOUR_API_KEY'
 Nusii.user_agent = 'Your App Name (www.yourapp.com)'
 
-# TODO not implemented yet
+Nusii::Template.list(page: 1)
 ```
 
 > The above command returns JSON structured like this:
@@ -90,7 +90,7 @@ require 'nusii-ruby'
 Nusii.api_key = 'YOUR_API_KEY'
 Nusii.user_agent = 'Your App Name (www.yourapp.com)'
 
-# TODO not implemented yet
+Nusii::Template.get(12)
 ```
 
 > The above command returns JSON structured like this:
