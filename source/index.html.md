@@ -15,6 +15,7 @@ includes:
   - resources/account
   - resources/clients
   - resources/proposals
+  - resources/templates
   - resources/sections
   - resources/line_items
   - resources/proposal_activities
