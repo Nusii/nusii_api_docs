@@ -8,7 +8,7 @@ language_tabs: # must be one of https://github.com/rouge-ruby/rouge/wiki/List-of
   - php
 
 toc_footers:
-  - <a href='https://app.nusii.com/settings/integrations'>Get your API Key</a>
+  - <a href='https://app.nusii.com/settings/api'>Get your API Key</a>
   - <a href='https://app.nusii.com/settings/api'>Register an OAuth App</a>
   - <a href='https://github.com/Nusii/nusii-cli'>Nusii CLI on GitHub</a>
   - <a href='https://github.com/nusii/nusii-php'>Nusii PHP on GitHub</a>
@@ -116,7 +116,7 @@ All API requests require authentication. Include your API key in the Authorizati
 
 `Authorization: Token token=YOUR_API_KEY`
 
-You can get your API key from [Settings > Integrations](https://app.nusii.com/settings/integrations).
+You can get your API key from [Settings > API](https://app.nusii.com/settings/api).
 
 <aside class="notice">
 You must replace <code>YOUR_API_KEY</code> with your personal API key.
