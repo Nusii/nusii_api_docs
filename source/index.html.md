@@ -5,11 +5,13 @@ language_tabs: # must be one of https://github.com/rouge-ruby/rouge/wiki/List-of
   - shell--curl: cURL
   - shell--cli: Nusii CLI
   - ruby
+  - php
 
 toc_footers:
   - <a href='https://app.nusii.com/settings/integrations'>Get your API Key</a>
   - <a href='https://app.nusii.com/settings/api'>Register an OAuth App</a>
   - <a href='https://github.com/Nusii/nusii-cli'>Nusii CLI on GitHub</a>
+  - <a href='https://github.com/nusii/nusii-php'>Nusii PHP on GitHub</a>
 
 includes:
   - resources/account
@@ -39,7 +41,7 @@ meta:
 
 Welcome to the Nusii API. You can use our API to manage clients, proposals, sections, line items, and more.
 
-We have examples in cURL, the [Nusii CLI](https://github.com/Nusii/nusii-cli), and Ruby. You can view code examples in the dark area to the right, and you can switch between them using the tabs in the top right.
+We have examples in cURL, the [Nusii CLI](https://github.com/Nusii/nusii-cli), Ruby, and PHP. You can view code examples in the dark area to the right, and you can switch between them using the tabs in the top right.
 
 # Nusii CLI
 
@@ -71,6 +73,11 @@ nusii auth status
 # Install: brew install nusii/tap/nusii
 ```
 
+```php
+// The Nusii CLI is an alternative to the PHP package.
+// Install: brew install nusii/tap/nusii
+```
+
 # Authentication
 
 > To authenticate:
@@ -92,6 +99,15 @@ require 'nusii-ruby'
 
 Nusii.api_key = 'YOUR_API_KEY'
 Nusii.user_agent = 'Your App Name (www.yourapp.com)'
+```
+
+```php
+// Install via Composer
+// composer require nusii/nusii-php
+
+use Nusii\Nusii;
+
+$nusii = new Nusii('YOUR_API_KEY');
 ```
 
 > Make sure to replace `YOUR_API_KEY` with your API key.
@@ -164,6 +180,14 @@ code_challenge = Base64.urlsafe_encode64(
 )
 ```
 
+```php
+$codeVerifier = bin2hex(random_bytes(64));
+$codeChallenge = rtrim(strtr(
+    base64_encode(hash('sha256', $codeVerifier, true)),
+    '+/', '-_'
+), '=');
+```
+
 PKCE protects the authorization flow by ensuring the app that started the flow is the same one exchanging the code. Generate a random `code_verifier` and derive a `code_challenge` from it.
 
 ### Step 2: Redirect the User to Authorize
@@ -196,6 +220,20 @@ params = {
 
 auth_url = "https://app.nusii.com/oauth/authorize?#{URI.encode_www_form(params)}"
 # Redirect the user to auth_url
+```
+
+```php
+$params = http_build_query([
+    'client_id' => 'YOUR_CLIENT_ID',
+    'redirect_uri' => 'YOUR_REDIRECT_URI',
+    'response_type' => 'code',
+    'scope' => 'read write',
+    'code_challenge' => $codeChallenge,
+    'code_challenge_method' => 'S256',
+]);
+
+$authUrl = "https://app.nusii.com/oauth/authorize?{$params}";
+// Redirect the user to $authUrl
 ```
 
 Redirect the user's browser to the authorization URL. They'll be asked to sign in to Nusii (if not already) and approve your app's access.
@@ -249,6 +287,29 @@ response = Net::HTTP.post_form(uri, {
 tokens = JSON.parse(response.body)
 access_token = tokens['access_token']
 refresh_token = tokens['refresh_token']
+```
+
+```php
+$response = file_get_contents('https://app.nusii.com/oauth/token', false,
+    stream_context_create([
+        'http' => [
+            'method' => 'POST',
+            'header' => 'Content-Type: application/x-www-form-urlencoded',
+            'content' => http_build_query([
+                'grant_type' => 'authorization_code',
+                'code' => 'AUTHORIZATION_CODE',
+                'redirect_uri' => 'YOUR_REDIRECT_URI',
+                'client_id' => 'YOUR_CLIENT_ID',
+                'client_secret' => 'YOUR_CLIENT_SECRET',
+                'code_verifier' => $codeVerifier,
+            ]),
+        ],
+    ])
+);
+
+$tokens = json_decode($response, true);
+$accessToken = $tokens['access_token'];
+$refreshToken = $tokens['refresh_token'];
 ```
 
 > A successful response returns:
@@ -313,6 +374,15 @@ end
 data = JSON.parse(response.body)
 ```
 
+```php
+use Nusii\Nusii;
+
+// Use an OAuth access token instead of an API key
+$nusii = new Nusii('YOUR_ACCESS_TOKEN');
+
+$clients = $nusii->clients()->list();
+```
+
 Once you have an access token, include it in the `Authorization` header as a Bearer token:
 
 `Authorization: Bearer YOUR_ACCESS_TOKEN`
@@ -349,6 +419,27 @@ response = Net::HTTP.post_form(uri, {
 tokens = JSON.parse(response.body)
 new_access_token = tokens['access_token']
 new_refresh_token = tokens['refresh_token']
+```
+
+```php
+$response = file_get_contents('https://app.nusii.com/oauth/token', false,
+    stream_context_create([
+        'http' => [
+            'method' => 'POST',
+            'header' => 'Content-Type: application/x-www-form-urlencoded',
+            'content' => http_build_query([
+                'grant_type' => 'refresh_token',
+                'refresh_token' => 'YOUR_REFRESH_TOKEN',
+                'client_id' => 'YOUR_CLIENT_ID',
+                'client_secret' => 'YOUR_CLIENT_SECRET',
+            ]),
+        ],
+    ])
+);
+
+$tokens = json_decode($response, true);
+$newAccessToken = $tokens['access_token'];
+$newRefreshToken = $tokens['refresh_token'];
 ```
 
 > A successful response returns a new token pair:
@@ -401,6 +492,22 @@ Net::HTTP.post_form(uri, {
   client_id: 'YOUR_CLIENT_ID',
   client_secret: 'YOUR_CLIENT_SECRET'
 })
+```
+
+```php
+file_get_contents('https://app.nusii.com/oauth/revoke', false,
+    stream_context_create([
+        'http' => [
+            'method' => 'POST',
+            'header' => 'Content-Type: application/x-www-form-urlencoded',
+            'content' => http_build_query([
+                'token' => 'YOUR_ACCESS_TOKEN',
+                'client_id' => 'YOUR_CLIENT_ID',
+                'client_secret' => 'YOUR_CLIENT_SECRET',
+            ]),
+        ],
+    ])
+);
 ```
 
 Revoke a token when a user disconnects your app or you no longer need access. You can revoke either the access token or the refresh token.

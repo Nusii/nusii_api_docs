@@ -50,6 +50,21 @@ Nusii::Proposal.list(page: 1, status: 'accepted')
 Nusii::Proposal.list(page: 1, status: 'draft', archived: false)
 ```
 
+```php
+use Nusii\Nusii;
+
+$nusii = new Nusii('YOUR_API_KEY');
+
+// Get all proposals
+$nusii->proposals()->list(page: 1);
+
+// Get only accepted proposals
+$nusii->proposals()->list(status: 'accepted', page: 1);
+
+// Get only draft proposals
+$nusii->proposals()->list(status: 'draft', archived: false, page: 1);
+```
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -124,6 +139,14 @@ Nusii.api_key = 'YOUR_API_KEY'
 Nusii.user_agent = 'Your App Name (www.yourapp.com)'
 
 Nusii::Proposal.get(100)
+```
+
+```php
+use Nusii\Nusii;
+
+$nusii = new Nusii('YOUR_API_KEY');
+
+$nusii->proposals()->get(100);
 ```
 
 > The above command returns JSON structured like this:
@@ -212,6 +235,17 @@ Nusii::Proposal.create(
 )
 ```
 
+```php
+use Nusii\Nusii;
+
+$nusii = new Nusii('YOUR_API_KEY');
+
+$nusii->proposals()->create([
+    'title' => 'Webdesign yourwebsite.com',
+    'client_id' => 100,
+]);
+```
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -292,6 +326,16 @@ proposal.title = 'Webdesign yourwebsite.com'
 proposal.save
 ```
 
+```php
+use Nusii\Nusii;
+
+$nusii = new Nusii('YOUR_API_KEY');
+
+$nusii->proposals()->update(100, [
+    'title' => 'Webdesign yourwebsite.com',
+]);
+```
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -369,6 +413,14 @@ proposal = Nusii::Proposal.get(100)
 proposal.destroy
 ```
 
+```php
+use Nusii\Nusii;
+
+$nusii = new Nusii('YOUR_API_KEY');
+
+$nusii->proposals()->delete(100);
+```
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -417,6 +469,14 @@ Nusii.api_key = 'YOUR_API_KEY'
 Nusii.user_agent = 'Your App Name (www.yourapp.com)'
 
 # TODO not implemented yet
+```
+
+```php
+use Nusii\Nusii;
+
+$nusii = new Nusii('YOUR_API_KEY');
+
+$nusii->proposals()->archive(100);
 ```
 
 > The above command returns JSON structured like this:
@@ -473,6 +533,17 @@ Nusii.user_agent = 'Your App Name (www.yourapp.com)'
 # TODO not implemented yet
 ```
 
+```php
+use Nusii\Nusii;
+
+$nusii = new Nusii('YOUR_API_KEY');
+
+$nusii->proposals()->send(100,
+    email: 'your_client@email.com',
+    subject: 'Your Proposal'
+);
+```
+
 > Send to multiple recipients:
 
 ```shell--curl
@@ -507,6 +578,16 @@ Nusii.api_key = 'YOUR_API_KEY'
 Nusii.user_agent = 'Your App Name (www.yourapp.com)'
 
 # TODO not implemented yet
+```
+
+```php
+use Nusii\Nusii;
+
+$nusii = new Nusii('YOUR_API_KEY');
+
+// Send to multiple recipients is not yet
+// supported in the PHP library.
+// Use the single email method above instead.
 ```
 
 > The above command returns JSON structured like this:

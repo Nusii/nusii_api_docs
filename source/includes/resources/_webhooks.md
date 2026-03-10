@@ -67,6 +67,14 @@ Nusii.user_agent = 'Your App Name (www.yourapp.com)'
 Nusii::WebhookEndpoint.list(page: 1)
 ```
 
+```php
+use Nusii\Nusii;
+
+$nusii = new Nusii('YOUR_API_KEY');
+
+$nusii->webhookEndpoints()->list();
+```
+
 > The above command returns JSON structured like this:
 
 
@@ -124,6 +132,14 @@ Nusii.user_agent = 'Your App Name (www.yourapp.com)'
 Nusii::WebhookEndpoint.get(100)
 ```
 
+```php
+use Nusii\Nusii;
+
+$nusii = new Nusii('YOUR_API_KEY');
+
+$nusii->webhookEndpoints()->get(100);
+```
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -174,6 +190,17 @@ Nusii::WebhookEndpoint.create(
   target_url: http://example.com,
   events: ['proposal_created', 'client_created']
 )
+```
+
+```php
+use Nusii\Nusii;
+
+$nusii = new Nusii('YOUR_API_KEY');
+
+$nusii->webhookEndpoints()->create([
+    'target_url' => 'http://example.com',
+    'events' => ['proposal_created', 'client_created'],
+]);
 ```
 
 > The above command returns JSON structured like this:
@@ -231,6 +258,14 @@ Nusii.user_agent = 'Your App Name (www.yourapp.com)'
 
 endpoint = Nusii::WebhookEndpoint.get(100)
 endpoint.destroy
+```
+
+```php
+use Nusii\Nusii;
+
+$nusii = new Nusii('YOUR_API_KEY');
+
+$nusii->webhookEndpoints()->delete(100);
 ```
 
 > The above command returns JSON structured like this:

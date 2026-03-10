@@ -33,6 +33,14 @@ Nusii.user_agent = 'Your App Name (www.yourapp.com)'
 Nusii::Template.list(page: 1)
 ```
 
+```php
+use Nusii\Nusii;
+
+$nusii = new Nusii('YOUR_API_KEY');
+
+$nusii->templates()->list();
+```
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -91,6 +99,14 @@ Nusii.api_key = 'YOUR_API_KEY'
 Nusii.user_agent = 'Your App Name (www.yourapp.com)'
 
 Nusii::Template.get(12)
+```
+
+```php
+use Nusii\Nusii;
+
+$nusii = new Nusii('YOUR_API_KEY');
+
+$nusii->templates()->get(12);
 ```
 
 > The above command returns JSON structured like this:

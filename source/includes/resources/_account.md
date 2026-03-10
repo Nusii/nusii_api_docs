@@ -23,6 +23,14 @@ Nusii.user_agent = 'Your App Name (www.yourapp.com)'
 Nusii::Account.me
 ```
 
+```php
+use Nusii\Nusii;
+
+$nusii = new Nusii('YOUR_API_KEY');
+
+$nusii->accounts()->me();
+```
+
 > The above command returns JSON structured like this:
 
 ```json

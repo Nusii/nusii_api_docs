@@ -24,6 +24,14 @@ Nusii.user_agent = 'Your App Name (www.yourapp.com)'
 Nusii::Client.list(page: 1)
 ```
 
+```php
+use Nusii\Nusii;
+
+$nusii = new Nusii('YOUR_API_KEY');
+
+$nusii->clients()->list(page: 1);
+```
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -90,6 +98,14 @@ Nusii.user_agent = 'Your App Name (www.yourapp.com)'
 Nusii::Client.get(100)
 ```
 
+```php
+use Nusii\Nusii;
+
+$nusii = new Nusii('YOUR_API_KEY');
+
+$nusii->clients()->get(100);
+```
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -150,6 +166,18 @@ Nusii::Client.create(
   name: 'John',
   surname: 'Doe'
 )
+```
+
+```php
+use Nusii\Nusii;
+
+$nusii = new Nusii('YOUR_API_KEY');
+
+$nusii->clients()->create([
+    'email' => 'john@doe.com',
+    'name' => 'John',
+    'surname' => 'Doe',
+]);
 ```
 
 > The above command returns JSON structured like this:
@@ -232,6 +260,17 @@ client.email = 'john@doe.com'
 client.save
 ```
 
+```php
+use Nusii\Nusii;
+
+$nusii = new Nusii('YOUR_API_KEY');
+
+$nusii->clients()->update(100, [
+    'email' => 'john@doe.com',
+    'name' => 'John Doe',
+]);
+```
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -307,6 +346,14 @@ Nusii.user_agent = 'Your App Name (www.yourapp.com)'
 
 client = Nusii::Client.get(100)
 client.destroy
+```
+
+```php
+use Nusii\Nusii;
+
+$nusii = new Nusii('YOUR_API_KEY');
+
+$nusii->clients()->delete(100);
 ```
 
 > The above command returns JSON structured like this:

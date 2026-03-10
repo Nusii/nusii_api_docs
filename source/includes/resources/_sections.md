@@ -23,6 +23,14 @@ Nusii.user_agent = 'Your App Name (www.yourapp.com)'
 Nusii::Section.list(page: 1)
 ```
 
+```php
+use Nusii\Nusii;
+
+$nusii = new Nusii('YOUR_API_KEY');
+
+$nusii->sections()->list(proposalId: 126, page: 1);
+```
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -111,6 +119,14 @@ Nusii.user_agent = 'Your App Name (www.yourapp.com)'
 Nusii::Section.get(100)
 ```
 
+```php
+use Nusii\Nusii;
+
+$nusii = new Nusii('YOUR_API_KEY');
+
+$nusii->sections()->get(100);
+```
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -183,6 +199,17 @@ Nusii.user_agent = 'Your App Name (www.yourapp.com)'
 Nusii::Section.create(
   title: 'Introduction'
 )
+```
+
+```php
+use Nusii\Nusii;
+
+$nusii = new Nusii('YOUR_API_KEY');
+
+$nusii->sections()->create([
+    'proposal_id' => 126,
+    'title' => 'Introduction',
+]);
 ```
 
 > The above command returns JSON structured like this:
@@ -275,6 +302,16 @@ section.title = 'Introduction'
 section.save
 ```
 
+```php
+use Nusii\Nusii;
+
+$nusii = new Nusii('YOUR_API_KEY');
+
+$nusii->sections()->update(100, [
+    'title' => 'Introduction',
+]);
+```
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -350,6 +387,14 @@ Nusii.user_agent = 'Your App Name (www.yourapp.com)'
 
 section = Nusii::Section.get(100)
 section.destroy
+```
+
+```php
+use Nusii\Nusii;
+
+$nusii = new Nusii('YOUR_API_KEY');
+
+$nusii->sections()->delete(100);
 ```
 
 > The above command returns JSON structured like this:

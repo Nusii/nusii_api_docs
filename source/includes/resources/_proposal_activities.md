@@ -26,6 +26,17 @@ activities = Nusii::ProposalActivity.list(
 )
 ```
 
+```php
+use Nusii\Nusii;
+
+$nusii = new Nusii('YOUR_API_KEY');
+
+$nusii->proposalActivities()->list(
+    proposalId: 100,
+    page: 1
+);
+```
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -111,6 +122,14 @@ Nusii.api_key = 'YOUR_API_KEY'
 Nusii.user_agent = 'Your App Name (www.yourapp.com)'
 
 activity = Nusii::ProposalActivity.get(44)
+```
+
+```php
+use Nusii\Nusii;
+
+$nusii = new Nusii('YOUR_API_KEY');
+
+$nusii->proposalActivities()->get(44);
 ```
 
 > The above command returns JSON structured like this:

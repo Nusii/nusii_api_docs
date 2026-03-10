@@ -14,6 +14,14 @@ curl -X GET \
 nusii themes list
 ```
 
+```php
+use Nusii\Nusii;
+
+$nusii = new Nusii('YOUR_API_KEY');
+
+$nusii->themes()->list();
+```
+
 > The above command returns JSON structured like this:
 
 ```json
