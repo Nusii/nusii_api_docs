@@ -980,6 +980,11 @@ Always store the new refresh token from the response. The previous refresh token
 <span class="no">Nusii</span><span class="p">.</span><span class="nf">user_agent</span> <span class="o">=</span> <span class="s1">'Your App Name (www.yourapp.com)'</span>
 
 <span class="no">Nusii</span><span class="o">::</span><span class="no">Account</span><span class="p">.</span><span class="nf">me</span>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="kn">use</span> <span class="nc">Nusii\Nusii</span><span class="p">;</span>
+
+<span class="nv">$nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Nusii</span><span class="p">(</span><span class="s1">'YOUR_API_KEY'</span><span class="p">);</span>
+
+<span class="nv">$nusii</span><span class="o">-&gt;</span><span class="nf">accounts</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">me</span><span class="p">();</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -1022,6 +1027,11 @@ Always store the new refresh token from the response. The previous refresh token
 <span class="no">Nusii</span><span class="p">.</span><span class="nf">user_agent</span> <span class="o">=</span> <span class="s1">'Your App Name (www.yourapp.com)'</span>
 
 <span class="no">Nusii</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">list</span><span class="p">(</span><span class="ss">page: </span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="kn">use</span> <span class="nc">Nusii\Nusii</span><span class="p">;</span>
+
+<span class="nv">$nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Nusii</span><span class="p">(</span><span class="s1">'YOUR_API_KEY'</span><span class="p">);</span>
+
+<span class="nv">$nusii</span><span class="o">-&gt;</span><span class="nf">clients</span><span class="p">()</span><span class="o">-&gt;</span><span class="k">list</span><span class="p">(</span><span class="n">page</span><span class="o">:</span> <span class="mi">1</span><span class="p">);</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -1074,6 +1084,11 @@ Always store the new refresh token from the response. The previous refresh token
 <span class="no">Nusii</span><span class="p">.</span><span class="nf">user_agent</span> <span class="o">=</span> <span class="s1">'Your App Name (www.yourapp.com)'</span>
 
 <span class="no">Nusii</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="kn">use</span> <span class="nc">Nusii\Nusii</span><span class="p">;</span>
+
+<span class="nv">$nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Nusii</span><span class="p">(</span><span class="s1">'YOUR_API_KEY'</span><span class="p">);</span>
+
+<span class="nv">$nusii</span><span class="o">-&gt;</span><span class="nf">clients</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">get</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -1122,6 +1137,15 @@ Always store the new refresh token from the response. The previous refresh token
   <span class="ss">name: </span><span class="s1">'John'</span><span class="p">,</span>
   <span class="ss">surname: </span><span class="s1">'Doe'</span>
 <span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="kn">use</span> <span class="nc">Nusii\Nusii</span><span class="p">;</span>
+
+<span class="nv">$nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Nusii</span><span class="p">(</span><span class="s1">'YOUR_API_KEY'</span><span class="p">);</span>
+
+<span class="nv">$nusii</span><span class="o">-&gt;</span><span class="nf">clients</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">create</span><span class="p">([</span>
+    <span class="s1">'email'</span> <span class="o">=&gt;</span> <span class="s1">'john@doe.com'</span><span class="p">,</span>
+    <span class="s1">'name'</span> <span class="o">=&gt;</span> <span class="s1">'John'</span><span class="p">,</span>
+    <span class="s1">'surname'</span> <span class="o">=&gt;</span> <span class="s1">'Doe'</span><span class="p">,</span>
+<span class="p">]);</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -1263,6 +1287,14 @@ Always store the new refresh token from the response. The previous refresh token
 
 <span class="n">client</span><span class="p">.</span><span class="nf">email</span> <span class="o">=</span> <span class="s1">'john@doe.com'</span>
 <span class="n">client</span><span class="p">.</span><span class="nf">save</span>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="kn">use</span> <span class="nc">Nusii\Nusii</span><span class="p">;</span>
+
+<span class="nv">$nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Nusii</span><span class="p">(</span><span class="s1">'YOUR_API_KEY'</span><span class="p">);</span>
+
+<span class="nv">$nusii</span><span class="o">-&gt;</span><span class="nf">clients</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">update</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="p">[</span>
+    <span class="s1">'email'</span> <span class="o">=&gt;</span> <span class="s1">'john@doe.com'</span><span class="p">,</span>
+    <span class="s1">'name'</span> <span class="o">=&gt;</span> <span class="s1">'John Doe'</span><span class="p">,</span>
+<span class="p">]);</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -1401,6 +1433,11 @@ Always store the new refresh token from the response. The previous refresh token
 
 <span class="n">client</span> <span class="o">=</span> <span class="no">Nusii</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
 <span class="n">client</span><span class="p">.</span><span class="nf">destroy</span>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="kn">use</span> <span class="nc">Nusii\Nusii</span><span class="p">;</span>
+
+<span class="nv">$nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Nusii</span><span class="p">(</span><span class="s1">'YOUR_API_KEY'</span><span class="p">);</span>
+
+<span class="nv">$nusii</span><span class="o">-&gt;</span><span class="nf">clients</span><span class="p">()</span><span class="o">-&gt;</span><span class="nb">delete</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -1472,6 +1509,18 @@ nusii proposals list <span class="nt">--status</span> draft
 
 <span class="c1"># Get only draft proposals</span>
 <span class="no">Nusii</span><span class="o">::</span><span class="no">Proposal</span><span class="p">.</span><span class="nf">list</span><span class="p">(</span><span class="ss">page: </span><span class="mi">1</span><span class="p">,</span> <span class="ss">status: </span><span class="s1">'draft'</span><span class="p">,</span> <span class="ss">archived: </span><span class="kp">false</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="kn">use</span> <span class="nc">Nusii\Nusii</span><span class="p">;</span>
+
+<span class="nv">$nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Nusii</span><span class="p">(</span><span class="s1">'YOUR_API_KEY'</span><span class="p">);</span>
+
+<span class="c1">// Get all proposals</span>
+<span class="nv">$nusii</span><span class="o">-&gt;</span><span class="nf">proposals</span><span class="p">()</span><span class="o">-&gt;</span><span class="k">list</span><span class="p">(</span><span class="n">page</span><span class="o">:</span> <span class="mi">1</span><span class="p">);</span>
+
+<span class="c1">// Get only accepted proposals</span>
+<span class="nv">$nusii</span><span class="o">-&gt;</span><span class="nf">proposals</span><span class="p">()</span><span class="o">-&gt;</span><span class="k">list</span><span class="p">(</span><span class="n">status</span><span class="o">:</span> <span class="s1">'accepted'</span><span class="p">,</span> <span class="n">page</span><span class="o">:</span> <span class="mi">1</span><span class="p">);</span>
+
+<span class="c1">// Get only draft proposals</span>
+<span class="nv">$nusii</span><span class="o">-&gt;</span><span class="nf">proposals</span><span class="p">()</span><span class="o">-&gt;</span><span class="k">list</span><span class="p">(</span><span class="n">status</span><span class="o">:</span> <span class="s1">'draft'</span><span class="p">,</span> <span class="n">archived</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span> <span class="n">page</span><span class="o">:</span> <span class="mi">1</span><span class="p">);</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -1546,6 +1595,11 @@ nusii proposals list <span class="nt">--status</span> draft
 <span class="no">Nusii</span><span class="p">.</span><span class="nf">user_agent</span> <span class="o">=</span> <span class="s1">'Your App Name (www.yourapp.com)'</span>
 
 <span class="no">Nusii</span><span class="o">::</span><span class="no">Proposal</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="kn">use</span> <span class="nc">Nusii\Nusii</span><span class="p">;</span>
+
+<span class="nv">$nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Nusii</span><span class="p">(</span><span class="s1">'YOUR_API_KEY'</span><span class="p">);</span>
+
+<span class="nv">$nusii</span><span class="o">-&gt;</span><span class="nf">proposals</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">get</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -1617,6 +1671,14 @@ nusii proposals list <span class="nt">--status</span> draft
   <span class="ss">title: </span><span class="s1">'Webdesign yourwebsite.com'</span><span class="p">,</span>
   <span class="ss">client_id: </span><span class="mi">100</span>
 <span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="kn">use</span> <span class="nc">Nusii\Nusii</span><span class="p">;</span>
+
+<span class="nv">$nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Nusii</span><span class="p">(</span><span class="s1">'YOUR_API_KEY'</span><span class="p">);</span>
+
+<span class="nv">$nusii</span><span class="o">-&gt;</span><span class="nf">proposals</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">create</span><span class="p">([</span>
+    <span class="s1">'title'</span> <span class="o">=&gt;</span> <span class="s1">'Webdesign yourwebsite.com'</span><span class="p">,</span>
+    <span class="s1">'client_id'</span> <span class="o">=&gt;</span> <span class="mi">100</span><span class="p">,</span>
+<span class="p">]);</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -1748,6 +1810,13 @@ nusii proposals list <span class="nt">--status</span> draft
 <span class="n">proposal</span> <span class="o">=</span> <span class="no">Nusii</span><span class="o">::</span><span class="no">Proposal</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
 <span class="n">proposal</span><span class="p">.</span><span class="nf">title</span> <span class="o">=</span> <span class="s1">'Webdesign yourwebsite.com'</span>
 <span class="n">proposal</span><span class="p">.</span><span class="nf">save</span>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="kn">use</span> <span class="nc">Nusii\Nusii</span><span class="p">;</span>
+
+<span class="nv">$nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Nusii</span><span class="p">(</span><span class="s1">'YOUR_API_KEY'</span><span class="p">);</span>
+
+<span class="nv">$nusii</span><span class="o">-&gt;</span><span class="nf">proposals</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">update</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="p">[</span>
+    <span class="s1">'title'</span> <span class="o">=&gt;</span> <span class="s1">'Webdesign yourwebsite.com'</span><span class="p">,</span>
+<span class="p">]);</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -1871,6 +1940,11 @@ nusii proposals list <span class="nt">--status</span> draft
 
 <span class="n">proposal</span> <span class="o">=</span> <span class="no">Nusii</span><span class="o">::</span><span class="no">Proposal</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
 <span class="n">proposal</span><span class="p">.</span><span class="nf">destroy</span>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="kn">use</span> <span class="nc">Nusii\Nusii</span><span class="p">;</span>
+
+<span class="nv">$nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Nusii</span><span class="p">(</span><span class="s1">'YOUR_API_KEY'</span><span class="p">);</span>
+
+<span class="nv">$nusii</span><span class="o">-&gt;</span><span class="nf">proposals</span><span class="p">()</span><span class="o">-&gt;</span><span class="nb">delete</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -1907,6 +1981,11 @@ nusii proposals list <span class="nt">--status</span> draft
 <span class="no">Nusii</span><span class="p">.</span><span class="nf">user_agent</span> <span class="o">=</span> <span class="s1">'Your App Name (www.yourapp.com)'</span>
 
 <span class="c1"># TODO not implemented yet</span>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="kn">use</span> <span class="nc">Nusii\Nusii</span><span class="p">;</span>
+
+<span class="nv">$nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Nusii</span><span class="p">(</span><span class="s1">'YOUR_API_KEY'</span><span class="p">);</span>
+
+<span class="nv">$nusii</span><span class="o">-&gt;</span><span class="nf">proposals</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">archive</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -1949,6 +2028,14 @@ nusii proposals list <span class="nt">--status</span> draft
 <span class="no">Nusii</span><span class="p">.</span><span class="nf">user_agent</span> <span class="o">=</span> <span class="s1">'Your App Name (www.yourapp.com)'</span>
 
 <span class="c1"># TODO not implemented yet</span>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="kn">use</span> <span class="nc">Nusii\Nusii</span><span class="p">;</span>
+
+<span class="nv">$nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Nusii</span><span class="p">(</span><span class="s1">'YOUR_API_KEY'</span><span class="p">);</span>
+
+<span class="nv">$nusii</span><span class="o">-&gt;</span><span class="nf">proposals</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">send</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span>
+    <span class="n">email</span><span class="o">:</span> <span class="s1">'your_client@email.com'</span><span class="p">,</span>
+    <span class="n">subject</span><span class="o">:</span> <span class="s1">'Your Proposal'</span>
+<span class="p">);</span>
 </code></pre></div>
 <blockquote>
 <p>Send to multiple recipients:</p>
@@ -1978,6 +2065,13 @@ nusii proposals list <span class="nt">--status</span> draft
 <span class="no">Nusii</span><span class="p">.</span><span class="nf">user_agent</span> <span class="o">=</span> <span class="s1">'Your App Name (www.yourapp.com)'</span>
 
 <span class="c1"># TODO not implemented yet</span>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="kn">use</span> <span class="nc">Nusii\Nusii</span><span class="p">;</span>
+
+<span class="nv">$nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Nusii</span><span class="p">(</span><span class="s1">'YOUR_API_KEY'</span><span class="p">);</span>
+
+<span class="c1">// Send to multiple recipients is not yet</span>
+<span class="c1">// supported in the PHP library.</span>
+<span class="c1">// Use the single email method above instead.</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -2101,6 +2195,11 @@ nusii proposals list <span class="nt">--status</span> draft
 <span class="no">Nusii</span><span class="p">.</span><span class="nf">user_agent</span> <span class="o">=</span> <span class="s1">'Your App Name (www.yourapp.com)'</span>
 
 <span class="no">Nusii</span><span class="o">::</span><span class="no">Section</span><span class="p">.</span><span class="nf">list</span><span class="p">(</span><span class="ss">page: </span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="kn">use</span> <span class="nc">Nusii\Nusii</span><span class="p">;</span>
+
+<span class="nv">$nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Nusii</span><span class="p">(</span><span class="s1">'YOUR_API_KEY'</span><span class="p">);</span>
+
+<span class="nv">$nusii</span><span class="o">-&gt;</span><span class="nf">sections</span><span class="p">()</span><span class="o">-&gt;</span><span class="k">list</span><span class="p">(</span><span class="n">proposalId</span><span class="o">:</span> <span class="mi">126</span><span class="p">,</span> <span class="n">page</span><span class="o">:</span> <span class="mi">1</span><span class="p">);</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -2191,6 +2290,11 @@ nusii proposals list <span class="nt">--status</span> draft
 <span class="no">Nusii</span><span class="p">.</span><span class="nf">user_agent</span> <span class="o">=</span> <span class="s1">'Your App Name (www.yourapp.com)'</span>
 
 <span class="no">Nusii</span><span class="o">::</span><span class="no">Section</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="kn">use</span> <span class="nc">Nusii\Nusii</span><span class="p">;</span>
+
+<span class="nv">$nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Nusii</span><span class="p">(</span><span class="s1">'YOUR_API_KEY'</span><span class="p">);</span>
+
+<span class="nv">$nusii</span><span class="o">-&gt;</span><span class="nf">sections</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">get</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -2251,6 +2355,14 @@ nusii proposals list <span class="nt">--status</span> draft
 <span class="no">Nusii</span><span class="o">::</span><span class="no">Section</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span>
   <span class="ss">title: </span><span class="s1">'Introduction'</span>
 <span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="kn">use</span> <span class="nc">Nusii\Nusii</span><span class="p">;</span>
+
+<span class="nv">$nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Nusii</span><span class="p">(</span><span class="s1">'YOUR_API_KEY'</span><span class="p">);</span>
+
+<span class="nv">$nusii</span><span class="o">-&gt;</span><span class="nf">sections</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">create</span><span class="p">([</span>
+    <span class="s1">'proposal_id'</span> <span class="o">=&gt;</span> <span class="mi">126</span><span class="p">,</span>
+    <span class="s1">'title'</span> <span class="o">=&gt;</span> <span class="s1">'Introduction'</span><span class="p">,</span>
+<span class="p">]);</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -2387,6 +2499,13 @@ nusii proposals list <span class="nt">--status</span> draft
 <span class="n">section</span> <span class="o">=</span> <span class="no">Nusii</span><span class="o">::</span><span class="no">Section</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
 <span class="n">section</span><span class="p">.</span><span class="nf">title</span> <span class="o">=</span> <span class="s1">'Introduction'</span>
 <span class="n">section</span><span class="p">.</span><span class="nf">save</span>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="kn">use</span> <span class="nc">Nusii\Nusii</span><span class="p">;</span>
+
+<span class="nv">$nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Nusii</span><span class="p">(</span><span class="s1">'YOUR_API_KEY'</span><span class="p">);</span>
+
+<span class="nv">$nusii</span><span class="o">-&gt;</span><span class="nf">sections</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">update</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="p">[</span>
+    <span class="s1">'title'</span> <span class="o">=&gt;</span> <span class="s1">'Introduction'</span><span class="p">,</span>
+<span class="p">]);</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -2510,6 +2629,11 @@ nusii proposals list <span class="nt">--status</span> draft
 
 <span class="n">section</span> <span class="o">=</span> <span class="no">Nusii</span><span class="o">::</span><span class="no">Section</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
 <span class="n">section</span><span class="p">.</span><span class="nf">destroy</span>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="kn">use</span> <span class="nc">Nusii\Nusii</span><span class="p">;</span>
+
+<span class="nv">$nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Nusii</span><span class="p">(</span><span class="s1">'YOUR_API_KEY'</span><span class="p">);</span>
+
+<span class="nv">$nusii</span><span class="o">-&gt;</span><span class="nf">sections</span><span class="p">()</span><span class="o">-&gt;</span><span class="nb">delete</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -2557,6 +2681,11 @@ nusii proposals list <span class="nt">--status</span> draft
 <span class="no">Nusii</span><span class="p">.</span><span class="nf">user_agent</span> <span class="o">=</span> <span class="s1">'Your App Name (www.yourapp.com)'</span>
 
 <span class="no">Nusii</span><span class="o">::</span><span class="no">LineItem</span><span class="p">.</span><span class="nf">list</span><span class="p">(</span><span class="ss">page: </span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="kn">use</span> <span class="nc">Nusii\Nusii</span><span class="p">;</span>
+
+<span class="nv">$nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Nusii</span><span class="p">(</span><span class="s1">'YOUR_API_KEY'</span><span class="p">);</span>
+
+<span class="nv">$nusii</span><span class="o">-&gt;</span><span class="nf">lineItems</span><span class="p">()</span><span class="o">-&gt;</span><span class="k">list</span><span class="p">(</span><span class="n">page</span><span class="o">:</span> <span class="mi">1</span><span class="p">);</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -2609,6 +2738,11 @@ nusii proposals list <span class="nt">--status</span> draft
 <span class="no">Nusii</span><span class="p">.</span><span class="nf">user_agent</span> <span class="o">=</span> <span class="s1">'Your App Name (www.yourapp.com)'</span>
 
 <span class="no">Nusii</span><span class="o">::</span><span class="no">LineItem</span><span class="p">.</span><span class="nf">list</span><span class="p">(</span><span class="ss">section_id: </span><span class="mi">100</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="kn">use</span> <span class="nc">Nusii\Nusii</span><span class="p">;</span>
+
+<span class="nv">$nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Nusii</span><span class="p">(</span><span class="s1">'YOUR_API_KEY'</span><span class="p">);</span>
+
+<span class="nv">$nusii</span><span class="o">-&gt;</span><span class="nf">lineItems</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">listBySection</span><span class="p">(</span><span class="n">sectionId</span><span class="o">:</span> <span class="mi">100</span><span class="p">);</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -2658,6 +2792,13 @@ nusii proposals list <span class="nt">--status</span> draft
   <span class="ss">section_id: </span><span class="mi">100</span><span class="p">,</span>
   <span class="ss">name: </span><span class="s1">'Development Costs'</span>
 <span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="kn">use</span> <span class="nc">Nusii\Nusii</span><span class="p">;</span>
+
+<span class="nv">$nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Nusii</span><span class="p">(</span><span class="s1">'YOUR_API_KEY'</span><span class="p">);</span>
+
+<span class="nv">$nusii</span><span class="o">-&gt;</span><span class="nf">lineItems</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">createForSection</span><span class="p">(</span><span class="n">sectionId</span><span class="o">:</span> <span class="mi">100</span><span class="p">,</span> <span class="n">attributes</span><span class="o">:</span> <span class="p">[</span>
+    <span class="s1">'name'</span> <span class="o">=&gt;</span> <span class="s1">'Development Costs'</span><span class="p">,</span>
+<span class="p">]);</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -2756,6 +2897,13 @@ nusii proposals list <span class="nt">--status</span> draft
 
 <span class="n">line_item</span><span class="p">.</span><span class="nf">amount</span> <span class="o">=</span> <span class="mi">10000</span>
 <span class="n">line_item</span><span class="p">.</span><span class="nf">save</span>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="kn">use</span> <span class="nc">Nusii\Nusii</span><span class="p">;</span>
+
+<span class="nv">$nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Nusii</span><span class="p">(</span><span class="s1">'YOUR_API_KEY'</span><span class="p">);</span>
+
+<span class="nv">$nusii</span><span class="o">-&gt;</span><span class="nf">lineItems</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">update</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="p">[</span>
+    <span class="s1">'amount'</span> <span class="o">=&gt;</span> <span class="mi">10000</span><span class="p">,</span>
+<span class="p">]);</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -2856,6 +3004,11 @@ nusii proposals list <span class="nt">--status</span> draft
 
 <span class="n">line_item</span> <span class="o">=</span> <span class="no">Nusii</span><span class="o">::</span><span class="no">LineItem</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
 <span class="n">line_item</span><span class="p">.</span><span class="nf">destroy</span>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="kn">use</span> <span class="nc">Nusii\Nusii</span><span class="p">;</span>
+
+<span class="nv">$nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Nusii</span><span class="p">(</span><span class="s1">'YOUR_API_KEY'</span><span class="p">);</span>
+
+<span class="nv">$nusii</span><span class="o">-&gt;</span><span class="nf">lineItems</span><span class="p">()</span><span class="o">-&gt;</span><span class="nb">delete</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -2903,6 +3056,14 @@ nusii proposals list <span class="nt">--status</span> draft
   <span class="ss">page: </span><span class="mi">1</span><span class="p">,</span>
   <span class="ss">proposal_id: </span><span class="mi">100</span>
 <span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="kn">use</span> <span class="nc">Nusii\Nusii</span><span class="p">;</span>
+
+<span class="nv">$nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Nusii</span><span class="p">(</span><span class="s1">'YOUR_API_KEY'</span><span class="p">);</span>
+
+<span class="nv">$nusii</span><span class="o">-&gt;</span><span class="nf">proposalActivities</span><span class="p">()</span><span class="o">-&gt;</span><span class="k">list</span><span class="p">(</span>
+    <span class="n">proposalId</span><span class="o">:</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="n">page</span><span class="o">:</span> <span class="mi">1</span>
+<span class="p">);</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -2988,6 +3149,11 @@ nusii proposals list <span class="nt">--status</span> draft
 <span class="no">Nusii</span><span class="p">.</span><span class="nf">user_agent</span> <span class="o">=</span> <span class="s1">'Your App Name (www.yourapp.com)'</span>
 
 <span class="n">activity</span> <span class="o">=</span> <span class="no">Nusii</span><span class="o">::</span><span class="no">ProposalActivity</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">44</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="kn">use</span> <span class="nc">Nusii\Nusii</span><span class="p">;</span>
+
+<span class="nv">$nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Nusii</span><span class="p">(</span><span class="s1">'YOUR_API_KEY'</span><span class="p">);</span>
+
+<span class="nv">$nusii</span><span class="o">-&gt;</span><span class="nf">proposalActivities</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">get</span><span class="p">(</span><span class="mi">44</span><span class="p">);</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -3082,6 +3248,11 @@ nusii proposals list <span class="nt">--status</span> draft
 <span class="no">Nusii</span><span class="p">.</span><span class="nf">user_agent</span> <span class="o">=</span> <span class="s1">'Your App Name (www.yourapp.com)'</span>
 
 <span class="no">Nusii</span><span class="o">::</span><span class="no">User</span><span class="p">.</span><span class="nf">list</span><span class="p">(</span><span class="ss">page: </span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="kn">use</span> <span class="nc">Nusii\Nusii</span><span class="p">;</span>
+
+<span class="nv">$nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Nusii</span><span class="p">(</span><span class="s1">'YOUR_API_KEY'</span><span class="p">);</span>
+
+<span class="nv">$nusii</span><span class="o">-&gt;</span><span class="nf">users</span><span class="p">()</span><span class="o">-&gt;</span><span class="k">list</span><span class="p">();</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -3115,6 +3286,11 @@ nusii proposals list <span class="nt">--status</span> draft
   <span class="nt">-H</span> <span class="s2">"Authorization: Token token=YOUR_API_KEY"</span> <span class="se">\</span>
   <span class="s2">"https://app.nusii.com/api/v2/themes"</span>
 </code></pre></div><div class="highlight"><pre class="highlight shell tab-shell--cli"><code>nusii themes list
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="kn">use</span> <span class="nc">Nusii\Nusii</span><span class="p">;</span>
+
+<span class="nv">$nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Nusii</span><span class="p">(</span><span class="s1">'YOUR_API_KEY'</span><span class="p">);</span>
+
+<span class="nv">$nusii</span><span class="o">-&gt;</span><span class="nf">themes</span><span class="p">()</span><span class="o">-&gt;</span><span class="k">list</span><span class="p">();</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -3228,6 +3404,11 @@ nusii proposals list <span class="nt">--status</span> draft
 <span class="no">Nusii</span><span class="p">.</span><span class="nf">user_agent</span> <span class="o">=</span> <span class="s1">'Your App Name (www.yourapp.com)'</span>
 
 <span class="no">Nusii</span><span class="o">::</span><span class="no">WebhookEndpoint</span><span class="p">.</span><span class="nf">list</span><span class="p">(</span><span class="ss">page: </span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="kn">use</span> <span class="nc">Nusii\Nusii</span><span class="p">;</span>
+
+<span class="nv">$nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Nusii</span><span class="p">(</span><span class="s1">'YOUR_API_KEY'</span><span class="p">);</span>
+
+<span class="nv">$nusii</span><span class="o">-&gt;</span><span class="nf">webhookEndpoints</span><span class="p">()</span><span class="o">-&gt;</span><span class="k">list</span><span class="p">();</span>
 </code></pre></div>
 
 <blockquote>
@@ -3276,6 +3457,11 @@ nusii proposals list <span class="nt">--status</span> draft
 <span class="no">Nusii</span><span class="p">.</span><span class="nf">user_agent</span> <span class="o">=</span> <span class="s1">&#39;Your App Name (www.yourapp.com)&#39;</span></p>
 
 <p><span class="no">Nusii</span><span class="o">::</span><span class="no">WebhookEndpoint</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="kn">use</span> <span class="nc">Nusii\Nusii</span><span class="p">;</span></p>
+
+<p><span class="nv">$nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Nusii</span><span class="p">(</span><span class="s1">&#39;YOUR_API_KEY&#39;</span><span class="p">);</span></p>
+
+<p><span class="nv">$nusii</span><span class="o">-&gt;</span><span class="nf">webhookEndpoints</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">get</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -3313,6 +3499,14 @@ nusii proposals list <span class="nt">--status</span> draft
   <span class="ss">target_url: </span><span class="n">http</span><span class="ss">:/</span><span class="o">/</span><span class="n">example</span><span class="p">.</span><span class="nf">com</span><span class="p">,</span>
   <span class="ss">events: </span><span class="p">[</span><span class="s1">&#39;proposal_created&#39;</span><span class="p">,</span> <span class="s1">&#39;client_created&#39;</span><span class="p">]</span>
 <span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="kn">use</span> <span class="nc">Nusii\Nusii</span><span class="p">;</span></p>
+
+<p><span class="nv">$nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Nusii</span><span class="p">(</span><span class="s1">&#39;YOUR_API_KEY&#39;</span><span class="p">);</span></p>
+
+<p><span class="nv">$nusii</span><span class="o">-&gt;</span><span class="nf">webhookEndpoints</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">create</span><span class="p">([</span>
+    <span class="s1">&#39;target_url&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;http://example.com&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;events&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;proposal_created&#39;</span><span class="p">,</span> <span class="s1">&#39;client_created&#39;</span><span class="p">],</span>
+<span class="p">]);</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -3369,6 +3563,11 @@ nusii proposals list <span class="nt">--status</span> draft
 
 <p><span class="n">endpoint</span> <span class="o">=</span> <span class="no">Nusii</span><span class="o">::</span><span class="no">WebhookEndpoint</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
 <span class="n">endpoint</span><span class="p">.</span><span class="nf">destroy</span>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="kn">use</span> <span class="nc">Nusii\Nusii</span><span class="p">;</span></p>
+
+<p><span class="nv">$nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Nusii</span><span class="p">(</span><span class="s1">&#39;YOUR_API_KEY&#39;</span><span class="p">);</span></p>
+
+<p><span class="nv">$nusii</span><span class="o">-&gt;</span><span class="nf">webhookEndpoints</span><span class="p">()</span><span class="o">-&gt;</span><span class="nb">delete</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
