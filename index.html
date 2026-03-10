@@ -295,7 +295,7 @@
     </script>
   </head>
 
-  <body class="index" data-languages="[&quot;shell--curl&quot;,&quot;shell--cli&quot;,&quot;ruby&quot;]">
+  <body class="index" data-languages="[&quot;shell--curl&quot;,&quot;shell--cli&quot;,&quot;ruby&quot;,&quot;php&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -308,6 +308,7 @@
               <a href="#" data-language-name="shell--curl">cURL</a>
               <a href="#" data-language-name="shell--cli">Nusii CLI</a>
               <a href="#" data-language-name="ruby">Ruby</a>
+              <a href="#" data-language-name="php">PHP</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -403,6 +404,17 @@
                   </li>
                   <li>
                     <a href="#send-a-proposal" class="toc-h2 toc-link" data-title="Send a proposal">Send a proposal</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#templates" class="toc-h1 toc-link" data-title="Templates">Templates</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#get-all-templates" class="toc-h2 toc-link" data-title="Get all Templates">Get all Templates</a>
+                  </li>
+                  <li>
+                    <a href="#get-a-template" class="toc-h2 toc-link" data-title="Get a Template">Get a Template</a>
                   </li>
               </ul>
           </li>
@@ -518,6 +530,7 @@
             <li><a href='https://app.nusii.com/settings/integrations'>Get your API Key</a></li>
             <li><a href='https://app.nusii.com/settings/api'>Register an OAuth App</a></li>
             <li><a href='https://github.com/Nusii/nusii-cli'>Nusii CLI on GitHub</a></li>
+            <li><a href='https://github.com/nusii/nusii-php'>Nusii PHP on GitHub</a></li>
         </ul>
     </div>
     <div class="page-wrapper">
@@ -544,6 +557,8 @@ nusii auth status
 <span class="c"># Install: brew install nusii/tap/nusii</span>
 </code></pre></div><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="c1"># The Nusii CLI is an alternative to the Ruby gem.</span>
 <span class="c1"># Install: brew install nusii/tap/nusii</span>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="c1">// The Nusii CLI is an alternative to the PHP package.</span>
+<span class="c1">// Install: brew install nusii/tap/nusii</span>
 </code></pre></div><h1 id='authentication'>Authentication</h1>
 <blockquote>
 <p>We offer a token based authentication. You can find your API access token <a href="https://app.nusii.com">here</a>. Tokens need to be added in the HTTP_AUTHORIZATION header as <code>Token token=YOUR_API_KEY</code></p>
@@ -558,6 +573,12 @@ curl <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www
 
 <span class="no">Nusii</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'YOUR_API_KEY'</span>
 <span class="no">Nusii</span><span class="p">.</span><span class="nf">user_agent</span> <span class="o">=</span> <span class="s1">'Your App Name (www.yourapp.com)'</span>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="c1">// Install via Composer</span>
+<span class="c1">// composer require nusii/nusii-php</span>
+
+<span class="kn">use</span> <span class="nc">Nusii\Nusii</span><span class="p">;</span>
+
+<span class="nv">$nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Nusii</span><span class="p">(</span><span class="s1">'YOUR_API_KEY'</span><span class="p">);</span>
 </code></pre></div>
 <blockquote>
 <p>Make sure to replace <code>YOUR_API_KEY</code> with your API key.</p>
@@ -622,6 +643,11 @@ Your Client Secret is only shown once when you create the app. Store it securely
 <span class="n">code_challenge</span> <span class="o">=</span> <span class="no">Base64</span><span class="p">.</span><span class="nf">urlsafe_encode64</span><span class="p">(</span>
   <span class="no">Digest</span><span class="o">::</span><span class="no">SHA256</span><span class="p">.</span><span class="nf">digest</span><span class="p">(</span><span class="n">code_verifier</span><span class="p">),</span> <span class="ss">padding: </span><span class="kp">false</span>
 <span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="nv">$codeVerifier</span> <span class="o">=</span> <span class="nb">bin2hex</span><span class="p">(</span><span class="nb">random_bytes</span><span class="p">(</span><span class="mi">64</span><span class="p">));</span>
+<span class="nv">$codeChallenge</span> <span class="o">=</span> <span class="nb">rtrim</span><span class="p">(</span><span class="nb">strtr</span><span class="p">(</span>
+    <span class="nb">base64_encode</span><span class="p">(</span><span class="nb">hash</span><span class="p">(</span><span class="s1">'sha256'</span><span class="p">,</span> <span class="nv">$codeVerifier</span><span class="p">,</span> <span class="kc">true</span><span class="p">)),</span>
+    <span class="s1">'+/'</span><span class="p">,</span> <span class="s1">'-_'</span>
+<span class="p">),</span> <span class="s1">'='</span><span class="p">);</span>
 </code></pre></div>
 <p>PKCE protects the authorization flow by ensuring the app that started the flow is the same one exchanging the code. Generate a random <code>code_verifier</code> and derive a <code>code_challenge</code> from it.</p>
 <h3 id='step-2-redirect-the-user-to-authorize'>Step 2: Redirect the User to Authorize</h3><div class="highlight"><pre class="highlight shell tab-shell--curl"><code><span class="c"># Redirect the user's browser to:</span>
@@ -645,6 +671,17 @@ https://app.nusii.com/oauth/authorize?<span class="se">\</span>
 
 <span class="n">auth_url</span> <span class="o">=</span> <span class="s2">"https://app.nusii.com/oauth/authorize?</span><span class="si">#{</span><span class="no">URI</span><span class="p">.</span><span class="nf">encode_www_form</span><span class="p">(</span><span class="n">params</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>
 <span class="c1"># Redirect the user to auth_url</span>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="nv">$params</span> <span class="o">=</span> <span class="nb">http_build_query</span><span class="p">([</span>
+    <span class="s1">'client_id'</span> <span class="o">=&gt;</span> <span class="s1">'YOUR_CLIENT_ID'</span><span class="p">,</span>
+    <span class="s1">'redirect_uri'</span> <span class="o">=&gt;</span> <span class="s1">'YOUR_REDIRECT_URI'</span><span class="p">,</span>
+    <span class="s1">'response_type'</span> <span class="o">=&gt;</span> <span class="s1">'code'</span><span class="p">,</span>
+    <span class="s1">'scope'</span> <span class="o">=&gt;</span> <span class="s1">'read write'</span><span class="p">,</span>
+    <span class="s1">'code_challenge'</span> <span class="o">=&gt;</span> <span class="nv">$codeChallenge</span><span class="p">,</span>
+    <span class="s1">'code_challenge_method'</span> <span class="o">=&gt;</span> <span class="s1">'S256'</span><span class="p">,</span>
+<span class="p">]);</span>
+
+<span class="nv">$authUrl</span> <span class="o">=</span> <span class="s2">"https://app.nusii.com/oauth/authorize?</span><span class="si">{</span><span class="nv">$params</span><span class="si">}</span><span class="s2">"</span><span class="p">;</span>
+<span class="c1">// Redirect the user to $authUrl</span>
 </code></pre></div>
 <p>Redirect the user&#39;s browser to the authorization URL. They&#39;ll be asked to sign in to Nusii (if not already) and approve your app&#39;s access.</p>
 
@@ -719,6 +756,26 @@ curl <span class="nt">-X</span> POST <span class="se">\</span>
 <span class="n">tokens</span> <span class="o">=</span> <span class="no">JSON</span><span class="p">.</span><span class="nf">parse</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="nf">body</span><span class="p">)</span>
 <span class="n">access_token</span> <span class="o">=</span> <span class="n">tokens</span><span class="p">[</span><span class="s1">'access_token'</span><span class="p">]</span>
 <span class="n">refresh_token</span> <span class="o">=</span> <span class="n">tokens</span><span class="p">[</span><span class="s1">'refresh_token'</span><span class="p">]</span>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="nv">$response</span> <span class="o">=</span> <span class="nb">file_get_contents</span><span class="p">(</span><span class="s1">'https://app.nusii.com/oauth/token'</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nb">stream_context_create</span><span class="p">([</span>
+        <span class="s1">'http'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+            <span class="s1">'method'</span> <span class="o">=&gt;</span> <span class="s1">'POST'</span><span class="p">,</span>
+            <span class="s1">'header'</span> <span class="o">=&gt;</span> <span class="s1">'Content-Type: application/x-www-form-urlencoded'</span><span class="p">,</span>
+            <span class="s1">'content'</span> <span class="o">=&gt;</span> <span class="nb">http_build_query</span><span class="p">([</span>
+                <span class="s1">'grant_type'</span> <span class="o">=&gt;</span> <span class="s1">'authorization_code'</span><span class="p">,</span>
+                <span class="s1">'code'</span> <span class="o">=&gt;</span> <span class="s1">'AUTHORIZATION_CODE'</span><span class="p">,</span>
+                <span class="s1">'redirect_uri'</span> <span class="o">=&gt;</span> <span class="s1">'YOUR_REDIRECT_URI'</span><span class="p">,</span>
+                <span class="s1">'client_id'</span> <span class="o">=&gt;</span> <span class="s1">'YOUR_CLIENT_ID'</span><span class="p">,</span>
+                <span class="s1">'client_secret'</span> <span class="o">=&gt;</span> <span class="s1">'YOUR_CLIENT_SECRET'</span><span class="p">,</span>
+                <span class="s1">'code_verifier'</span> <span class="o">=&gt;</span> <span class="nv">$codeVerifier</span><span class="p">,</span>
+            <span class="p">]),</span>
+        <span class="p">],</span>
+    <span class="p">])</span>
+<span class="p">);</span>
+
+<span class="nv">$tokens</span> <span class="o">=</span> <span class="nb">json_decode</span><span class="p">(</span><span class="nv">$response</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+<span class="nv">$accessToken</span> <span class="o">=</span> <span class="nv">$tokens</span><span class="p">[</span><span class="s1">'access_token'</span><span class="p">];</span>
+<span class="nv">$refreshToken</span> <span class="o">=</span> <span class="nv">$tokens</span><span class="p">[</span><span class="s1">'refresh_token'</span><span class="p">];</span>
 </code></pre></div>
 <blockquote>
 <p>A successful response returns:</p>
@@ -801,6 +858,12 @@ Access tokens expire after <strong>24 hours</strong>. Use the refresh token to g
 <span class="k">end</span>
 
 <span class="n">data</span> <span class="o">=</span> <span class="no">JSON</span><span class="p">.</span><span class="nf">parse</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="nf">body</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="kn">use</span> <span class="nc">Nusii\Nusii</span><span class="p">;</span>
+
+<span class="c1">// Use an OAuth access token instead of an API key</span>
+<span class="nv">$nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Nusii</span><span class="p">(</span><span class="s1">'YOUR_ACCESS_TOKEN'</span><span class="p">);</span>
+
+<span class="nv">$clients</span> <span class="o">=</span> <span class="nv">$nusii</span><span class="o">-&gt;</span><span class="nf">clients</span><span class="p">()</span><span class="o">-&gt;</span><span class="k">list</span><span class="p">();</span>
 </code></pre></div>
 <p>Once you have an access token, include it in the <code>Authorization</code> header as a Bearer token:</p>
 
@@ -830,6 +893,24 @@ Access tokens expire after <strong>24 hours</strong>. Use the refresh token to g
 <span class="n">tokens</span> <span class="o">=</span> <span class="no">JSON</span><span class="p">.</span><span class="nf">parse</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="nf">body</span><span class="p">)</span>
 <span class="n">new_access_token</span> <span class="o">=</span> <span class="n">tokens</span><span class="p">[</span><span class="s1">'access_token'</span><span class="p">]</span>
 <span class="n">new_refresh_token</span> <span class="o">=</span> <span class="n">tokens</span><span class="p">[</span><span class="s1">'refresh_token'</span><span class="p">]</span>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="nv">$response</span> <span class="o">=</span> <span class="nb">file_get_contents</span><span class="p">(</span><span class="s1">'https://app.nusii.com/oauth/token'</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nb">stream_context_create</span><span class="p">([</span>
+        <span class="s1">'http'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+            <span class="s1">'method'</span> <span class="o">=&gt;</span> <span class="s1">'POST'</span><span class="p">,</span>
+            <span class="s1">'header'</span> <span class="o">=&gt;</span> <span class="s1">'Content-Type: application/x-www-form-urlencoded'</span><span class="p">,</span>
+            <span class="s1">'content'</span> <span class="o">=&gt;</span> <span class="nb">http_build_query</span><span class="p">([</span>
+                <span class="s1">'grant_type'</span> <span class="o">=&gt;</span> <span class="s1">'refresh_token'</span><span class="p">,</span>
+                <span class="s1">'refresh_token'</span> <span class="o">=&gt;</span> <span class="s1">'YOUR_REFRESH_TOKEN'</span><span class="p">,</span>
+                <span class="s1">'client_id'</span> <span class="o">=&gt;</span> <span class="s1">'YOUR_CLIENT_ID'</span><span class="p">,</span>
+                <span class="s1">'client_secret'</span> <span class="o">=&gt;</span> <span class="s1">'YOUR_CLIENT_SECRET'</span><span class="p">,</span>
+            <span class="p">]),</span>
+        <span class="p">],</span>
+    <span class="p">])</span>
+<span class="p">);</span>
+
+<span class="nv">$tokens</span> <span class="o">=</span> <span class="nb">json_decode</span><span class="p">(</span><span class="nv">$response</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+<span class="nv">$newAccessToken</span> <span class="o">=</span> <span class="nv">$tokens</span><span class="p">[</span><span class="s1">'access_token'</span><span class="p">];</span>
+<span class="nv">$newRefreshToken</span> <span class="o">=</span> <span class="nv">$tokens</span><span class="p">[</span><span class="s1">'refresh_token'</span><span class="p">];</span>
 </code></pre></div>
 <blockquote>
 <p>A successful response returns a new token pair:</p>
@@ -894,6 +975,19 @@ Always store the new refresh token from the response. The previous refresh token
   <span class="ss">client_id: </span><span class="s1">'YOUR_CLIENT_ID'</span><span class="p">,</span>
   <span class="ss">client_secret: </span><span class="s1">'YOUR_CLIENT_SECRET'</span>
 <span class="p">})</span>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="nb">file_get_contents</span><span class="p">(</span><span class="s1">'https://app.nusii.com/oauth/revoke'</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nb">stream_context_create</span><span class="p">([</span>
+        <span class="s1">'http'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+            <span class="s1">'method'</span> <span class="o">=&gt;</span> <span class="s1">'POST'</span><span class="p">,</span>
+            <span class="s1">'header'</span> <span class="o">=&gt;</span> <span class="s1">'Content-Type: application/x-www-form-urlencoded'</span><span class="p">,</span>
+            <span class="s1">'content'</span> <span class="o">=&gt;</span> <span class="nb">http_build_query</span><span class="p">([</span>
+                <span class="s1">'token'</span> <span class="o">=&gt;</span> <span class="s1">'YOUR_ACCESS_TOKEN'</span><span class="p">,</span>
+                <span class="s1">'client_id'</span> <span class="o">=&gt;</span> <span class="s1">'YOUR_CLIENT_ID'</span><span class="p">,</span>
+                <span class="s1">'client_secret'</span> <span class="o">=&gt;</span> <span class="s1">'YOUR_CLIENT_SECRET'</span><span class="p">,</span>
+            <span class="p">]),</span>
+        <span class="p">],</span>
+    <span class="p">])</span>
+<span class="p">);</span>
 </code></pre></div>
 <p>Revoke a token when a user disconnects your app or you no longer need access. You can revoke either the access token or the refresh token.</p>
 
@@ -2182,6 +2276,114 @@ nusii proposals list <span class="nt">--status</span> draft
 <td>Whether this recipient can sign the proposal. Default: false</td>
 </tr>
 </tbody></table>
+
+<h1 id='templates'>Templates</h1><h2 id='get-all-templates'>Get all Templates</h2><div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> GET <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www.yourapp.com)'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Authorization: Token token=YOUR_API_KEY"</span> <span class="se">\</span>
+  <span class="s2">"https://app.nusii.com/api/v2/templates"</span>
+
+<span class="c"># Get only public templates</span>
+curl <span class="nt">-X</span> GET <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www.yourapp.com)'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Authorization: Token token=YOUR_API_KEY"</span> <span class="se">\</span>
+  <span class="s2">"https://app.nusii.com/api/v2/templates?public_templates=true"</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell--cli"><code>nusii templates list
+
+<span class="c"># Get only public templates</span>
+nusii templates list <span class="nt">--public-templates</span>
+</code></pre></div><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'nusii-ruby'</span>
+
+<span class="no">Nusii</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'YOUR_API_KEY'</span>
+<span class="no">Nusii</span><span class="p">.</span><span class="nf">user_agent</span> <span class="o">=</span> <span class="s1">'Your App Name (www.yourapp.com)'</span>
+
+<span class="no">Nusii</span><span class="o">::</span><span class="no">Template</span><span class="p">.</span><span class="nf">list</span><span class="p">(</span><span class="ss">page: </span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="kn">use</span> <span class="nc">Nusii\Nusii</span><span class="p">;</span>
+
+<span class="nv">$nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Nusii</span><span class="p">(</span><span class="s1">'YOUR_API_KEY'</span><span class="p">);</span>
+
+<span class="nv">$nusii</span><span class="o">-&gt;</span><span class="nf">templates</span><span class="p">()</span><span class="o">-&gt;</span><span class="k">list</span><span class="p">();</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"templates"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Web Design Proposal"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-15T10:30:00.000Z"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"public_template"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"current_page"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"next_page"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"prev_page"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"total_pages"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"total_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint retrieves all templates.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>GET https://app.nusii.com/api/v2/templates</code></p>
+<h3 id='query-parameters'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>public_templates</td>
+<td>false</td>
+<td>If set to true, returns only public templates instead of your account&#39;s templates.</td>
+</tr>
+</tbody></table>
+<h2 id='get-a-template'>Get a Template</h2><div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> GET <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www.yourapp.com)'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Authorization: Token token=YOUR_API_KEY"</span> <span class="se">\</span>
+  <span class="s2">"https://app.nusii.com/api/v2/templates/:id"</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell--cli"><code>nusii templates get 12
+</code></pre></div><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'nusii-ruby'</span>
+
+<span class="no">Nusii</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'YOUR_API_KEY'</span>
+<span class="no">Nusii</span><span class="p">.</span><span class="nf">user_agent</span> <span class="o">=</span> <span class="s1">'Your App Name (www.yourapp.com)'</span>
+
+<span class="no">Nusii</span><span class="o">::</span><span class="no">Template</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="kn">use</span> <span class="nc">Nusii\Nusii</span><span class="p">;</span>
+
+<span class="nv">$nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Nusii</span><span class="p">(</span><span class="s1">'YOUR_API_KEY'</span><span class="p">);</span>
+
+<span class="nv">$nusii</span><span class="o">-&gt;</span><span class="nf">templates</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">get</span><span class="p">(</span><span class="mi">12</span><span class="p">);</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"templates"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Web Design Proposal"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-15T10:30:00.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"public_template"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"dummy_template"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint retrieves a single template.</p>
+<h3 id='http-request-2'>HTTP Request</h3>
+<p><code>GET https://app.nusii.com/api/v2/templates/:id</code></p>
 
 <h1 id='sections'>Sections</h1><h2 id='get-all-sections'>Get all sections</h2><div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> GET <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www.yourapp.com)'</span> <span class="se">\</span>
@@ -3724,6 +3926,7 @@ nusii proposals list <span class="nt">--status</span> draft
                 <a href="#" data-language-name="shell--curl">cURL</a>
                 <a href="#" data-language-name="shell--cli">Nusii CLI</a>
                 <a href="#" data-language-name="ruby">Ruby</a>
+                <a href="#" data-language-name="php">PHP</a>
           </div>
       </div>
     </div>
