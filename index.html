@@ -2179,6 +2179,11 @@ nusii proposals list <span class="nt">--status</span> draft
 </span></code></pre></div>
 <p>This will return 200 OK and the current JSON representation.</p>
 
+<p>If you have reached the active proposal limit for your plan, the API will return a <code>402 Payment Required</code> error:</p>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"You have reached your active proposal limit. Please upgrade your plan to continue sending proposals."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
 <p>You can send a proposal to a single email using the <code>email</code> parameter, or to multiple recipients using the <code>recipients</code> array. When <code>recipients</code> is provided, <code>email</code> is ignored. A maximum of 10 recipients can be specified per request.</p>
 
 <p>If neither <code>sender_id</code> nor <code>sender_email</code> is provided, the sender defaults to the account owner.</p>
@@ -3881,6 +3886,10 @@ nusii templates list <span class="nt">--public-templates</span>
 <tr>
 <td>401</td>
 <td>Unauthorized -- Your API key is wrong.</td>
+</tr>
+<tr>
+<td>402</td>
+<td>Payment Required -- You have reached your active proposal limit. Please upgrade your plan.</td>
 </tr>
 <tr>
 <td>403</td>
