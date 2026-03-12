@@ -566,6 +566,7 @@ nusii auth status
 <div class="highlight"><pre class="highlight shell tab-shell--curl"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
 curl <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www.yourapp.com)'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: Token token=YOUR_API_KEY"</span> <span class="se">\</span>
   <span class="s2">"https://app.nusii.com/api/v2/proposals"</span>
 </code></pre></div><div class="highlight"><pre class="highlight shell tab-shell--cli"><code>nusii auth login <span class="nt">--api-key</span> YOUR_API_KEY
@@ -840,6 +841,7 @@ Access tokens expire after <strong>24 hours</strong>. Use the refresh token to g
 <div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> GET <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www.yourapp.com)'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: Bearer YOUR_ACCESS_TOKEN"</span> <span class="se">\</span>
   <span class="s2">"https://app.nusii.com/api/v2/clients"</span>
 </code></pre></div><div class="highlight"><pre class="highlight shell tab-shell--cli"><code><span class="c"># The Nusii CLI uses API tokens for authentication.</span>
@@ -1065,6 +1067,7 @@ Always store the new refresh token from the response. The previous refresh token
 <h1 id='account'>Account</h1><h2 id='get-my-account'>Get my Account</h2><div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> GET <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www.yourapp.com)'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: Token token=YOUR_API_KEY"</span> <span class="se">\</span>
   <span class="s2">"https://app.nusii.com/api/v2/account/me"</span>
 </code></pre></div><div class="highlight"><pre class="highlight shell tab-shell--cli"><code>nusii account
@@ -1112,6 +1115,7 @@ Always store the new refresh token from the response. The previous refresh token
 <h1 id='clients'>Clients</h1><h2 id='get-all-clients'>Get all Clients</h2><div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> GET <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www.yourapp.com)'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: Token token=YOUR_API_KEY"</span> <span class="se">\</span>
   <span class="s2">"https://app.nusii.com/api/v2/clients"</span>
 </code></pre></div><div class="highlight"><pre class="highlight shell tab-shell--cli"><code>nusii clients list
@@ -1169,6 +1173,7 @@ Always store the new refresh token from the response. The previous refresh token
 <h2 id='get-a-client'>Get a Client</h2><div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> GET <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www.yourapp.com)'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: Token token=YOUR_API_KEY"</span> <span class="se">\</span>
   <span class="s2">"https://app.nusii.com/api/v2/clients/:id"</span>
 </code></pre></div><div class="highlight"><pre class="highlight shell tab-shell--cli"><code>nusii clients get 100
@@ -1217,6 +1222,7 @@ Always store the new refresh token from the response. The previous refresh token
 <h2 id='create-a-client'>Create a client</h2><div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> POST <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www.yourapp.com)'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: Token token=YOUR_API_KEY"</span> <span class="se">\</span>
   <span class="nt">-d</span> <span class="s1">'{"client": {"email": "john@doe.com", "name": "John", "surname": "Doe", "locale": "en"}}'</span> <span class="se">\</span>
   <span class="s2">"https://app.nusii.com/api/v2/clients"</span>
@@ -1368,6 +1374,7 @@ Always store the new refresh token from the response. The previous refresh token
 <h2 id='update-a-client'>Update a client</h2><div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> PUT <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www.yourapp.com)'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: Token token=YOUR_API_KEY"</span> <span class="se">\</span>
   <span class="nt">-d</span> <span class="s1">'{"client": {"email": "john@doe.com", "name": "John Doe"}}'</span> <span class="se">\</span>
   <span class="s2">"https://app.nusii.com/api/v2/clients/:id"</span>
@@ -1517,6 +1524,7 @@ Always store the new refresh token from the response. The previous refresh token
 <h2 id='delete-a-client'>Delete a client</h2><div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> DELETE <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www.yourapp.com)'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: Token token=YOUR_API_KEY"</span> <span class="se">\</span>
   <span class="s2">"https://app.nusii.com/api/v2/clients/:id"</span>
 </code></pre></div><div class="highlight"><pre class="highlight shell tab-shell--cli"><code>nusii clients delete 100
@@ -1567,6 +1575,7 @@ Always store the new refresh token from the response. The previous refresh token
 <h1 id='proposals'>Proposals</h1><h2 id='get-all-proposals'>Get all Proposals</h2><div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> GET <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www.yourapp.com)'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: Token token=YOUR_API_KEY"</span> <span class="se">\</span>
   <span class="s2">"https://app.nusii.com/api/v2/proposals"</span>
 
@@ -1574,6 +1583,7 @@ Always store the new refresh token from the response. The previous refresh token
 curl <span class="nt">-X</span> GET <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www.yourapp.com)'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: Token token=YOUR_API_KEY"</span> <span class="se">\</span>
   <span class="s2">"https://app.nusii.com/api/v2/proposals?status=accepted"</span>
 
@@ -1581,6 +1591,7 @@ curl <span class="nt">-X</span> GET <span class="se">\</span>
 curl <span class="nt">-X</span> GET <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www.yourapp.com)'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: Token token=YOUR_API_KEY"</span> <span class="se">\</span>
   <span class="s2">"https://app.nusii.com/api/v2/proposals?status=draft"</span>
 </code></pre></div><div class="highlight"><pre class="highlight shell tab-shell--cli"><code>nusii proposals list
@@ -1680,6 +1691,7 @@ nusii proposals list <span class="nt">--status</span> draft
 <h2 id='get-a-proposal'>Get a proposal</h2><div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> GET <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www.yourapp.com)'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: Token token=YOUR_API_KEY"</span> <span class="se">\</span>
   <span class="s2">"https://app.nusii.com/api/v2/proposals/:id"</span>
 </code></pre></div><div class="highlight"><pre class="highlight shell tab-shell--cli"><code>nusii proposals get 100
@@ -1752,6 +1764,7 @@ nusii proposals list <span class="nt">--status</span> draft
 <h2 id='create-a-proposal'>Create a proposal</h2><div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> POST <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www.yourapp.com)'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: Token token=YOUR_API_KEY"</span> <span class="se">\</span>
   <span class="nt">-d</span> <span class="s1">'{"proposal": {"client_id": 100, "title": "Webdesign yourwebsite.com"}}'</span> <span class="se">\</span>
   <span class="s2">"https://app.nusii.com/api/v2/proposals"</span>
@@ -1892,6 +1905,7 @@ nusii proposals list <span class="nt">--status</span> draft
 <h2 id='update-a-proposal'>Update a proposal</h2><div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> PUT <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www.yourapp.com)'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: Token token=YOUR_API_KEY"</span> <span class="se">\</span>
   <span class="nt">-d</span> <span class="s1">'{"title": "Webdesign yourwebsite.com"}'</span> <span class="se">\</span>
   <span class="s2">"https://app.nusii.com/api/v2/proposals/:id"</span>
@@ -2024,6 +2038,7 @@ nusii proposals list <span class="nt">--status</span> draft
 <h2 id='delete-a-proposal'>Delete a proposal</h2><div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> DELETE <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www.yourapp.com)'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: Token token=YOUR_API_KEY"</span> <span class="se">\</span>
   <span class="s2">"https://app.nusii.com/api/v2/proposals/:id"</span>
 </code></pre></div><div class="highlight"><pre class="highlight shell tab-shell--cli"><code>nusii proposals delete 100
@@ -2066,6 +2081,7 @@ nusii proposals list <span class="nt">--status</span> draft
 <h2 id='archive-a-proposal'>Archive a proposal</h2><div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> PUT <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www.yourapp.com)'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: Token token=YOUR_API_KEY"</span> <span class="se">\</span>
   <span class="s2">"https://app.nusii.com/api/v2/proposals/:id/archive"</span>
 </code></pre></div><div class="highlight"><pre class="highlight shell tab-shell--cli"><code>nusii proposals archive 100
@@ -2112,6 +2128,7 @@ nusii proposals list <span class="nt">--status</span> draft
 <div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> PUT <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www.yourapp.com)'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: Token token=YOUR_API_KEY"</span> <span class="se">\</span>
   <span class="nt">-d</span> <span class="s1">'{"email": "your_client@email.com", "subject": "Your Proposal"}'</span> <span class="se">\</span>
   <span class="s2">"https://app.nusii.com/api/v2/proposals/:id/send_proposal"</span>
@@ -2137,6 +2154,7 @@ nusii proposals list <span class="nt">--status</span> draft
 <div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> PUT <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www.yourapp.com)'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: Token token=YOUR_API_KEY"</span> <span class="se">\</span>
   <span class="nt">-d</span> <span class="s1">'{
     "subject": "Your Proposal",
@@ -2285,6 +2303,7 @@ nusii proposals list <span class="nt">--status</span> draft
 <h1 id='templates'>Templates</h1><h2 id='get-all-templates'>Get all Templates</h2><div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> GET <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www.yourapp.com)'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: Token token=YOUR_API_KEY"</span> <span class="se">\</span>
   <span class="s2">"https://app.nusii.com/api/v2/templates"</span>
 
@@ -2292,6 +2311,7 @@ nusii proposals list <span class="nt">--status</span> draft
 curl <span class="nt">-X</span> GET <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www.yourapp.com)'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: Token token=YOUR_API_KEY"</span> <span class="se">\</span>
   <span class="s2">"https://app.nusii.com/api/v2/templates?public_templates=true"</span>
 </code></pre></div><div class="highlight"><pre class="highlight shell tab-shell--cli"><code>nusii templates list
@@ -2354,6 +2374,7 @@ nusii templates list <span class="nt">--public-templates</span>
 <h2 id='get-a-template'>Get a Template</h2><div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> GET <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www.yourapp.com)'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: Token token=YOUR_API_KEY"</span> <span class="se">\</span>
   <span class="s2">"https://app.nusii.com/api/v2/templates/:id"</span>
 </code></pre></div><div class="highlight"><pre class="highlight shell tab-shell--cli"><code>nusii templates get 12
@@ -2393,6 +2414,7 @@ nusii templates list <span class="nt">--public-templates</span>
 <h1 id='sections'>Sections</h1><h2 id='get-all-sections'>Get all sections</h2><div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> GET <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www.yourapp.com)'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: Token token=YOUR_API_KEY"</span> <span class="se">\</span>
   <span class="s2">"https://app.nusii.com/api/v2/sections"</span>
 </code></pre></div><div class="highlight"><pre class="highlight shell tab-shell--cli"><code>nusii sections list <span class="nt">--proposal-id</span> 126
@@ -2488,6 +2510,7 @@ nusii templates list <span class="nt">--public-templates</span>
 <h2 id='get-a-section'>Get a section</h2><div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> GET <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www.yourapp.com)'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: Token token=YOUR_API_KEY"</span> <span class="se">\</span>
   <span class="s2">"https://app.nusii.com/api/v2/sections/:id"</span>
 </code></pre></div><div class="highlight"><pre class="highlight shell tab-shell--cli"><code>nusii sections get 100
@@ -2550,6 +2573,7 @@ nusii templates list <span class="nt">--public-templates</span>
 <h2 id='create-a-section'>Create a section</h2><div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> POST <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www.yourapp.com)'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: Token token=YOUR_API_KEY"</span> <span class="se">\</span>
   <span class="nt">-d</span> <span class="s1">'{"section": {"title": "Introduction"}}'</span> <span class="se">\</span>
   <span class="s2">"https://app.nusii.com/api/v2/sections"</span>
@@ -2694,6 +2718,7 @@ nusii templates list <span class="nt">--public-templates</span>
 <h2 id='update-a-section'>Update a section</h2><div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> PUT <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www.yourapp.com)'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: Token token=YOUR_API_KEY"</span> <span class="se">\</span>
   <span class="nt">-d</span> <span class="s1">'{"section": {"title": "Introduction"}}'</span> <span class="se">\</span>
   <span class="s2">"https://app.nusii.com/api/v2/sections/:id"</span>
@@ -2826,6 +2851,7 @@ nusii templates list <span class="nt">--public-templates</span>
 <h2 id='delete-a-section'>Delete a section</h2><div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> DELETE <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www.yourapp.com)'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: Token token=YOUR_API_KEY"</span> <span class="se">\</span>
   <span class="s2">"https://app.nusii.com/api/v2/sections/:id"</span>
 </code></pre></div><div class="highlight"><pre class="highlight shell tab-shell--cli"><code>nusii sections delete 100
@@ -2879,6 +2905,7 @@ nusii templates list <span class="nt">--public-templates</span>
 <h1 id='line-items'>Line Items</h1><h2 id='get-all-line-items'>Get all line items</h2><div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> GET <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www.yourapp.com)'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: Token token=YOUR_API_KEY"</span> <span class="se">\</span>
   <span class="s2">"https://app.nusii.com/api/v2/line_items"</span>
 </code></pre></div><div class="highlight"><pre class="highlight shell tab-shell--cli"><code>nusii line-items list
@@ -2936,6 +2963,7 @@ nusii templates list <span class="nt">--public-templates</span>
 <h2 id='get-all-line-items-from-section'>Get all line items from section</h2><div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> GET <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www.yourapp.com)'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: Token token=YOUR_API_KEY"</span> <span class="se">\</span>
   <span class="s2">"https://app.nusii.com/api/v2/sections/100/line_items"</span>
 </code></pre></div><div class="highlight"><pre class="highlight shell tab-shell--cli"><code>nusii line-items list <span class="nt">--section-id</span> 100
@@ -2986,6 +3014,7 @@ nusii templates list <span class="nt">--public-templates</span>
 <h2 id='create-a-line-item'>Create a line item</h2><div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> POST <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www.yourapp.com)'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: Token token=YOUR_API_KEY"</span> <span class="se">\</span>
   <span class="nt">-d</span> <span class="s1">'{"line_item": {"name": "Development Costs"}}'</span> <span class="se">\</span>
   <span class="s2">"https://app.nusii.com/api/v2/sections/100/line_items"</span>
@@ -3091,6 +3120,7 @@ nusii templates list <span class="nt">--public-templates</span>
 <h2 id='update-a-line-item'>Update a line item</h2><div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> PUT <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www.yourapp.com)'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: Token token=YOUR_API_KEY"</span> <span class="se">\</span>
   <span class="nt">-d</span> <span class="s1">'{"line_item": {"amount": 10000}}'</span> <span class="se">\</span>
   <span class="s2">"https://app.nusii.com/api/v2/line_items/:id"</span>
@@ -3201,6 +3231,7 @@ nusii templates list <span class="nt">--public-templates</span>
 <h2 id='delete-a-line-item'>Delete a line item</h2><div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> DELETE <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www.yourapp.com)'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: Token token=YOUR_API_KEY"</span> <span class="se">\</span>
   <span class="s2">"https://app.nusii.com/api/v2/line_items/:id"</span>
 </code></pre></div><div class="highlight"><pre class="highlight shell tab-shell--cli"><code>nusii line-items delete 100
@@ -3251,6 +3282,7 @@ nusii templates list <span class="nt">--public-templates</span>
 <h1 id='proposal-activities'>Proposal Activities</h1><h2 id='get-all-proposal-activities'>Get all proposal activities</h2><div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> GET <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www.yourapp.com)'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: Token token=YOUR_API_KEY"</span> <span class="se">\</span>
   <span class="s2">"https://app.nusii.com/api/v2/proposal_activities"</span>
 </code></pre></div><div class="highlight"><pre class="highlight shell tab-shell--cli"><code>nusii activities list <span class="nt">--proposal-id</span> 100
@@ -3347,6 +3379,7 @@ nusii templates list <span class="nt">--public-templates</span>
 <h2 id='get-a-proposal-activity'>Get a Proposal Activity</h2><div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> GET <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www.yourapp.com)'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: Token token=YOUR_API_KEY"</span> <span class="se">\</span>
   <span class="s2">"https://app.nusii.com/api/v2/proposal_activities/44"</span>
 </code></pre></div><div class="highlight"><pre class="highlight shell tab-shell--cli"><code>nusii activities list <span class="nt">--proposal-id</span> 44
@@ -3446,6 +3479,7 @@ nusii templates list <span class="nt">--public-templates</span>
 <h1 id='users'>Users</h1><h2 id='get-all-users'>Get all Users</h2><div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> GET <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www.yourapp.com)'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: Token token=YOUR_API_KEY"</span> <span class="se">\</span>
   <span class="s2">"https://app.nusii.com/api/v2/users"</span>
 </code></pre></div><div class="highlight"><pre class="highlight shell tab-shell--cli"><code>nusii <span class="nb">users </span>list
@@ -3490,6 +3524,7 @@ nusii templates list <span class="nt">--public-templates</span>
 <h1 id='themes'>Themes</h1><h2 id='get-all-themes'>Get all Themes</h2><div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> GET <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www.yourapp.com)'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: Token token=YOUR_API_KEY"</span> <span class="se">\</span>
   <span class="s2">"https://app.nusii.com/api/v2/themes"</span>
 </code></pre></div><div class="highlight"><pre class="highlight shell tab-shell--cli"><code>nusii themes list
@@ -3602,6 +3637,7 @@ nusii templates list <span class="nt">--public-templates</span>
 <h2 id='get-all-webhook-endpoints'>Get all webhook endpoints</h2><div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> GET <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www.yourapp.com)'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: Token token=YOUR_API_KEY"</span> <span class="se">\</span>
   <span class="s2">"https://app.nusii.com/api/v2/webhook_endpoints"</span>
 </code></pre></div><div class="highlight"><pre class="highlight shell tab-shell--cli"><code>nusii webhooks list
@@ -3655,6 +3691,7 @@ nusii templates list <span class="nt">--public-templates</span>
 <p><h2 id='get-a-webhook-endpoint'>Get a webhook endpoint</h2><div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> GET <span class="se">&lt;/span&gt;
   <span class="nt">-H</span> <span class="s1">&#39;User-Agent: Your App Name (www.yourapp.com)&#39;</span> <span class="se">&lt;/span&gt;
   <span class="nt">-H</span> <span class="s1">&#39;Content-Type: application/json&#39;</span> <span class="se">&lt;/span&gt;
+  <span class="nt">-H</span> <span class="s1">&#39;Accept: application/json&#39;</span> <span class="se">&lt;/span&gt;
   <span class="nt">-H</span> <span class="s2">&quot;Authorization: Token token=YOUR_API_KEY&quot;</span> <span class="se">&lt;/span&gt;
   <span class="s2">&quot;https://app.nusii.com/api/v2/webhook_endpoints/:id&quot;</span>
 </code></pre></div><div class="highlight"><pre class="highlight shell tab-shell--cli"><code>nusii webhooks get 100
@@ -3693,6 +3730,7 @@ nusii templates list <span class="nt">--public-templates</span>
 <h2 id='create-a-webhook-endpoint'>Create a webhook endpoint</h2><div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> POST <span class="se">&lt;/span&gt;
   <span class="nt">-H</span> <span class="s1">&#39;User-Agent: Your App Name (www.yourapp.com)&#39;</span> <span class="se">&lt;/span&gt;
   <span class="nt">-H</span> <span class="s1">&#39;Content-Type: application/json&#39;</span> <span class="se">&lt;/span&gt;
+  <span class="nt">-H</span> <span class="s1">&#39;Accept: application/json&#39;</span> <span class="se">&lt;/span&gt;
   <span class="nt">-H</span> <span class="s2">&quot;Authorization: Token token=YOUR_API_KEY&quot;</span> <span class="se">&lt;/span&gt;
   <span class="nt">-d</span> <span class="s1">&#39;{&quot;webhook_endpoint&quot;:{&quot;target_url&quot;: &quot;http://example.com&quot;,&quot;events&quot;: [&quot;proposal_created&quot;, &quot;client_created&quot;]}}&#39;</span> <span class="se">&lt;/span&gt;
   <span class="s2">&quot;https://app.nusii.com/api/v2/webhook_endpoints&quot;</span>
@@ -3760,6 +3798,7 @@ nusii templates list <span class="nt">--public-templates</span>
 <h2 id='delete-a-webhook-endpoint'>Delete a webhook endpoint</h2><div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> DELETE <span class="se">&lt;/span&gt;
   <span class="nt">-H</span> <span class="s1">&#39;User-Agent: Your App Name (www.yourapp.com)&#39;</span> <span class="se">&lt;/span&gt;
   <span class="nt">-H</span> <span class="s1">&#39;Content-Type: application/json&#39;</span> <span class="se">&lt;/span&gt;
+  <span class="nt">-H</span> <span class="s1">&#39;Accept: application/json&#39;</span> <span class="se">&lt;/span&gt;
   <span class="nt">-H</span> <span class="s2">&quot;Authorization: Token token=YOUR_API_KEY&quot;</span> <span class="se">&lt;/span&gt;
   <span class="s2">&quot;https://app.nusii.com/api/v2/webhook_endpoints/:id&quot;</span>
 </code></pre></div><div class="highlight"><pre class="highlight shell tab-shell--cli"><code>nusii webhooks delete 100
