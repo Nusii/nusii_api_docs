@@ -6,6 +6,7 @@
 curl -X GET \
   -H 'User-Agent: Your App Name (www.yourapp.com)' \
   -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
   -H "Authorization: Token token=YOUR_API_KEY" \
   "https://app.nusii.com/api/v2/proposals"
 
@@ -13,6 +14,7 @@ curl -X GET \
 curl -X GET \
   -H 'User-Agent: Your App Name (www.yourapp.com)' \
   -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
   -H "Authorization: Token token=YOUR_API_KEY" \
   "https://app.nusii.com/api/v2/proposals?status=accepted"
 
@@ -20,6 +22,7 @@ curl -X GET \
 curl -X GET \
   -H 'User-Agent: Your App Name (www.yourapp.com)' \
   -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
   -H "Authorization: Token token=YOUR_API_KEY" \
   "https://app.nusii.com/api/v2/proposals?status=draft"
 ```
@@ -124,6 +127,7 @@ archived | false | If set to true, the result will only include archived proposa
 curl -X GET \
   -H 'User-Agent: Your App Name (www.yourapp.com)' \
   -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
   -H "Authorization: Token token=YOUR_API_KEY" \
   "https://app.nusii.com/api/v2/proposals/:id"
 ```
@@ -214,6 +218,7 @@ This endpoint retrieves a single proposal
 curl -X POST \
   -H 'User-Agent: Your App Name (www.yourapp.com)' \
   -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
   -H "Authorization: Token token=YOUR_API_KEY" \
   -d '{"proposal": {"client_id": 100, "title": "Webdesign yourwebsite.com"}}' \
   "https://app.nusii.com/api/v2/proposals"
@@ -306,6 +311,7 @@ theme | no | String | Theme of the proposal. Default: 'clean'
 curl -X PUT \
   -H 'User-Agent: Your App Name (www.yourapp.com)' \
   -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
   -H "Authorization: Token token=YOUR_API_KEY" \
   -d '{"title": "Webdesign yourwebsite.com"}' \
   "https://app.nusii.com/api/v2/proposals/:id"
@@ -395,6 +401,7 @@ theme | no | String | Theme of the proposal. Default: 'clean'
 curl -X DELETE \
   -H 'User-Agent: Your App Name (www.yourapp.com)' \
   -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
   -H "Authorization: Token token=YOUR_API_KEY" \
   "https://app.nusii.com/api/v2/proposals/:id"
 ```
@@ -454,6 +461,7 @@ This endpoint deletes a specific proposal.
 curl -X PUT \
   -H 'User-Agent: Your App Name (www.yourapp.com)' \
   -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
   -H "Authorization: Token token=YOUR_API_KEY" \
   "https://app.nusii.com/api/v2/proposals/:id/archive"
 ```
@@ -515,6 +523,7 @@ This endpoint deletes a specific proposal.
 curl -X PUT \
   -H 'User-Agent: Your App Name (www.yourapp.com)' \
   -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
   -H "Authorization: Token token=YOUR_API_KEY" \
   -d '{"email": "your_client@email.com", "subject": "Your Proposal"}' \
   "https://app.nusii.com/api/v2/proposals/:id/send_proposal"
@@ -550,6 +559,7 @@ $nusii->proposals()->send(100,
 curl -X PUT \
   -H 'User-Agent: Your App Name (www.yourapp.com)' \
   -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
   -H "Authorization: Token token=YOUR_API_KEY" \
   -d '{
     "subject": "Your Proposal",

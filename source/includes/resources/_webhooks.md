@@ -50,6 +50,7 @@ client_destroyed | Sends when client is deleted
 curl -X GET \
   -H 'User-Agent: Your App Name (www.yourapp.com)' \
   -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
   -H "Authorization: Token token=YOUR_API_KEY" \
   "https://app.nusii.com/api/v2/webhook_endpoints"
 ```
@@ -115,6 +116,7 @@ This endpoint retrieves all webhooks endpoints.
 curl -X GET \
   -H 'User-Agent: Your App Name (www.yourapp.com)' \
   -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
   -H "Authorization: Token token=YOUR_API_KEY" \
   "https://app.nusii.com/api/v2/webhook_endpoints/:id"
 ```
@@ -171,6 +173,7 @@ This endpoint retrieves a single webhook endpoint
 curl -X POST \
   -H 'User-Agent: Your App Name (www.yourapp.com)' \
   -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
   -H "Authorization: Token token=YOUR_API_KEY" \
   -d '{"webhook_endpoint":{"target_url": "http://example.com","events": ["proposal_created", "client_created"]}}' \
   "https://app.nusii.com/api/v2/webhook_endpoints"
@@ -242,6 +245,7 @@ events | yes | String[] | An Array of string that represents the events you want
 curl -X DELETE \
   -H 'User-Agent: Your App Name (www.yourapp.com)' \
   -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
   -H "Authorization: Token token=YOUR_API_KEY" \
   "https://app.nusii.com/api/v2/webhook_endpoints/:id"
 ```

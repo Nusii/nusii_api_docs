@@ -6,6 +6,7 @@
 curl -X GET \
   -H 'User-Agent: Your App Name (www.yourapp.com)' \
   -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
   -H "Authorization: Token token=YOUR_API_KEY" \
   "https://app.nusii.com/api/v2/sections"
 ```
@@ -102,6 +103,7 @@ include_line_items | false | If set to true, the result will have all the data o
 curl -X GET \
   -H 'User-Agent: Your App Name (www.yourapp.com)' \
   -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
   -H "Authorization: Token token=YOUR_API_KEY" \
   "https://app.nusii.com/api/v2/sections/:id"
 ```
@@ -181,6 +183,7 @@ This endpoint retrieves a single section
 curl -X POST \
   -H 'User-Agent: Your App Name (www.yourapp.com)' \
   -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
   -H "Authorization: Token token=YOUR_API_KEY" \
   -d '{"section": {"title": "Introduction"}}' \
   "https://app.nusii.com/api/v2/sections"
@@ -282,6 +285,7 @@ include_total | no | Boolean | Default `false`. Include a subtotal within the se
 curl -X PUT \
   -H 'User-Agent: Your App Name (www.yourapp.com)' \
   -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
   -H "Authorization: Token token=YOUR_API_KEY" \
   -d '{"section": {"title": "Introduction"}}' \
   "https://app.nusii.com/api/v2/sections/:id"
@@ -371,6 +375,7 @@ include_total | no | Boolean | Default `false`. Include a subtotal within the se
 curl -X DELETE \
   -H 'User-Agent: Your App Name (www.yourapp.com)' \
   -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
   -H "Authorization: Token token=YOUR_API_KEY" \
   "https://app.nusii.com/api/v2/sections/:id"
 ```

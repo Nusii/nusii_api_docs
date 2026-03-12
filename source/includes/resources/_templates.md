@@ -6,6 +6,7 @@
 curl -X GET \
   -H 'User-Agent: Your App Name (www.yourapp.com)' \
   -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
   -H "Authorization: Token token=YOUR_API_KEY" \
   "https://app.nusii.com/api/v2/templates"
 
@@ -13,6 +14,7 @@ curl -X GET \
 curl -X GET \
   -H 'User-Agent: Your App Name (www.yourapp.com)' \
   -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
   -H "Authorization: Token token=YOUR_API_KEY" \
   "https://app.nusii.com/api/v2/templates?public_templates=true"
 ```
@@ -84,6 +86,7 @@ public_templates | false | If set to true, returns only public templates instead
 curl -X GET \
   -H 'User-Agent: Your App Name (www.yourapp.com)' \
   -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
   -H "Authorization: Token token=YOUR_API_KEY" \
   "https://app.nusii.com/api/v2/templates/:id"
 ```

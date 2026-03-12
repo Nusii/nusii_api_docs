@@ -6,6 +6,7 @@
 curl -X GET \
   -H 'User-Agent: Your App Name (www.yourapp.com)' \
   -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
   -H "Authorization: Token token=YOUR_API_KEY" \
   "https://app.nusii.com/api/v2/line_items"
 ```
@@ -80,6 +81,7 @@ This endpoint retrieves all line items.
 curl -X GET \
   -H 'User-Agent: Your App Name (www.yourapp.com)' \
   -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
   -H "Authorization: Token token=YOUR_API_KEY" \
   "https://app.nusii.com/api/v2/sections/100/line_items"
 ```
@@ -147,6 +149,7 @@ This endpoint retrieves all line items from a given section. This response doesn
 curl -X POST \
   -H 'User-Agent: Your App Name (www.yourapp.com)' \
   -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
   -H "Authorization: Token token=YOUR_API_KEY" \
   -d '{"line_item": {"name": "Development Costs"}}' \
   "https://app.nusii.com/api/v2/sections/100/line_items"
@@ -229,6 +232,7 @@ amount | no | Integer | Amount in cents
 curl -X PUT \
   -H 'User-Agent: Your App Name (www.yourapp.com)' \
   -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
   -H "Authorization: Token token=YOUR_API_KEY" \
   -d '{"line_item": {"amount": 10000}}' \
   "https://app.nusii.com/api/v2/line_items/:id"
@@ -316,6 +320,7 @@ amount | no | Integer | Amount in cents
 curl -X DELETE \
   -H 'User-Agent: Your App Name (www.yourapp.com)' \
   -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
   -H "Authorization: Token token=YOUR_API_KEY" \
   "https://app.nusii.com/api/v2/line_items/:id"
 ```

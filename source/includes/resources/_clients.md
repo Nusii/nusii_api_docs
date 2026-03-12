@@ -7,6 +7,7 @@
 curl -X GET \
   -H 'User-Agent: Your App Name (www.yourapp.com)' \
   -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
   -H "Authorization: Token token=YOUR_API_KEY" \
   "https://app.nusii.com/api/v2/clients"
 ```
@@ -81,6 +82,7 @@ This endpoint retrieves all clients.
 curl -X GET \
   -H 'User-Agent: Your App Name (www.yourapp.com)' \
   -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
   -H "Authorization: Token token=YOUR_API_KEY" \
   "https://app.nusii.com/api/v2/clients/:id"
 ```
@@ -146,6 +148,7 @@ This endpoint retrieves a single client
 curl -X POST \
   -H 'User-Agent: Your App Name (www.yourapp.com)' \
   -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
   -H "Authorization: Token token=YOUR_API_KEY" \
   -d '{"client": {"email": "john@doe.com", "name": "John", "surname": "Doe", "locale": "en"}}' \
   "https://app.nusii.com/api/v2/clients"
@@ -239,6 +242,7 @@ state | no | String | State name of the client.
 curl -X PUT \
   -H 'User-Agent: Your App Name (www.yourapp.com)' \
   -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
   -H "Authorization: Token token=YOUR_API_KEY" \
   -d '{"client": {"email": "john@doe.com", "name": "John Doe"}}' \
   "https://app.nusii.com/api/v2/clients/:id"
@@ -330,6 +334,7 @@ state | no | String | State name of the client.
 curl -X DELETE \
   -H 'User-Agent: Your App Name (www.yourapp.com)' \
   -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
   -H "Authorization: Token token=YOUR_API_KEY" \
   "https://app.nusii.com/api/v2/clients/:id"
 ```
