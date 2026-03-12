@@ -6,6 +6,7 @@ Error Code | Meaning
 ---------- | -------
 400 | Bad Request -- Your request could not be understood by the server due to malformed syntax.
 401 | Unauthorized -- Your API key is wrong.
+402 | Payment Required -- You have reached your active proposal limit. Please upgrade your plan.
 403 | Forbidden -- The resource requested is hidden and for administrators only.
 404 | Not Found -- The specified resource could not be found.
 405 | Method Not Allowed -- You tried to access a resource with an invalid method.

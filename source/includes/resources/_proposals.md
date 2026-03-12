@@ -603,6 +603,15 @@ $nusii = new Nusii('YOUR_API_KEY');
 
 This will return 200 OK and the current JSON representation.
 
+If you have reached the active proposal limit for your plan, the API will return a `402 Payment Required` error:
+
+```json
+{
+  "error": "You have reached your active proposal limit. Please upgrade your plan to continue sending proposals."
+}
+```
+
+
 You can send a proposal to a single email using the `email` parameter, or to multiple recipients using the `recipients` array. When `recipients` is provided, `email` is ignored. A maximum of 10 recipients can be specified per request.
 
 If neither `sender_id` nor `sender_email` is provided, the sender defaults to the account owner.
