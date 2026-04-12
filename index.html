@@ -307,8 +307,8 @@
         <div class="lang-selector">
               <a href="#" data-language-name="shell--curl">cURL</a>
               <a href="#" data-language-name="shell--cli">Nusii CLI</a>
-              <a href="#" data-language-name="ruby">Ruby</a>
-              <a href="#" data-language-name="php">PHP</a>
+              <a href="#" data-language-name="ruby">ruby</a>
+              <a href="#" data-language-name="php">php</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -537,7 +537,9 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='introduction'>Introduction</h1>
-<p>Welcome to the Nusii API! You can use our API to access Nusii API endpoints. All endpoint URLs begin with <code>https://app.nusii.com/api/v2/</code>. All requests must be serialized in JSON and Nusii uses the <a href="http://jsonapi.org/">jsonapi.org</a> specification.</p>
+<p>Welcome to the Nusii API. You can use our API to manage clients, proposals, sections, line items, and more.</p>
+
+<p>We have examples in cURL, the <a href="https://github.com/Nusii/nusii-cli">Nusii CLI</a>, Ruby, and PHP. You can view code examples in the dark area to the right, and you can switch between them using the tabs in the top right.</p>
 <h1 id='nusii-cli'>Nusii CLI</h1>
 <p>The <a href="https://github.com/Nusii/nusii-cli">Nusii CLI</a> is a command-line tool for the Nusii API. It can be used standalone or with AI coding agents like Claude Code, Codex, and others.</p>
 
@@ -561,14 +563,13 @@ nusii auth status
 <span class="c1">// Install: brew install nusii/tap/nusii</span>
 </code></pre></div><h1 id='authentication'>Authentication</h1>
 <blockquote>
-<p>We offer a token based authentication. You can find your API access token <a href="https://app.nusii.com">here</a>. Tokens need to be added in the HTTP_AUTHORIZATION header as <code>Token token=YOUR_API_KEY</code></p>
+<p>To authenticate:</p>
 </blockquote>
-<div class="highlight"><pre class="highlight shell tab-shell--curl"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
-curl <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www.yourapp.com)'</span> <span class="se">\</span>
+<div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> GET <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www.yourapp.com)'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: Token token=YOUR_API_KEY"</span> <span class="se">\</span>
-  <span class="s2">"https://app.nusii.com/api/v2/proposals"</span>
+  <span class="s2">"https://app.nusii.com/api/v2/account/me"</span>
 </code></pre></div><div class="highlight"><pre class="highlight shell tab-shell--cli"><code>nusii auth login <span class="nt">--api-key</span> YOUR_API_KEY
 </code></pre></div><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'nusii-ruby'</span>
 
@@ -585,12 +586,14 @@ curl <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www
 <p>Make sure to replace <code>YOUR_API_KEY</code> with your API key.</p>
 </blockquote>
 
-<p>Nusii expects the API key to be included in all API requests to the server in a header that looks like the following:</p>
+<p>All API requests require authentication. Include your API key in the Authorization header:</p>
 
 <p><code>Authorization: Token token=YOUR_API_KEY</code></p>
 
+<p>You can get your API key from <a href="https://app.nusii.com/settings/api">Settings &gt; API</a>.</p>
+
 <aside class="notice">
-  You must replace <code>YOUR_API_KEY</code> with your personal API key.
+You must replace <code>YOUR_API_KEY</code> with your personal API key.
 </aside>
 <h1 id='oauth-authentication'>OAuth Authentication</h1>
 <p>If you&#39;re building a third-party integration that connects to Nusii on behalf of other users, you should use OAuth 2.0 instead of API tokens. OAuth lets users authorize your app without sharing their API key.</p>
@@ -841,7 +844,6 @@ Access tokens expire after <strong>24 hours</strong>. Use the refresh token to g
 <div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> GET <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www.yourapp.com)'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: Bearer YOUR_ACCESS_TOKEN"</span> <span class="se">\</span>
   <span class="s2">"https://app.nusii.com/api/v2/clients"</span>
 </code></pre></div><div class="highlight"><pre class="highlight shell tab-shell--cli"><code><span class="c"># The Nusii CLI uses API tokens for authentication.</span>
@@ -1063,7 +1065,6 @@ Always store the new refresh token from the response. The previous refresh token
 <td>20 requests per 60 seconds</td>
 </tr>
 </tbody></table>
-
 <h1 id='account'>Account</h1><h2 id='get-my-account'>Get my Account</h2><div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> GET <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www.yourapp.com)'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
@@ -1111,7 +1112,6 @@ Always store the new refresh token from the response. The previous refresh token
 <p>This endpoint retrieves your personal account data.</p>
 <h3 id='http-request'>HTTP Request</h3>
 <p><code>GET https://app.nusii.com/api/v2/account/me</code></p>
-
 <h1 id='clients'>Clients</h1><h2 id='get-all-clients'>Get all Clients</h2><div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> GET <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www.yourapp.com)'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
@@ -1571,7 +1571,6 @@ Always store the new refresh token from the response. The previous refresh token
 <p>This endpoint deletes a specific client.</p>
 <h3 id='http-request-5'>HTTP Request</h3>
 <p><code>DELETE https://app.nusii.com/api/v2/clients/:id</code></p>
-
 <h1 id='proposals'>Proposals</h1><h2 id='get-all-proposals'>Get all Proposals</h2><div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> GET <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www.yourapp.com)'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
@@ -1594,6 +1593,22 @@ curl <span class="nt">-X</span> GET <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: Token token=YOUR_API_KEY"</span> <span class="se">\</span>
   <span class="s2">"https://app.nusii.com/api/v2/proposals?status=draft"</span>
+
+<span class="c"># Get proposals sent to a specific recipient</span>
+curl <span class="nt">-X</span> GET <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www.yourapp.com)'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Authorization: Token token=YOUR_API_KEY"</span> <span class="se">\</span>
+  <span class="s2">"https://app.nusii.com/api/v2/proposals?recipient_email=alice@example.com"</span>
+
+<span class="c"># Get proposals sent to any of multiple recipients</span>
+curl <span class="nt">-X</span> GET <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www.yourapp.com)'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Authorization: Token token=YOUR_API_KEY"</span> <span class="se">\</span>
+  <span class="s2">"https://app.nusii.com/api/v2/proposals?recipient_emails=alice@example.com,bob@example.com,carol@example.com"</span>
 </code></pre></div><div class="highlight"><pre class="highlight shell tab-shell--cli"><code>nusii proposals list
 
 <span class="c"># Get only accepted proposals</span>
@@ -1686,6 +1701,16 @@ nusii proposals list <span class="nt">--status</span> draft
 <td>archived</td>
 <td>false</td>
 <td>If set to true, the result will only include archived proposals.</td>
+</tr>
+<tr>
+<td>recipient_email</td>
+<td>null</td>
+<td>Filter by recipient email address. Supports comma-separated emails to match proposals sent to any of the listed addresses (up to 30).</td>
+</tr>
+<tr>
+<td>recipient_emails</td>
+<td>null</td>
+<td>Alias for <code>recipient_email</code>. Filter by one or more comma-separated recipient email addresses (up to 30). Returns proposals sent to any of the listed addresses.</td>
 </tr>
 </tbody></table>
 <h2 id='get-a-proposal'>Get a proposal</h2><div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> GET <span class="se">\</span>
@@ -2299,7 +2324,6 @@ nusii proposals list <span class="nt">--status</span> draft
 <td>Whether this recipient can sign the proposal. Default: false</td>
 </tr>
 </tbody></table>
-
 <h1 id='templates'>Templates</h1><h2 id='get-all-templates'>Get all Templates</h2><div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> GET <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www.yourapp.com)'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
@@ -2410,7 +2434,6 @@ nusii templates list <span class="nt">--public-templates</span>
 <p>This endpoint retrieves a single template.</p>
 <h3 id='http-request-2'>HTTP Request</h3>
 <p><code>GET https://app.nusii.com/api/v2/templates/:id</code></p>
-
 <h1 id='sections'>Sections</h1><h2 id='get-all-sections'>Get all sections</h2><div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> GET <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www.yourapp.com)'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
@@ -2901,7 +2924,6 @@ nusii templates list <span class="nt">--public-templates</span>
 <p>This endpoint deletes a specific section.</p>
 <h3 id='http-request-5'>HTTP Request</h3>
 <p><code>DELETE https://app.nusii.com/api/v2/sections/:id</code></p>
-
 <h1 id='line-items'>Line Items</h1><h2 id='get-all-line-items'>Get all line items</h2><div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> GET <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www.yourapp.com)'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
@@ -3278,7 +3300,6 @@ nusii templates list <span class="nt">--public-templates</span>
 <p>This endpoint deletes a specific line item.</p>
 <h3 id='http-request-5'>HTTP Request</h3>
 <p><code>DELETE https://app.nusii.com/api/v2/line_items/:id</code></p>
-
 <h1 id='proposal-activities'>Proposal Activities</h1><h2 id='get-all-proposal-activities'>Get all proposal activities</h2><div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> GET <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www.yourapp.com)'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
@@ -3475,7 +3496,6 @@ nusii templates list <span class="nt">--public-templates</span>
 <td>Look at Client for information</td>
 </tr>
 </tbody></table>
-
 <h1 id='users'>Users</h1><h2 id='get-all-users'>Get all Users</h2><div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> GET <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www.yourapp.com)'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
@@ -3520,7 +3540,6 @@ nusii templates list <span class="nt">--public-templates</span>
 <p>This endpoint retrieves all users.</p>
 <h3 id='http-request'>HTTP Request</h3>
 <p><code>GET https://app.nusii.com/api/v2/users</code></p>
-
 <h1 id='themes'>Themes</h1><h2 id='get-all-themes'>Get all Themes</h2><div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> GET <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www.yourapp.com)'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
@@ -3549,13 +3568,9 @@ nusii templates list <span class="nt">--public-templates</span>
 <p>This endpoint retrieves all available themes.</p>
 <h3 id='http-request'>HTTP Request</h3>
 <p><code>GET https://app.nusii.com/api/v2/themes</code></p>
-
 <h1 id='webhooks'>Webhooks</h1>
-
 <p>With Nusii webhooks we can send your application requests when something interesting happens, like <code>Proposal Accepted</code>, <code>Proposal Viewed</code> etc.</p>
-
 <h2 id='webhook-endpoint-format'>Webhook endpoint format</h2>
-
 <p>Every webhook uses the same structure. It will always be in a standard <code>POST</code> request with the object in the body.</p>
 
 <p>The target url needs to be able to accept <code>Content Type</code>: <code>application/json</code> and <code>POST</code> requests. Everything other than a 2xx request will be concidered an error and we will try will retry 25 times. If we receive a <code>410 GONE</code> response, we will delete the webhook entirely.</p>
@@ -3575,7 +3590,6 @@ nusii templates list <span class="nt">--public-templates</span>
 <td>An hash that represents the object. The key is always the name of the object. &quot;proposal&quot;, &quot;client&quot; etc</td>
 </tr>
 </tbody></table>
-
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="w">  </span><span class="p">{</span><span class="w">
     </span><span class="nl">"event_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"proposal_created"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"proposal"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -3653,11 +3667,9 @@ nusii templates list <span class="nt">--public-templates</span>
 
 <span class="nv">$nusii</span><span class="o">-&gt;</span><span class="nf">webhookEndpoints</span><span class="p">()</span><span class="o">-&gt;</span><span class="k">list</span><span class="p">();</span>
 </code></pre></div>
-
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
-
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
@@ -3681,45 +3693,41 @@ nusii templates list <span class="nt">--public-templates</span>
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-
 <p>This endpoint retrieves all webhooks endpoints.</p>
-
 <h3 id='http-request'>HTTP Request</h3>
-
 <p><code>GET https://app.nusii.com/api/v2/webhook_endpoints</code></p>
-
-<p><h2 id='get-a-webhook-endpoint'>Get a webhook endpoint</h2><div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> GET <span class="se">&lt;/span&gt;
-  <span class="nt">-H</span> <span class="s1">&#39;User-Agent: Your App Name (www.yourapp.com)&#39;</span> <span class="se">&lt;/span&gt;
-  <span class="nt">-H</span> <span class="s1">&#39;Content-Type: application/json&#39;</span> <span class="se">&lt;/span&gt;
-  <span class="nt">-H</span> <span class="s1">&#39;Accept: application/json&#39;</span> <span class="se">&lt;/span&gt;
-  <span class="nt">-H</span> <span class="s2">&quot;Authorization: Token token=YOUR_API_KEY&quot;</span> <span class="se">&lt;/span&gt;
-  <span class="s2">&quot;https://app.nusii.com/api/v2/webhook_endpoints/:id&quot;</span>
+<h2 id='get-a-webhook-endpoint'>Get a webhook endpoint</h2><div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> GET <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www.yourapp.com)'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Authorization: Token token=YOUR_API_KEY"</span> <span class="se">\</span>
+  <span class="s2">"https://app.nusii.com/api/v2/webhook_endpoints/:id"</span>
 </code></pre></div><div class="highlight"><pre class="highlight shell tab-shell--cli"><code>nusii webhooks get 100
-</code></pre></div><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">&#39;nusii-ruby&#39;</span></p>
+</code></pre></div><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'nusii-ruby'</span>
 
-<p><span class="no">Nusii</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">&#39;YOUR_API_KEY&#39;</span>
-<span class="no">Nusii</span><span class="p">.</span><span class="nf">user_agent</span> <span class="o">=</span> <span class="s1">&#39;Your App Name (www.yourapp.com)&#39;</span></p>
+<span class="no">Nusii</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'YOUR_API_KEY'</span>
+<span class="no">Nusii</span><span class="p">.</span><span class="nf">user_agent</span> <span class="o">=</span> <span class="s1">'Your App Name (www.yourapp.com)'</span>
 
-<p><span class="no">Nusii</span><span class="o">::</span><span class="no">WebhookEndpoint</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
-</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="kn">use</span> <span class="nc">Nusii\Nusii</span><span class="p">;</span></p>
+<span class="no">Nusii</span><span class="o">::</span><span class="no">WebhookEndpoint</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="kn">use</span> <span class="nc">Nusii\Nusii</span><span class="p">;</span>
 
-<p><span class="nv">$nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Nusii</span><span class="p">(</span><span class="s1">&#39;YOUR_API_KEY&#39;</span><span class="p">);</span></p>
+<span class="nv">$nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Nusii</span><span class="p">(</span><span class="s1">'YOUR_API_KEY'</span><span class="p">);</span>
 
-<p><span class="nv">$nusii</span><span class="o">-&gt;</span><span class="nf">webhookEndpoints</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">get</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+<span class="nv">$nusii</span><span class="o">-&gt;</span><span class="nf">webhookEndpoints</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">get</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;33&quot;</span><span class="p">,</span><span class="w">
-    </span><span class="nl">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;webhook_endpoints&quot;</span><span class="p">,</span><span class="w">
-    </span><span class="nl">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nl">&quot;events&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="s2">&quot;proposal_created&quot;</span><span class="p">,</span><span class="w">
-        </span><span class="s2">&quot;client_created&quot;</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"33"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"webhook_endpoints"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"events"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"proposal_created"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"client_created"</span><span class="w">
       </span><span class="p">],</span><span class="w">
-      </span><span class="nl">&quot;target_url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://example.com/webhooks&quot;</span><span class="w">
+      </span><span class="nl">"target_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com/webhooks"</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -3727,45 +3735,45 @@ nusii templates list <span class="nt">--public-templates</span>
 <p>This endpoint retrieves a single webhook endpoint</p>
 <h3 id='http-request-2'>HTTP Request</h3>
 <p><code>GET https://app.nusii.com/api/v2/webhook_endpoints/:id</code></p>
-<h2 id='create-a-webhook-endpoint'>Create a webhook endpoint</h2><div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> POST <span class="se">&lt;/span&gt;
-  <span class="nt">-H</span> <span class="s1">&#39;User-Agent: Your App Name (www.yourapp.com)&#39;</span> <span class="se">&lt;/span&gt;
-  <span class="nt">-H</span> <span class="s1">&#39;Content-Type: application/json&#39;</span> <span class="se">&lt;/span&gt;
-  <span class="nt">-H</span> <span class="s1">&#39;Accept: application/json&#39;</span> <span class="se">&lt;/span&gt;
-  <span class="nt">-H</span> <span class="s2">&quot;Authorization: Token token=YOUR_API_KEY&quot;</span> <span class="se">&lt;/span&gt;
-  <span class="nt">-d</span> <span class="s1">&#39;{&quot;webhook_endpoint&quot;:{&quot;target_url&quot;: &quot;http://example.com&quot;,&quot;events&quot;: [&quot;proposal_created&quot;, &quot;client_created&quot;]}}&#39;</span> <span class="se">&lt;/span&gt;
-  <span class="s2">&quot;https://app.nusii.com/api/v2/webhook_endpoints&quot;</span>
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell--cli"><code>nusii webhooks create <span class="nt">--target-url</span> <span class="s2">&quot;http://example.com&quot;</span> <span class="nt">--events</span> <span class="s2">&quot;proposal_created,client_created&quot;</span>
-</code></pre></div><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">&#39;nusii-ruby&#39;</span></p>
+<h2 id='create-a-webhook-endpoint'>Create a webhook endpoint</h2><div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> POST <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www.yourapp.com)'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Authorization: Token token=YOUR_API_KEY"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s1">'{"webhook_endpoint":{"target_url": "http://example.com","events": ["proposal_created", "client_created"]}}'</span> <span class="se">\</span>
+  <span class="s2">"https://app.nusii.com/api/v2/webhook_endpoints"</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell--cli"><code>nusii webhooks create <span class="nt">--target-url</span> <span class="s2">"http://example.com"</span> <span class="nt">--events</span> <span class="s2">"proposal_created,client_created"</span>
+</code></pre></div><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'nusii-ruby'</span>
 
-<p><span class="no">Nusii</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">&#39;YOUR_API_KEY&#39;</span>
-<span class="no">Nusii</span><span class="p">.</span><span class="nf">user_agent</span> <span class="o">=</span> <span class="s1">&#39;Your App Name (www.yourapp.com)&#39;</span></p>
+<span class="no">Nusii</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'YOUR_API_KEY'</span>
+<span class="no">Nusii</span><span class="p">.</span><span class="nf">user_agent</span> <span class="o">=</span> <span class="s1">'Your App Name (www.yourapp.com)'</span>
 
-<p><span class="no">Nusii</span><span class="o">::</span><span class="no">WebhookEndpoint</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span>
+<span class="no">Nusii</span><span class="o">::</span><span class="no">WebhookEndpoint</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span>
   <span class="ss">target_url: </span><span class="n">http</span><span class="ss">:/</span><span class="o">/</span><span class="n">example</span><span class="p">.</span><span class="nf">com</span><span class="p">,</span>
-  <span class="ss">events: </span><span class="p">[</span><span class="s1">&#39;proposal_created&#39;</span><span class="p">,</span> <span class="s1">&#39;client_created&#39;</span><span class="p">]</span>
+  <span class="ss">events: </span><span class="p">[</span><span class="s1">'proposal_created'</span><span class="p">,</span> <span class="s1">'client_created'</span><span class="p">]</span>
 <span class="p">)</span>
-</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="kn">use</span> <span class="nc">Nusii\Nusii</span><span class="p">;</span></p>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="kn">use</span> <span class="nc">Nusii\Nusii</span><span class="p">;</span>
 
-<p><span class="nv">$nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Nusii</span><span class="p">(</span><span class="s1">&#39;YOUR_API_KEY&#39;</span><span class="p">);</span></p>
+<span class="nv">$nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Nusii</span><span class="p">(</span><span class="s1">'YOUR_API_KEY'</span><span class="p">);</span>
 
-<p><span class="nv">$nusii</span><span class="o">-&gt;</span><span class="nf">webhookEndpoints</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">create</span><span class="p">([</span>
-    <span class="s1">&#39;target_url&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;http://example.com&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;events&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;proposal_created&#39;</span><span class="p">,</span> <span class="s1">&#39;client_created&#39;</span><span class="p">],</span>
+<span class="nv">$nusii</span><span class="o">-&gt;</span><span class="nf">webhookEndpoints</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">create</span><span class="p">([</span>
+    <span class="s1">'target_url'</span> <span class="o">=&gt;</span> <span class="s1">'http://example.com'</span><span class="p">,</span>
+    <span class="s1">'events'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'proposal_created'</span><span class="p">,</span> <span class="s1">'client_created'</span><span class="p">],</span>
 <span class="p">]);</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;34&quot;</span><span class="p">,</span><span class="w">
-    </span><span class="nl">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;webhook_endpoints&quot;</span><span class="p">,</span><span class="w">
-    </span><span class="nl">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nl">&quot;events&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="s2">&quot;proposal_created&quot;</span><span class="p">,</span><span class="w">
-        </span><span class="s2">&quot;client_created&quot;</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"34"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"webhook_endpoints"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"events"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"proposal_created"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"client_created"</span><span class="w">
       </span><span class="p">],</span><span class="w">
-      </span><span class="nl">&quot;target_url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://example.com&quot;</span><span class="w">
+      </span><span class="nl">"target_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -3795,65 +3803,62 @@ nusii templates list <span class="nt">--public-templates</span>
 <td>An Array of string that represents the events you want to subscribe to.</td>
 </tr>
 </tbody></table>
-<h2 id='delete-a-webhook-endpoint'>Delete a webhook endpoint</h2><div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> DELETE <span class="se">&lt;/span&gt;
-  <span class="nt">-H</span> <span class="s1">&#39;User-Agent: Your App Name (www.yourapp.com)&#39;</span> <span class="se">&lt;/span&gt;
-  <span class="nt">-H</span> <span class="s1">&#39;Content-Type: application/json&#39;</span> <span class="se">&lt;/span&gt;
-  <span class="nt">-H</span> <span class="s1">&#39;Accept: application/json&#39;</span> <span class="se">&lt;/span&gt;
-  <span class="nt">-H</span> <span class="s2">&quot;Authorization: Token token=YOUR_API_KEY&quot;</span> <span class="se">&lt;/span&gt;
-  <span class="s2">&quot;https://app.nusii.com/api/v2/webhook_endpoints/:id&quot;</span>
+<h2 id='delete-a-webhook-endpoint'>Delete a webhook endpoint</h2><div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> DELETE <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www.yourapp.com)'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Authorization: Token token=YOUR_API_KEY"</span> <span class="se">\</span>
+  <span class="s2">"https://app.nusii.com/api/v2/webhook_endpoints/:id"</span>
 </code></pre></div><div class="highlight"><pre class="highlight shell tab-shell--cli"><code>nusii webhooks delete 100
-</code></pre></div><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">&#39;nusii-ruby&#39;</span></p>
+</code></pre></div><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'nusii-ruby'</span>
 
-<p><span class="no">Nusii</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">&#39;YOUR_API_KEY&#39;</span>
-<span class="no">Nusii</span><span class="p">.</span><span class="nf">user_agent</span> <span class="o">=</span> <span class="s1">&#39;Your App Name (www.yourapp.com)&#39;</span></p>
+<span class="no">Nusii</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'YOUR_API_KEY'</span>
+<span class="no">Nusii</span><span class="p">.</span><span class="nf">user_agent</span> <span class="o">=</span> <span class="s1">'Your App Name (www.yourapp.com)'</span>
 
-<p><span class="n">endpoint</span> <span class="o">=</span> <span class="no">Nusii</span><span class="o">::</span><span class="no">WebhookEndpoint</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">endpoint</span> <span class="o">=</span> <span class="no">Nusii</span><span class="o">::</span><span class="no">WebhookEndpoint</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
 <span class="n">endpoint</span><span class="p">.</span><span class="nf">destroy</span>
-</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="kn">use</span> <span class="nc">Nusii\Nusii</span><span class="p">;</span></p>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="kn">use</span> <span class="nc">Nusii\Nusii</span><span class="p">;</span>
 
-<p><span class="nv">$nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Nusii</span><span class="p">(</span><span class="s1">&#39;YOUR_API_KEY&#39;</span><span class="p">);</span></p>
+<span class="nv">$nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Nusii</span><span class="p">(</span><span class="s1">'YOUR_API_KEY'</span><span class="p">);</span>
 
-<p><span class="nv">$nusii</span><span class="o">-&gt;</span><span class="nf">webhookEndpoints</span><span class="p">()</span><span class="o">-&gt;</span><span class="nb">delete</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+<span class="nv">$nusii</span><span class="o">-&gt;</span><span class="nf">webhookEndpoints</span><span class="p">()</span><span class="o">-&gt;</span><span class="nb">delete</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;34&quot;</span><span class="p">,</span><span class="w">
-    </span><span class="nl">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;webhook_endpoints&quot;</span><span class="p">,</span><span class="w">
-    </span><span class="nl">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nl">&quot;events&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="s2">&quot;proposal_created&quot;</span><span class="p">,</span><span class="w">
-        </span><span class="s2">&quot;client_created&quot;</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"34"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"webhook_endpoints"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"events"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"proposal_created"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"client_created"</span><span class="w">
       </span><span class="p">],</span><span class="w">
-      </span><span class="nl">&quot;target_url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://example.com&quot;</span><span class="w">
+      </span><span class="nl">"target_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>This endpoint deletes a specific webhook_endpoint.</p>
 <h3 id='http-request-4'>HTTP Request</h3>
-<p><code>DELETE https://app.nusii.com/api/v2/webhook_endpoints/:id</code></p></p>
-
+<p><code>DELETE https://app.nusii.com/api/v2/webhook_endpoints/:id</code></p>
 <h1 id='pagination'>Pagination</h1>
-
 <p>Some endpoints that return collections are paginated. For these endpoints, the meta object will tell you the current page, count, total number of pages, and total count of the collection.</p>
-
-<p><div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="s2">&quot;https://app.nusii.com/api/v2/proposals&quot;</span> <span class="se">&lt;/span&gt;
-  <span class="nt">-H</span> <span class="s2">&quot;Authorization: Token token=your_access_token&quot;</span>
+<div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="s2">"https://app.nusii.com/api/v2/proposals"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Authorization: Token token=your_access_token"</span>
 </code></pre></div><div class="highlight"><pre class="highlight shell tab-shell--cli"><code>nusii proposals list <span class="nt">--page</span> 2 <span class="nt">--per-page</span> 10
 </code></pre></div><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="err">...</span><span class="p">},</span><span class="w">
     </span><span class="p">{</span><span class="err">...</span><span class="p">}</span><span class="w">
   </span><span class="p">],</span><span class="w">
-  </span><span class="nl">&quot;meta&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">&quot;current-page&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="nl">&quot;next-page&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
-    </span><span class="nl">&quot;prev-page&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="nl">&quot;total-pages&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
-    </span><span class="nl">&quot;total-count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">89</span><span class="w">
+  </span><span class="nl">"meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"current-page"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"next-page"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"prev-page"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"total-pages"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"total-count"</span><span class="p">:</span><span class="w"> </span><span class="mi">89</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div><h3 id='query-parameters'>Query Parameters</h3>
@@ -3874,10 +3879,8 @@ nusii templates list <span class="nt">--public-templates</span>
 <td>25</td>
 <td>Number of results per page</td>
 </tr>
-</tbody></table></p>
-
+</tbody></table>
 <h1 id='rate-limiting'>Rate Limiting</h1>
-
 <p>There is a rate limit of 100 API calls every 30 seconds.</p>
 
 <p>With every request to the API we add a couple of headers to the request. </p>
@@ -3907,9 +3910,7 @@ nusii templates list <span class="nt">--public-templates</span>
 <td>The timestamp when it is allowed again to make API calls.</td>
 </tr>
 </tbody></table>
-
 <h1 id='errors'>Errors</h1>
-
 <p>The Nusii API uses the following error codes:</p>
 
 <table><thead>
@@ -3973,8 +3974,8 @@ nusii templates list <span class="nt">--public-templates</span>
           <div class="lang-selector">
                 <a href="#" data-language-name="shell--curl">cURL</a>
                 <a href="#" data-language-name="shell--cli">Nusii CLI</a>
-                <a href="#" data-language-name="ruby">Ruby</a>
-                <a href="#" data-language-name="php">PHP</a>
+                <a href="#" data-language-name="ruby">ruby</a>
+                <a href="#" data-language-name="php">php</a>
           </div>
       </div>
     </div>
