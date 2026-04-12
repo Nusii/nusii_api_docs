@@ -25,6 +25,22 @@ curl -X GET \
   -H 'Accept: application/json' \
   -H "Authorization: Token token=YOUR_API_KEY" \
   "https://app.nusii.com/api/v2/proposals?status=draft"
+
+# Get proposals sent to a specific recipient
+curl -X GET \
+  -H 'User-Agent: Your App Name (www.yourapp.com)' \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
+  -H "Authorization: Token token=YOUR_API_KEY" \
+  "https://app.nusii.com/api/v2/proposals?recipient_email=alice@example.com"
+
+# Get proposals sent to any of multiple recipients
+curl -X GET \
+  -H 'User-Agent: Your App Name (www.yourapp.com)' \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
+  -H "Authorization: Token token=YOUR_API_KEY" \
+  "https://app.nusii.com/api/v2/proposals?recipient_emails=alice@example.com,bob@example.com,carol@example.com"
 ```
 
 ```shell--cli
@@ -120,6 +136,8 @@ Parameter | Default | Description
 --------- | ------- | -----------
 status | null | If not set retrieves all proposals, Possible states are `draft`, `pending`, `accepted`, `rejected`, or `clarification`
 archived | false | If set to true, the result will only include archived proposals.
+recipient_email | null | Filter by recipient email address. Supports comma-separated emails to match proposals sent to any of the listed addresses (up to 30).
+recipient_emails | null | Alias for `recipient_email`. Filter by one or more comma-separated recipient email addresses (up to 30). Returns proposals sent to any of the listed addresses.
 
 ## Get a proposal
 
