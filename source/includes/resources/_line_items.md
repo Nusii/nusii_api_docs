@@ -53,6 +53,8 @@ $nusii->lineItems()->list(page: 1);
         "currency": "GBP",
         "amount_in_cents": 150000,
         "amount_formatted": "£1,500.00",
+        "maximum_amount_in_cents": null,
+        "maximum_amount_formatted": null,
         "total_in_cents": 150000,
         "total_formatted": "£1,500.00"
       }
@@ -128,6 +130,8 @@ $nusii->lineItems()->listBySection(sectionId: 100);
         "currency": "GBP",
         "amount_in_cents": 150000,
         "amount_formatted": "£1,500.00",
+        "maximum_amount_in_cents": null,
+        "maximum_amount_formatted": null,
         "total_in_cents": 150000,
         "total_formatted": "£1,500.00"
       }
@@ -201,6 +205,8 @@ $nusii->lineItems()->createForSection(sectionId: 100, attributes: [
       "currency": "GBP",
       "amount_in_cents": null,
       "amount_formatted": "£0.00",
+      "maximum_amount_in_cents": null,
+      "maximum_amount_formatted": null,
       "total_in_cents": 0,
       "total_formatted": "£0.00"
     }
@@ -219,12 +225,13 @@ This will return 201 Created and the current JSON representation of the line ite
 Parameter | Mandatory | Type | Description
 --------- | --------- | -----| -----------
 name | no | Text | Body of the line item
-cost_type | no | String | Default `fixed`. Possible values are `fixed`, `recurring` or `per`
+cost_type | no | String | Default `fixed`. Possible values are `fixed`, `recurring`, `per` or `range`
 recurring_type | no | String | Possible values are `yearly`, `semiannually`, `trimester`, `monthly`, `weekly`, `daily` or `hourly`
 per_type | no | String | Possible values are `year`, `month`, `week`, `day`, `hour`, `item` or `unit`
 position | no | Integer | Position of the line item within the section
 quantity | no | Integer | If `cost_type` is `per` then total of the line item is calculated by `quantity` multiplied by `amount`
-amount | no | Integer | Amount in cents
+amount | no | Integer | Amount in cents. For a `range` line item this is the low end of the range
+maximum_amount | no | Integer | High end of a price range in cents. Only used when `cost_type` is `range` (see [Price ranges](#price-ranges)). Leave blank for a single price; sending an empty value clears it
 
 ## Update a line item
 
@@ -284,6 +291,8 @@ $nusii->lineItems()->update(100, [
       "currency": "GBP",
       "amount_in_cents": 10000,
       "amount_formatted": "£100.00",
+      "maximum_amount_in_cents": null,
+      "maximum_amount_formatted": null,
       "total_in_cents": 10000,
       "total_formatted": "£100.00"
     }
@@ -307,12 +316,13 @@ or
 Parameter | Mandatory | Type | Description
 --------- | --------- | -----| -----------
 name | no | Text | Body of the line item
-cost_type | no | String | Default `fixed`. Possible values are `fixed`, `recurring` or `per`
+cost_type | no | String | Default `fixed`. Possible values are `fixed`, `recurring`, `per` or `range`
 recurring_type | no | String | Possible values are `yearly`, `semiannually`, `trimester`, `monthly`, `weekly`, `daily` or `hourly`
 per_type | no | String | Possible values are `year`, `month`, `week`, `day`, `hour`, `item` or `unit`
 position | no | Integer | Position of the line item within the section
 quantity | no | Integer | If `cost_type` is `per` then total of the line item is calculated by `quantity` multiplied by `amount`
-amount | no | Integer | Amount in cents
+amount | no | Integer | Amount in cents. For a `range` line item this is the low end of the range
+maximum_amount | no | Integer | High end of a price range in cents. Only used when `cost_type` is `range` (see [Price ranges](#price-ranges)). Leave blank for a single price; sending an empty value clears it
 
 ## Delete a line item
 
@@ -367,6 +377,8 @@ $nusii->lineItems()->delete(100);
       "currency": "GBP",
       "amount_in_cents": 10000,
       "amount_formatted": "£100.00",
+      "maximum_amount_in_cents": null,
+      "maximum_amount_formatted": null,
       "total_in_cents": 10000,
       "total_formatted": "£100.00"
     }
@@ -380,3 +392,45 @@ This endpoint deletes a specific line item.
 ### HTTP Request
 
 `DELETE https://app.nusii.com/api/v2/line_items/:id`
+
+## Price ranges
+
+> A `range` line item with its maximum set:
+
+```json
+{
+  "data": {
+    "id": "158",
+    "type": "line_items",
+    "attributes": {
+      "section_id": 458,
+      "name": "Discovery & UX research",
+      "position": 3,
+      "cost_type": "range",
+      "recurring_type": null,
+      "per_type": null,
+      "quantity": null,
+      "updated_at": "2017-11-27T10:45:09.919Z",
+      "created_at": "2017-11-27T10:45:09.919Z",
+      "currency": "GBP",
+      "amount_in_cents": 500000,
+      "amount_formatted": "£5,000.00",
+      "maximum_amount_in_cents": 800000,
+      "maximum_amount_formatted": "£8,000.00",
+      "total_in_cents": 500000,
+      "total_formatted": "£5,000.00"
+    }
+  }
+}
+```
+
+A line item with `cost_type` of `range` shows a price range, e.g. **£5,000.00 – £8,000.00**, instead of a single value. The existing `amount` is the low end of the range, and `maximum_amount` is the high end.
+
+- Both values are in cents. `maximum_amount` must be greater than or equal to `amount`.
+- `maximum_amount` is **nullable**: leaving it blank (or sending an empty value) means "no range / single price", which is different from a maximum of `0`.
+- `maximum_amount_in_cents` and `maximum_amount_formatted` are always present in the response. They are `null` for any line item that is not a populated range.
+- `total_in_cents` keeps the low end of the range, so section and proposal totals are unaffected. Section totals are exposed as a range separately — see `maximum_total_in_cents` on [Sections](#sections).
+
+<aside class="notice">
+Price ranges are a feature that has to be enabled for your account. While it is disabled, sending <code>cost_type: "range"</code> returns <code>422 Unprocessable Entity</code> with a <code>cost_type_not_available</code> error, and any <code>maximum_amount</code> you send is ignored. Contact support to have it enabled.
+</aside>

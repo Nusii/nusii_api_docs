@@ -58,7 +58,9 @@ $nusii->sections()->list(proposalId: 126, page: 1);
         "selected": false,
         "include_total": false,
         "total_in_cents": 50000,
-        "total_formatted": "£500.00"
+        "total_formatted": "£500.00",
+        "maximum_total_in_cents": null,
+        "maximum_total_formatted": null
       },
       "relationships": {
         "line_items": {
@@ -84,6 +86,10 @@ $nusii->sections()->list(proposalId: 126, page: 1);
 ```
 
 This endpoint retrieves all sections.
+
+<aside class="notice">
+<code>total_in_cents</code> is the section total using the low end of any price range line items. When the section contains <a href="#price-ranges">price ranges</a>, <code>maximum_total_in_cents</code> and <code>maximum_total_formatted</code> carry the high end of the total; they are <code>null</code> when the total is not a range.
+</aside>
 
 ### HTTP Request
 
@@ -154,7 +160,9 @@ $nusii->sections()->get(100);
       "selected": false,
       "include_total": false,
       "total_in_cents": 50000,
-      "total_formatted": "£500.00"
+      "total_formatted": "£500.00",
+      "maximum_total_in_cents": null,
+      "maximum_total_formatted": null
     },
     "relationships": {
       "line_items": {
@@ -240,7 +248,9 @@ $nusii->sections()->create([
       "selected": false,
       "include_total": false,
       "total_in_cents": 50000,
-      "total_formatted": "£500.00"
+      "total_formatted": "£500.00",
+      "maximum_total_in_cents": null,
+      "maximum_total_formatted": null
     },
     "relationships": {
       "line_items": {
@@ -341,7 +351,9 @@ $nusii->sections()->update(100, [
       "selected": false,
       "include_total": false,
       "total_in_cents": 50000,
-      "total_formatted": "£500.00"
+      "total_formatted": "£500.00",
+      "maximum_total_in_cents": null,
+      "maximum_total_formatted": null
     }
   }
 }
@@ -427,7 +439,9 @@ $nusii->sections()->delete(100);
       "selected": false,
       "include_total": false,
       "total_in_cents": 50000,
-      "total_formatted": "£500.00"
+      "total_formatted": "£500.00",
+      "maximum_total_in_cents": null,
+      "maximum_total_formatted": null
     }
   }
 }
