@@ -526,6 +526,9 @@
             <a href="#rate-limiting" class="toc-h1 toc-link" data-title="Rate Limiting">Rate Limiting</a>
           </li>
           <li>
+            <a href="#request-logs" class="toc-h1 toc-link" data-title="Request Logs">Request Logs</a>
+          </li>
+          <li>
             <a href="#errors" class="toc-h1 toc-link" data-title="Errors">Errors</a>
           </li>
       </ul>
@@ -4013,6 +4016,24 @@ Price ranges are a feature that has to be enabled for your account. While it is 
 <td>The timestamp when it is allowed again to make API calls.</td>
 </tr>
 </tbody></table>
+
+<h1 id='request-logs'>Request Logs</h1>
+
+<p>Every request made to the API is logged and viewable in the app under <a href="https://app.nusii.com/settings/api_logs">Settings → API → API Logs</a>, so you can see exactly what your integration is sending and debug it when something looks off.</p>
+
+<p>For each request we record:</p>
+
+<ul>
+<li>The HTTP method and path</li>
+<li>The request parameters</li>
+<li>The response status and JSON response body</li>
+<li>The duration and user agent</li>
+<li>The API token that made the request</li>
+</ul>
+
+<p>You can filter the list by API token (including revoked tokens), and click any request to see its full parameters and response. Response bodies are truncated at 64 KB.</p>
+
+<p>Logs are kept for 30 days, or 90 days on the Business plan. Viewing them requires the &quot;View API logs&quot; permission, so account owners can control which team members have access.</p>
 
 <h1 id='errors'>Errors</h1>
 
