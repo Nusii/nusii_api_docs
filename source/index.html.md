@@ -26,6 +26,7 @@ includes:
   - resources/webhooks
   - pagination
   - rate_limiting
+  - request_logs
   - errors
 
 search: true
