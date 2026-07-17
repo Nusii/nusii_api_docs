@@ -319,6 +319,9 @@
             <a href="#introduction" class="toc-h1 toc-link" data-title="Introduction">Introduction</a>
           </li>
           <li>
+            <a href="#mcp-server" class="toc-h1 toc-link" data-title="MCP Server">MCP Server</a>
+          </li>
+          <li>
             <a href="#nusii-cli" class="toc-h1 toc-link" data-title="Nusii CLI">Nusii CLI</a>
           </li>
           <li>
@@ -544,6 +547,15 @@
       <div class="content">
         <h1 id='introduction'>Introduction</h1>
 <p>Welcome to the Nusii API! You can use our API to access Nusii API endpoints. All endpoint URLs begin with <code>https://app.nusii.com/api/v2/</code>. All requests must be serialized in JSON and Nusii uses the <a href="http://jsonapi.org/">jsonapi.org</a> specification.</p>
+<h1 id='mcp-server'>MCP Server</h1>
+<p>Nusii has a built-in MCP (<a href="https://modelcontextprotocol.io">Model Context Protocol</a>) server, so AI assistants like Claude, ChatGPT, Gemini, and Microsoft Copilot can work with your Nusii account: summarize your proposals, draft new ones from your templates, and update pricing, straight from a chat.</p>
+
+<p>Whichever assistant you use, the server URL is the same:</p>
+<div class="highlight"><pre class="highlight plaintext"><code>https://app.nusii.com/mcp
+</code></pre></div>
+<p>Connections authenticate with OAuth. You sign in with your normal Nusii login and approve read or read/write access, so no API key is needed. Assistants can never send a proposal or edit an accepted one, and every request is logged under <a href="https://app.nusii.com/settings/api">Settings &gt; API</a>.</p>
+
+<p>For step-by-step setup instructions for each assistant, see <a href="https://nusii.com/docs/integrations/ai-assistants/">Connect AI assistants to Nusii</a>.</p>
 <h1 id='nusii-cli'>Nusii CLI</h1>
 <p>The <a href="https://github.com/Nusii/nusii-cli">Nusii CLI</a> is a command-line tool for the Nusii API. It can be used standalone or with AI coding agents like Claude Code, Codex, and others.</p>
 
