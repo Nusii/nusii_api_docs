@@ -44,6 +44,20 @@ Welcome to the Nusii API. You can use our API to manage clients, proposals, sect
 
 We have examples in cURL, the [Nusii CLI](https://github.com/Nusii/nusii-cli), Ruby, and PHP. You can view code examples in the dark area to the right, and you can switch between them using the tabs in the top right.
 
+# MCP Server
+
+Nusii has a built-in MCP ([Model Context Protocol](https://modelcontextprotocol.io)) server, so AI assistants like Claude, ChatGPT, Gemini, and Microsoft Copilot can work with your Nusii account: summarize your proposals, draft new ones from your templates, and update pricing, straight from a chat.
+
+Whichever assistant you use, the server URL is the same:
+
+```
+https://app.nusii.com/mcp
+```
+
+Connections authenticate with OAuth. You sign in with your normal Nusii login and approve read or read/write access, so no API key is needed. Assistants can never send a proposal or edit an accepted one, and every request is logged under [Settings > API](https://app.nusii.com/settings/api).
+
+For step-by-step setup instructions for each assistant, see [Connect AI assistants to Nusii](https://nusii.com/docs/integrations/ai-assistants/).
+
 # Nusii CLI
 
 The [Nusii CLI](https://github.com/Nusii/nusii-cli) is a command-line tool for the Nusii API. It can be used standalone or with AI coding agents like Claude Code, Codex, and others.
