@@ -76,7 +76,7 @@ Tool | Description
 `template_details` | One template's full content: text sections, cost sections with line items, and the template total.
 `clients_search` | Case-insensitive client lookup by name, company, or email.
 `proposal_details` | A whole proposal for review: metadata, client, and every section in order.
-`proposal_pricing` | A proposal's cost sections, line items, and totals, including per-unit, recurring, and range items.
+`proposal_pricing` | A proposal's cost sections, line items, and totals, including per-unit, recurring, and range items, plus the subtotal and applied taxes.
 `section_body` | One section's raw editor HTML, so rewrites can round-trip without destroying formatting.
 
 ### Write tools
@@ -91,6 +91,7 @@ Tool | Description
 `update_section` | Replace a section's title or body.
 `update_line_items` | Batch-update line item names, amounts, and quantities. Atomic: one invalid item rolls back the whole batch.
 `remove_line_items` | Delete line items from a proposal. Totals recalculate automatically.
+`set_proposal_taxes` | Replace the whole set of taxes on a proposal: saved account taxes by id or name, or ad-hoc rates as a percentage of the subtotal. An empty array clears them.
 `attach_client_to_proposal` | Set or replace a proposal's client, with the same id/email resolution as create.
 
 ### Tool limits
@@ -100,6 +101,7 @@ A few caps to know about when building on the write tools:
 - 20 sections per `create_proposal` call, and 100 sections per proposal overall
 - 50 line items per section
 - 50,000 characters per section body
+- 10 taxes per `set_proposal_taxes` call
 - `clients_search` returns at most 20 matches; `templates_list` pages 50 at a time
 - Amounts are decimal strings (`"1250.00"`), never integers
 
