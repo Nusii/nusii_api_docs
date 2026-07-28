@@ -479,6 +479,9 @@
                   <li>
                     <a href="#price-ranges" class="toc-h2 toc-link" data-title="Price ranges">Price ranges</a>
                   </li>
+                  <li>
+                    <a href="#choice-line-items" class="toc-h2 toc-link" data-title="Choice line items">Choice line items</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -2846,7 +2849,7 @@ nusii templates list <span class="nt">--public-templates</span>
 <p>Without <code>proposal_id</code> or <code>template_id</code>, this endpoint returns your account&#39;s reusable sections. Pass one of those parameters to list a proposal&#39;s or a template&#39;s sections instead. For cost sections, the line item objects are always included in the top-level <code>included</code> array.</p>
 
 <aside class="notice">
-<code>total_in_cents</code> is the section total using the low end of any price range line items. When the section contains <a href="#price-ranges">price ranges</a>, <code>maximum_total_in_cents</code> and <code>maximum_total_formatted</code> carry the high end of the total; they are <code>null</code> when the total is not a range.
+<code>total_in_cents</code> is the section total using the low end of any price range line items. When the section contains <a href="#price-ranges">price ranges</a>, <code>maximum_total_in_cents</code> and <code>maximum_total_formatted</code> carry the high end of the total; they are <code>null</code> when the total is not a range. When it contains <a href="#choice-line-items">choice line items</a>, the total only sums the options that are currently selected (or marked as mandatory).
 </aside>
 <h3 id='http-request'>HTTP Request</h3>
 <p><code>GET https://app.nusii.com/api/v2/sections</code></p>
@@ -3306,6 +3309,7 @@ nusii templates list <span class="nt">--public-templates</span>
         </span><span class="nl">"cost_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fixed"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"recurring_type"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
         </span><span class="nl">"per_type"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"choice_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"none"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
         </span><span class="nl">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-11-24T10:30:40.282Z"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-11-24T10:30:40.282Z"</span><span class="p">,</span><span class="w">
@@ -3364,6 +3368,7 @@ nusii templates list <span class="nt">--public-templates</span>
       </span><span class="nl">"cost_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fixed"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"recurring_type"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
       </span><span class="nl">"per_type"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"choice_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"none"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
       </span><span class="nl">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-11-27T10:45:09.919Z"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-11-27T10:45:09.919Z"</span><span class="p">,</span><span class="w">
@@ -3400,7 +3405,7 @@ nusii templates list <span class="nt">--public-templates</span>
 <td>cost_type</td>
 <td>no</td>
 <td>String</td>
-<td>Default <code>fixed</code>. Possible values are <code>fixed</code>, <code>recurring</code>, <code>per</code> or <code>range</code></td>
+<td>Default <code>fixed</code>. Possible values are <code>fixed</code>, <code>recurring</code>, <code>per</code> or <code>range</code>. Cannot be <code>null</code>: sending an explicit <code>null</code> value returns <code>422 Unprocessable Entity</code> with a validation error on <code>cost_type</code>; omitting the key uses the default</td>
 </tr>
 <tr>
 <td>recurring_type</td>
@@ -3413,6 +3418,12 @@ nusii templates list <span class="nt">--public-templates</span>
 <td>no</td>
 <td>String</td>
 <td>Possible values are <code>year</code>, <code>month</code>, <code>week</code>, <code>day</code>, <code>hour</code>, <code>cycle</code>, <code>item</code>, <code>person</code>, <code>session</code> or <code>unit</code>. Accounts with the matching feature enabled can also use <code>team</code>, <code>visit</code>, <code>square_meter</code>, <code>meter</code>, <code>song</code> or <code>keynote</code>.</td>
+</tr>
+<tr>
+<td>choice_type</td>
+<td>no</td>
+<td>String</td>
+<td>Default <code>none</code>. Possible values are <code>none</code>, <code>checkbox</code> (multiple choice) or <code>radio</code> (single choice) — see <a href="#choice-line-items">Choice line items</a>. An unknown value or an explicit <code>null</code> returns <code>422 Unprocessable Entity</code> with a validation error on <code>choice_type</code></td>
 </tr>
 <tr>
 <td>position</td>
@@ -3478,6 +3489,7 @@ nusii templates list <span class="nt">--public-templates</span>
       </span><span class="nl">"cost_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fixed"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"recurring_type"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
       </span><span class="nl">"per_type"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"choice_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"none"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
       </span><span class="nl">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-11-27T10:45:09.919Z"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-11-27T10:45:09.919Z"</span><span class="p">,</span><span class="w">
@@ -3519,7 +3531,7 @@ nusii templates list <span class="nt">--public-templates</span>
 <td>cost_type</td>
 <td>no</td>
 <td>String</td>
-<td>Default <code>fixed</code>. Possible values are <code>fixed</code>, <code>recurring</code>, <code>per</code> or <code>range</code></td>
+<td>Default <code>fixed</code>. Possible values are <code>fixed</code>, <code>recurring</code>, <code>per</code> or <code>range</code>. Cannot be <code>null</code>: sending an explicit <code>null</code> value returns <code>422 Unprocessable Entity</code> with a validation error on <code>cost_type</code>; omitting the key keeps the current value</td>
 </tr>
 <tr>
 <td>recurring_type</td>
@@ -3532,6 +3544,12 @@ nusii templates list <span class="nt">--public-templates</span>
 <td>no</td>
 <td>String</td>
 <td>Possible values are <code>year</code>, <code>month</code>, <code>week</code>, <code>day</code>, <code>hour</code>, <code>cycle</code>, <code>item</code>, <code>person</code>, <code>session</code> or <code>unit</code>. Accounts with the matching feature enabled can also use <code>team</code>, <code>visit</code>, <code>square_meter</code>, <code>meter</code>, <code>song</code> or <code>keynote</code>.</td>
+</tr>
+<tr>
+<td>choice_type</td>
+<td>no</td>
+<td>String</td>
+<td>Possible values are <code>none</code>, <code>checkbox</code> (multiple choice) or <code>radio</code> (single choice) — see <a href="#choice-line-items">Choice line items</a>. An unknown value or an explicit <code>null</code> returns <code>422 Unprocessable Entity</code> with a validation error on <code>choice_type</code>; omitting the key keeps the current value</td>
 </tr>
 <tr>
 <td>position</td>
@@ -3592,6 +3610,7 @@ nusii templates list <span class="nt">--public-templates</span>
       </span><span class="nl">"cost_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fixed"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"recurring_type"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
       </span><span class="nl">"per_type"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"choice_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"none"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
       </span><span class="nl">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-11-27T10:45:09.919Z"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-11-27T10:45:09.919Z"</span><span class="p">,</span><span class="w">
@@ -3625,6 +3644,7 @@ nusii templates list <span class="nt">--public-templates</span>
       </span><span class="nl">"cost_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"range"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"recurring_type"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
       </span><span class="nl">"per_type"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"choice_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"none"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
       </span><span class="nl">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-11-27T10:45:09.919Z"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-11-27T10:45:09.919Z"</span><span class="p">,</span><span class="w">
@@ -3650,6 +3670,55 @@ nusii templates list <span class="nt">--public-templates</span>
 
 <aside class="notice">
 Price ranges are a feature that has to be enabled for your account. While it is disabled, sending <code>cost_type: "range"</code> returns <code>422 Unprocessable Entity</code> with a <code>cost_type_not_available</code> error, and any <code>maximum_amount</code> you send is ignored. Contact support to have it enabled.
+</aside>
+<h2 id='choice-line-items'>Choice line items</h2>
+<blockquote>
+<p>A <code>radio</code> line item your client can select:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"159"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"line_items"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"section_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">458</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Premium support"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"position"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"cost_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fixed"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"recurring_type"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"per_type"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"choice_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"radio"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-11-27T10:45:09.919Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-11-27T10:45:09.919Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GBP"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"amount_in_cents"</span><span class="p">:</span><span class="w"> </span><span class="mi">250000</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"amount_formatted"</span><span class="p">:</span><span class="w"> </span><span class="s2">"£2,500.00"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"maximum_amount_in_cents"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"maximum_amount_formatted"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"total_in_cents"</span><span class="p">:</span><span class="w"> </span><span class="mi">250000</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"total_formatted"</span><span class="p">:</span><span class="w"> </span><span class="s2">"£2,500.00"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>A line item can be an option your client chooses from, rather than a fixed part of the price. This is controlled by the <code>choice_type</code> attribute, which is returned with every line item and can be set when creating or updating one:</p>
+
+<ul>
+<li><code>none</code> — a regular line item, and the default. It is not selectable and always counts towards the section total.</li>
+<li><code>checkbox</code> — a multiple choice option. Your client can select any number of the checkbox items in a section. It counts towards the section total while it is selected, or when it is marked as mandatory in the editor.</li>
+<li><code>radio</code> — a single choice option. Your client can select one of the radio items in a section. It only counts towards the section total while it is selected.</li>
+</ul>
+
+<p>A section&#39;s <code>total_in_cents</code> and <code>total_formatted</code> only sum the line items that currently count towards the total. Keep in mind:</p>
+
+<ul>
+<li>Setting <code>choice_type</code> turns a line item into a selectable option, or back into a regular line item with <code>none</code>. Whether an option is <em>selected</em> is still managed inside Nusii — in the proposal editor, or by your client when accepting the proposal — and cannot be set via the API.</li>
+<li>Changing <code>choice_type</code> recomputes totals immediately. Switching an unselected option back to <code>none</code>, for example, makes it count towards the section total again.</li>
+<li>Updating the <code>amount</code> of an unselected <code>checkbox</code> or <code>radio</code> item updates that item&#39;s own <code>total_formatted</code> but intentionally leaves the section total unchanged. This is expected behavior, not a stale total.</li>
+</ul>
+
+<aside class="warning">
+Line items created via the API default to <code>choice_type: "none"</code>. Deleting a choice line item and recreating it without passing <code>choice_type</code> therefore turns it into a regular line item that always counts towards the section total.
 </aside>
 
 <h1 id='proposal-activities'>Proposal Activities</h1><h2 id='get-all-proposal-activities'>Get all proposal activities</h2><div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> GET <span class="se">\</span>
