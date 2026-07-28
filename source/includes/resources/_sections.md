@@ -88,7 +88,7 @@ $nusii->sections()->list(proposalId: 126, page: 1);
 Without `proposal_id` or `template_id`, this endpoint returns your account's reusable sections. Pass one of those parameters to list a proposal's or a template's sections instead. For cost sections, the line item objects are always included in the top-level `included` array.
 
 <aside class="notice">
-<code>total_in_cents</code> is the section total using the low end of any price range line items. When the section contains <a href="#price-ranges">price ranges</a>, <code>maximum_total_in_cents</code> and <code>maximum_total_formatted</code> carry the high end of the total; they are <code>null</code> when the total is not a range.
+<code>total_in_cents</code> is the section total using the low end of any price range line items. When the section contains <a href="#price-ranges">price ranges</a>, <code>maximum_total_in_cents</code> and <code>maximum_total_formatted</code> carry the high end of the total; they are <code>null</code> when the total is not a range. When it contains <a href="#choice-line-items">choice line items</a>, the total only sums the options that are currently selected (or marked as mandatory).
 </aside>
 
 ### HTTP Request

@@ -47,6 +47,7 @@ $nusii->lineItems()->listBySection(sectionId: 100);
         "cost_type": "fixed",
         "recurring_type": null,
         "per_type": null,
+        "choice_type": "none",
         "quantity": null,
         "updated_at": "2017-11-24T10:30:40.282Z",
         "created_at": "2017-11-24T10:30:40.282Z",
@@ -122,6 +123,7 @@ $nusii->lineItems()->createForSection(sectionId: 100, attributes: [
       "cost_type": "fixed",
       "recurring_type": null,
       "per_type": null,
+      "choice_type": "none",
       "quantity": null,
       "updated_at": "2017-11-27T10:45:09.919Z",
       "created_at": "2017-11-27T10:45:09.919Z",
@@ -148,9 +150,10 @@ This will return 201 Created and the current JSON representation of the line ite
 Parameter | Mandatory | Type | Description
 --------- | --------- | -----| -----------
 name | no | Text | Body of the line item
-cost_type | no | String | Default `fixed`. Possible values are `fixed`, `recurring`, `per` or `range`
+cost_type | no | String | Default `fixed`. Possible values are `fixed`, `recurring`, `per` or `range`. Cannot be `null`: sending an explicit `null` value returns `422 Unprocessable Entity` with a validation error on `cost_type`; omitting the key uses the default
 recurring_type | no | String | Possible values are `yearly`, `semiannually`, `trimester`, `monthly`, `fortnightly`, `weekly`, `daily` or `hourly`. Accounts with the matching feature enabled can also use `quadweekly`.
 per_type | no | String | Possible values are `year`, `month`, `week`, `day`, `hour`, `cycle`, `item`, `person`, `session` or `unit`. Accounts with the matching feature enabled can also use `team`, `visit`, `square_meter`, `meter`, `song` or `keynote`.
+choice_type | no | String | Default `none`. Possible values are `none`, `checkbox` (multiple choice) or `radio` (single choice) — see [Choice line items](#choice-line-items). An unknown value or an explicit `null` returns `422 Unprocessable Entity` with a validation error on `choice_type`
 position | no | Integer | Position of the line item within the section
 quantity | no | Integer | If `cost_type` is `per` then total of the line item is calculated by `quantity` multiplied by `amount`
 amount | no | Integer | Amount in cents. For a `range` line item this is the low end of the range
@@ -208,6 +211,7 @@ $nusii->lineItems()->update(100, [
       "cost_type": "fixed",
       "recurring_type": null,
       "per_type": null,
+      "choice_type": "none",
       "quantity": null,
       "updated_at": "2017-11-27T10:45:09.919Z",
       "created_at": "2017-11-27T10:45:09.919Z",
@@ -239,9 +243,10 @@ or
 Parameter | Mandatory | Type | Description
 --------- | --------- | -----| -----------
 name | no | Text | Body of the line item
-cost_type | no | String | Default `fixed`. Possible values are `fixed`, `recurring`, `per` or `range`
+cost_type | no | String | Default `fixed`. Possible values are `fixed`, `recurring`, `per` or `range`. Cannot be `null`: sending an explicit `null` value returns `422 Unprocessable Entity` with a validation error on `cost_type`; omitting the key keeps the current value
 recurring_type | no | String | Possible values are `yearly`, `semiannually`, `trimester`, `monthly`, `fortnightly`, `weekly`, `daily` or `hourly`. Accounts with the matching feature enabled can also use `quadweekly`.
 per_type | no | String | Possible values are `year`, `month`, `week`, `day`, `hour`, `cycle`, `item`, `person`, `session` or `unit`. Accounts with the matching feature enabled can also use `team`, `visit`, `square_meter`, `meter`, `song` or `keynote`.
+choice_type | no | String | Possible values are `none`, `checkbox` (multiple choice) or `radio` (single choice) — see [Choice line items](#choice-line-items). An unknown value or an explicit `null` returns `422 Unprocessable Entity` with a validation error on `choice_type`; omitting the key keeps the current value
 position | no | Integer | Position of the line item within the section
 quantity | no | Integer | If `cost_type` is `per` then total of the line item is calculated by `quantity` multiplied by `amount`
 amount | no | Integer | Amount in cents. For a `range` line item this is the low end of the range
@@ -294,6 +299,7 @@ $nusii->lineItems()->delete(100);
       "cost_type": "fixed",
       "recurring_type": null,
       "per_type": null,
+      "choice_type": "none",
       "quantity": null,
       "updated_at": "2017-11-27T10:45:09.919Z",
       "created_at": "2017-11-27T10:45:09.919Z",
@@ -332,6 +338,7 @@ This endpoint deletes a specific line item.
       "cost_type": "range",
       "recurring_type": null,
       "per_type": null,
+      "choice_type": "none",
       "quantity": null,
       "updated_at": "2017-11-27T10:45:09.919Z",
       "created_at": "2017-11-27T10:45:09.919Z",
@@ -356,4 +363,52 @@ A line item with `cost_type` of `range` shows a price range, e.g. **£5,000.00 �
 
 <aside class="notice">
 Price ranges are a feature that has to be enabled for your account. While it is disabled, sending <code>cost_type: "range"</code> returns <code>422 Unprocessable Entity</code> with a <code>cost_type_not_available</code> error, and any <code>maximum_amount</code> you send is ignored. Contact support to have it enabled.
+</aside>
+
+## Choice line items
+
+> A `radio` line item your client can select:
+
+```json
+{
+  "data": {
+    "id": "159",
+    "type": "line_items",
+    "attributes": {
+      "section_id": 458,
+      "name": "Premium support",
+      "position": 4,
+      "cost_type": "fixed",
+      "recurring_type": null,
+      "per_type": null,
+      "choice_type": "radio",
+      "quantity": null,
+      "updated_at": "2017-11-27T10:45:09.919Z",
+      "created_at": "2017-11-27T10:45:09.919Z",
+      "currency": "GBP",
+      "amount_in_cents": 250000,
+      "amount_formatted": "£2,500.00",
+      "maximum_amount_in_cents": null,
+      "maximum_amount_formatted": null,
+      "total_in_cents": 250000,
+      "total_formatted": "£2,500.00"
+    }
+  }
+}
+```
+
+A line item can be an option your client chooses from, rather than a fixed part of the price. This is controlled by the `choice_type` attribute, which is returned with every line item and can be set when creating or updating one:
+
+- `none` — a regular line item, and the default. It is not selectable and always counts towards the section total.
+- `checkbox` — a multiple choice option. Your client can select any number of the checkbox items in a section. It counts towards the section total while it is selected, or when it is marked as mandatory in the editor.
+- `radio` — a single choice option. Your client can select one of the radio items in a section. It only counts towards the section total while it is selected.
+
+A section's `total_in_cents` and `total_formatted` only sum the line items that currently count towards the total. Keep in mind:
+
+- Setting `choice_type` turns a line item into a selectable option, or back into a regular line item with `none`. Whether an option is *selected* is still managed inside Nusii — in the proposal editor, or by your client when accepting the proposal — and cannot be set via the API.
+- Changing `choice_type` recomputes totals immediately. Switching an unselected option back to `none`, for example, makes it count towards the section total again.
+- Updating the `amount` of an unselected `checkbox` or `radio` item updates that item's own `total_formatted` but intentionally leaves the section total unchanged. This is expected behavior, not a stale total.
+
+<aside class="warning">
+Line items created via the API default to <code>choice_type: "none"</code>. Deleting a choice line item and recreating it without passing <code>choice_type</code> therefore turns it into a regular line item that always counts towards the section total.
 </aside>
