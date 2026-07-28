@@ -1,0 +1,10 @@
+name: nusii_api
+icon: null
+processes:
+  Web:
+    command: bundle exec middleman server -p 4568
+    working_dir: null
+    auto_start: true
+    auto_restart: false
+    restart_when_changed: []
+    env: {}
