@@ -85,7 +85,7 @@ $nusii->sections()->list(proposalId: 126, page: 1);
 }
 ```
 
-This endpoint retrieves all sections.
+Without `proposal_id` or `template_id`, this endpoint returns your account's reusable sections. Pass one of those parameters to list a proposal's or a template's sections instead. For cost sections, the line item objects are always included in the top-level `included` array.
 
 <aside class="notice">
 <code>total_in_cents</code> is the section total using the low end of any price range line items. When the section contains <a href="#price-ranges">price ranges</a>, <code>maximum_total_in_cents</code> and <code>maximum_total_formatted</code> carry the high end of the total; they are <code>null</code> when the total is not a range.
@@ -101,7 +101,6 @@ Parameter | Default | Description
 --------- | ------- | -----------
 proposal_id | null | If set retrieves all sections of the proposal.
 template_id | null | If set retrieves all sections of the template.
-include_line_items | false | If set to true, the result will have all the data of the line items in the "included" parameter.
 
 ## Get a section
 
@@ -149,7 +148,7 @@ $nusii->sections()->get(100);
       "template_id": null,
       "title": "Introduction",
       "name": null,
-      "body": "<p>Hello {{ clientFirstName }}</p>",
+      "body": "<p>Hello {{ client.first_name }}</p>",
       "position": 0,
       "reusable": false,
       "section_type": "cost",

@@ -1,82 +1,5 @@
 # Line Items
 
-## Get all line items
-
-```shell--curl
-curl -X GET \
-  -H 'User-Agent: Your App Name (www.yourapp.com)' \
-  -H 'Content-Type: application/json' \
-  -H 'Accept: application/json' \
-  -H "Authorization: Token token=YOUR_API_KEY" \
-  "https://app.nusii.com/api/v2/line_items"
-```
-
-```shell--cli
-nusii line-items list
-```
-
-```ruby
-require 'nusii-ruby'
-
-Nusii.api_key = 'YOUR_API_KEY'
-Nusii.user_agent = 'Your App Name (www.yourapp.com)'
-
-Nusii::LineItem.list(page: 1)
-```
-
-```php
-use Nusii\Nusii;
-
-$nusii = new Nusii('YOUR_API_KEY');
-
-$nusii->lineItems()->list(page: 1);
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "data": [
-    {
-      "id": "154",
-      "type": "line_items",
-      "attributes": {
-        "section_id": 458,
-        "name": "Redesign website",
-        "position": 1,
-        "cost_type": "fixed",
-        "recurring_type": null,
-        "per_type": null,
-        "quantity": null,
-        "updated_at": "2017-11-24T10:30:40.282Z",
-        "created_at": "2017-11-24T10:30:40.282Z",
-        "currency": "GBP",
-        "amount_in_cents": 150000,
-        "amount_formatted": "£1,500.00",
-        "maximum_amount_in_cents": null,
-        "maximum_amount_formatted": null,
-        "total_in_cents": 150000,
-        "total_formatted": "£1,500.00"
-      }
-    },
-    {...}
-  ],
-  "meta": {
-    "current_page": 1,
-    "next_page": 2,
-    "prev_page": null,
-    "total_pages": 5,
-    "total_count": 115
-  }
-}
-```
-
-This endpoint retrieves all line items.
-
-### HTTP Request
-
-`GET https://app.nusii.com/api/v2/line_items`
-
 ## Get all line items from section
 
 ```shell--curl
@@ -226,8 +149,8 @@ Parameter | Mandatory | Type | Description
 --------- | --------- | -----| -----------
 name | no | Text | Body of the line item
 cost_type | no | String | Default `fixed`. Possible values are `fixed`, `recurring`, `per` or `range`
-recurring_type | no | String | Possible values are `yearly`, `semiannually`, `trimester`, `monthly`, `weekly`, `daily` or `hourly`
-per_type | no | String | Possible values are `year`, `month`, `week`, `day`, `hour`, `item` or `unit`
+recurring_type | no | String | Possible values are `yearly`, `semiannually`, `trimester`, `monthly`, `fortnightly`, `weekly`, `daily` or `hourly`. Accounts with the matching feature enabled can also use `quadweekly`.
+per_type | no | String | Possible values are `year`, `month`, `week`, `day`, `hour`, `cycle`, `item`, `person`, `session` or `unit`. Accounts with the matching feature enabled can also use `team`, `visit`, `square_meter`, `meter`, `song` or `keynote`.
 position | no | Integer | Position of the line item within the section
 quantity | no | Integer | If `cost_type` is `per` then total of the line item is calculated by `quantity` multiplied by `amount`
 amount | no | Integer | Amount in cents. For a `range` line item this is the low end of the range
@@ -317,8 +240,8 @@ Parameter | Mandatory | Type | Description
 --------- | --------- | -----| -----------
 name | no | Text | Body of the line item
 cost_type | no | String | Default `fixed`. Possible values are `fixed`, `recurring`, `per` or `range`
-recurring_type | no | String | Possible values are `yearly`, `semiannually`, `trimester`, `monthly`, `weekly`, `daily` or `hourly`
-per_type | no | String | Possible values are `year`, `month`, `week`, `day`, `hour`, `item` or `unit`
+recurring_type | no | String | Possible values are `yearly`, `semiannually`, `trimester`, `monthly`, `fortnightly`, `weekly`, `daily` or `hourly`. Accounts with the matching feature enabled can also use `quadweekly`.
+per_type | no | String | Possible values are `year`, `month`, `week`, `day`, `hour`, `cycle`, `item`, `person`, `session` or `unit`. Accounts with the matching feature enabled can also use `team`, `visit`, `square_meter`, `meter`, `song` or `keynote`.
 position | no | Integer | Position of the line item within the section
 quantity | no | Integer | If `cost_type` is `per` then total of the line item is calculated by `quantity` multiplied by `amount`
 amount | no | Integer | Amount in cents. For a `range` line item this is the low end of the range
@@ -426,7 +349,7 @@ This endpoint deletes a specific line item.
 
 A line item with `cost_type` of `range` shows a price range, e.g. **£5,000.00 – £8,000.00**, instead of a single value. The existing `amount` is the low end of the range, and `maximum_amount` is the high end.
 
-- Both values are in cents. `maximum_amount` must be greater than or equal to `amount`.
+- Both values are in cents. `maximum_amount` should be greater than or equal to `amount`.
 - `maximum_amount` is **nullable**: leaving it blank (or sending an empty value) means "no range / single price", which is different from a maximum of `0`.
 - `maximum_amount_in_cents` and `maximum_amount_formatted` are always present in the response. They are `null` for any line item that is not a populated range.
 - `total_in_cents` keeps the low end of the range, so section and proposal totals are unaffected. Section totals are exposed as a range separately — see `maximum_total_in_cents` on [Sections](#sections).

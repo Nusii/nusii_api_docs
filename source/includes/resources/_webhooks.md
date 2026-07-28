@@ -6,7 +6,7 @@ With Nusii webhooks we can send your application requests when something interes
 
 Every webhook uses the same structure. It will always be in a standard `POST` request with the object in the body.
 
-The target url needs to be able to accept `Content Type`: `application/json` and `POST` requests. Everything other than a 2xx request will be concidered an error and we will try will retry 25 times. If we receive a `410 GONE` response, we will delete the webhook entirely.
+The target url needs to be able to accept `Content Type`: `application/json` and `POST` requests. Any response other than a 2xx is considered a failed delivery. If we receive a `410 GONE` response, we will delete the webhook entirely.
 
 Parameter | Description
 --------- | -------
@@ -26,7 +26,7 @@ The object | An hash that represents the object. The key is always the name of t
 
 ## Webhook endpoint errors
 
-We concider all responses with `2xx` as successful. Other than that we concider it as an error and we will retry the request 24 times. If we receive a `410 GONE`, the enpoint will get removed from our database.
+We consider all responses with `2xx` as successful. Any other response is considered a failed delivery, so make sure your endpoint responds with a 2xx. If we receive a `410 GONE`, the endpoint will get removed from our database.
 
 ## Available webhooks
 
@@ -90,16 +90,16 @@ $nusii->webhookEndpoints()->list();
           "proposal_created",
           "client_updated"
         ], "target_url": "http://example.com/webhooks"
-      },
+      }
     },
     {...}
   ],
   "meta": {
-    "current-page": 2,
-    "next-page": 3,
-    "prev-page": 1,
-    "total-pages": 4,
-    "total-count": 89
+    "current_page": 2,
+    "next_page": 3,
+    "prev_page": 1,
+    "total_pages": 4,
+    "total_count": 89
   }
 }
 ```

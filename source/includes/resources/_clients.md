@@ -61,11 +61,11 @@ $nusii->clients()->list(page: 1);
     }
   ],
   "meta": {
-    "current-page": 2,
-    "next-page": 3,
-    "prev-page": 1,
-    "total-pages": 4,
-    "total-count": 52
+    "current_page": 2,
+    "next_page": 3,
+    "prev_page": 1,
+    "total_pages": 4,
+    "total_count": 52
   }
 }
 ```
@@ -235,6 +235,10 @@ city | no | String | City of the client.
 postcode | no | String | Postcode of the client.
 country | no | String | Country name of the client
 state | no | String | State name of the client.
+vat_number | no | String | VAT number of the client.
+client_role | no | String | Role of the client (e.g. CEO).
+time_zone | no | String | Time zone of the client.
+notes | no | String | Internal notes about the client.
 
 ## Update a client
 
@@ -281,7 +285,7 @@ $nusii->clients()->update(100, [
 {
   "data": {
     "id": "126",
-    "type": "proposals",
+    "type": "clients",
     "attributes": {
       "email": "support@nusii.com",
       "name": "Michael",
@@ -327,6 +331,10 @@ city | no | String | City of the client.
 postcode | no | String | Postcode of the client.
 country | no | String | Country name of the client
 state | no | String | State name of the client.
+vat_number | no | String | VAT number of the client.
+client_role | no | String | Role of the client (e.g. CEO).
+time_zone | no | String | Time zone of the client.
+notes | no | String | Internal notes about the client.
 
 ## Delete a client
 

@@ -135,9 +135,13 @@ This endpoint retrieves all proposals.
 Parameter | Default | Description
 --------- | ------- | -----------
 status | null | If not set retrieves all proposals, Possible states are `draft`, `pending`, `accepted`, `rejected`, or `clarification`
+statuses[] | null | Array form of `status`, to filter by several statuses at once.
+query | null | Search by title, document number, public id, or the client's name, business, or email.
 archived | false | If set to true, the result will only include archived proposals.
 recipient_email | null | Filter by recipient email address. Supports comma-separated emails to match proposals sent to any of the listed addresses (up to 30).
 recipient_emails | null | Alias for `recipient_email`. Filter by one or more comma-separated recipient email addresses (up to 30). Returns proposals sent to any of the listed addresses.
+created_at_after | null | Only proposals created after this date. Also available: `created_at_before`, `sent_at_after`, `sent_at_before`, `expires_at_after`, `expires_at_before`, `accepted_at_after`, `accepted_at_before`.
+no_activity_client_view_proposal | null | If set to true, only proposals that have never been viewed by a client.
 
 ## Get a proposal
 
@@ -206,24 +210,11 @@ $nusii->proposals()->get(100);
         ]
       }
     }
-  },
-  "included": [
-    {
-      "id": "1",
-      "type": "recipients",
-      "attributes": {
-        "id": 1,
-        "name": "Alice",
-        "email": "alice@example.com",
-        "eligible_to_sign": true,
-        "document_sent": false
-      }
-    }
-  ]
+  }
 }
 ```
 
-This endpoint retrieves a single proposal
+This endpoint retrieves a single proposal. Recipients appear as id/type references under `relationships`.
 
 ### HTTP Request
 
@@ -312,16 +303,18 @@ Parameter | Mandatory | Type | Description
 --------- | ------- | ----------- | -----------
 title | no | String | Title of the proposal
 client_id | no | ID | Client ID
-client_email | no | String | Fetches the client associated with that email. It creates a new client if there is no client with that email. This is ignored when client_id is set.
 template_id | no | ID | If set, all the sections are copied over from the template
-document_section_title | no | String | Title of the documents section. Default: Documents
+document_section_title | no | String | Title of the documents section.
 prepared_by_id | no | ID | Prepared by user
 expires_at | no | DateTime | Date the proposal expires
 display_date | no | DateTime | By Default the date displayed on the proposal is the sent date. This can be overwritten with the display_date
 report | no | Boolean | This turns the proposal into a report. Default: false
 exclude_total | no | Boolean | This excludes the total from the proposal. Default: false
 exclude_total_in_pdf | no | Boolean | This excludes the total from the proposal. Default: false
-theme | no | String | Theme of the proposal. Default: 'clean'
+theme | no | String | Theme of the proposal. Default: the account's default theme ('classic' if none is set)
+status | no | String | Status of the proposal (`draft`, `pending`, `accepted`, `rejected`, or `clarification`). Default: draft
+payment_percentage | no | Number | Percentage of the total requested as payment on acceptance.
+archived_at | no | DateTime | Archives the proposal when set.
 
 ## Update a proposal
 
@@ -403,15 +396,17 @@ Parameter | Mandatory | Type | Description
 --------- | ------- | ----------- | -----------
 title | no | String | Title of the proposal
 client_id | no | ID | Client ID
-client_email | no | String | Fetches the client associated with that email. It creates a new client if there is no client with that email. This is ignored when client_id is set.
-document_section_title | no | String | Title of the documents section. Default: Documents
+document_section_title | no | String | Title of the documents section.
 prepared_by_id | no | ID | Prepared by user
 expires_at | no | DateTime | Date the proposal expires
 display_date | no | DateTime | By Default the date displayed on the proposal is the sent date. This can be overwritten with the display_date
 report | no | Boolean | This turns the proposal into a report. Default: false
 exclude_total | no | Boolean | This excludes the total from the proposal. Default: false
 exclude_total_in_pdf | no | Boolean | This excludes the total from the proposal. Default: false
-theme | no | String | Theme of the proposal. Default: 'clean'
+theme | no | String | Theme of the proposal. Default: the account's default theme ('classic' if none is set)
+status | no | String | Status of the proposal (`draft`, `pending`, `accepted`, `rejected`, or `clarification`).
+payment_percentage | no | Number | Percentage of the total requested as payment on acceptance.
+archived_at | no | DateTime | Archives the proposal when set.
 
 ## Delete a proposal
 
@@ -527,11 +522,11 @@ $nusii->proposals()->archive(100);
 }
 ```
 
-This endpoint deletes a specific proposal.
+This endpoint archives a specific proposal.
 
 ### HTTP Request
 
-`DELETE https://app.nusii.com/api/v2/proposals/:id`
+`PUT https://app.nusii.com/api/v2/proposals/:id/archive`
 
 ## Send a proposal
 

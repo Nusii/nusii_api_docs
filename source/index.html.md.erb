@@ -66,7 +66,7 @@ nusii auth status
 
 # Authentication
 
-> We offer a token based authentication. You can find your API access token [here](https://app.nusii.com). Tokens need to be added in the HTTP_AUTHORIZATION header as `Token token=YOUR_API_KEY`
+> We offer a token based authentication. You can find your API access token [here](https://app.nusii.com/settings/api). Tokens need to be added in the HTTP_AUTHORIZATION header as `Token token=YOUR_API_KEY`
 
 
 ```shell--curl
@@ -121,11 +121,12 @@ Before you can authenticate users, you need to register an OAuth application.
 1. Go to [Settings > API](https://app.nusii.com/settings/api)
 2. Create a new OAuth application
 3. Enter your app name and redirect URI(s)
-4. Choose the scopes your app needs: `read`, `write`, or both
-5. Save your **Client ID** and **Client Secret**
+4. Save your **Client ID** and **Client Secret**
+
+Your app asks for the scopes it needs (`read`, `write`, or both) when it sends the user to the authorization page, via the `scope` parameter.
 
 <aside class="notice">
-Your Client Secret is only shown once when you create the app. Store it securely.
+Keep your Client Secret confidential. You can copy it again from the application's page under Settings > API whenever you need it.
 </aside>
 
 ## Scopes

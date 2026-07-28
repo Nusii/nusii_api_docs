@@ -35,22 +35,23 @@ $nusii->users()->list();
 > The above command returns JSON structured like this:
 
 ```json
+{
   "data": [
     {
       "id": "12",
       "type": "users",
       "attributes": {
         "email": "support@nusii.com",
-        "name": "Michael",
+        "name": "Michael"
       }
     }
   ],
   "meta": {
-    "current-page": 2,
-    "next-page": 3,
-    "prev-page": 1,
-    "total-pages": 4,
-    "total-count": 52
+    "current_page": 2,
+    "next_page": 3,
+    "prev_page": 1,
+    "total_pages": 4,
+    "total_count": 52
   }
 }
 ```

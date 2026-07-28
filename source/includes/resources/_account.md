@@ -45,14 +45,13 @@ $nusii->accounts()->me();
       "subdomain": "your_company",
       "web": "www.your_company.com",
       "currency": "USD",
-      "pdf_page_size": "A4",
-      "locale": "en",
       "address": "Your Street Address 50",
       "address_state": "New York",
       "postcode": "10022",
       "city": "New York",
-      "telephone": "1234567890",
-      "default_theme": "clean"
+      "country": "US",
+      "country_name": "United States",
+      "telephone": "1234567890"
     }
   }
 }

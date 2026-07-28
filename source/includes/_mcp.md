@@ -10,7 +10,7 @@ Nusii has a built-in MCP ([Model Context Protocol](https://modelcontextprotocol.
 
 The MCP server is the assistant-facing sibling of the REST API. It speaks MCP over Streamable HTTP, authenticates with the same OAuth tokens as the v2 API, and enforces the same permissions: an assistant can only see and do what the connected user can see and do in the app.
 
-If you just want to connect an assistant, follow the step-by-step guides in [Connect AI assistants to Nusii](https://nusii.com/docs/integrations/ai-assistants/). This section documents the server itself: authentication, the available tools, write safety, rate limits, and logging.
+If you just want to connect an assistant, follow the step-by-step guides in [Connect AI assistants to Nusii](https://nusii.com/docs/developers/ai-assistants/). This section documents the server itself: authentication, the available tools, write safety, rate limits, and logging.
 
 ## Connecting a client
 
@@ -22,7 +22,7 @@ claude mcp add --transport http nusii https://app.nusii.com/mcp
 
 Any MCP client that supports remote servers (Streamable HTTP) with OAuth can connect. There is nothing to install and no API key to paste: on first use the client discovers Nusii's OAuth server, registers itself, and opens a browser window where you sign in with your normal Nusii login, pick an account, and approve access.
 
-Setup guides for Claude, ChatGPT, Codex, and other assistants live in the [help center](https://nusii.com/docs/integrations/ai-assistants/). A client that only supports local servers can bridge to Nusii with [mcp-remote](https://www.npmjs.com/package/mcp-remote).
+Setup guides for Claude, ChatGPT, Codex, and other assistants live in the [help center](https://nusii.com/docs/developers/ai-assistants/). A client that only supports local servers can bridge to Nusii with [mcp-remote](https://www.npmjs.com/package/mcp-remote).
 
 ## MCP Authentication
 
@@ -72,6 +72,7 @@ Available to every connection (the `read` scope):
 Tool | Description
 ---- | -----------
 `proposals_summary` | Proposal counts by status and the conversion rate over a period (a preset like `last_30_days`, or explicit `from`/`to` dates).
+`proposals_list` | Find existing proposals, newest first: searchable by title, document number, or client, filterable by status, with cursor pagination.
 `templates_list` | The account's templates (id, name, dates), optionally filtered by name, with cursor pagination.
 `template_details` | One template's full content: text sections, cost sections with line items, and the template total.
 `clients_search` | Case-insensitive client lookup by name, company, or email.
@@ -91,7 +92,7 @@ Tool | Description
 `update_section` | Replace a section's title or body.
 `update_line_items` | Batch-update line item names, amounts, and quantities. Atomic: one invalid item rolls back the whole batch.
 `remove_line_items` | Delete line items from a proposal. Totals recalculate automatically.
-`set_proposal_taxes` | Replace the whole set of taxes on a proposal: saved account taxes by id or name, or ad-hoc rates as a percentage of the subtotal. An empty array clears them.
+`set_proposal_taxes` | Replace the set of taxes applied to a proposal: the account's saved taxes by id or name, ad-hoc name and percentage rates (a negative percentage acts as a discount), or an empty list to clear them.
 `attach_client_to_proposal` | Set or replace a proposal's client, with the same id/email resolution as create.
 
 ### Tool limits

@@ -19,11 +19,11 @@ nusii proposals list --page 2 --per-page 10
     {...}
   ],
   "meta": {
-    "current-page": 2,
-    "next-page": 3,
-    "prev-page": 1,
-    "total-pages": 4,
-    "total-count": 89
+    "current_page": 2,
+    "next_page": 3,
+    "prev_page": 1,
+    "total_pages": 4,
+    "total_count": 89
   }
 }
 ```

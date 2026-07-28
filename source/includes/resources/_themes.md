@@ -26,14 +26,16 @@ $nusii->themes()->list();
 > The above command returns JSON structured like this:
 
 ```json
+[
   {
     "id": "clean",
     "name": "Modern Theme"
-  }, {
+  },
+  {
     "id": "classic",
     "name": "Classic Theme"
   }
-}
+]
 ```
 
 This endpoint retrieves all available themes.
