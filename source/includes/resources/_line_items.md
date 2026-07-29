@@ -52,6 +52,7 @@ $nusii->lineItems()->listBySection(sectionId: 100);
         "updated_at": "2017-11-24T10:30:40.282Z",
         "created_at": "2017-11-24T10:30:40.282Z",
         "currency": "GBP",
+        "amount": 150000,
         "amount_in_cents": 150000,
         "amount_formatted": "£1,500.00",
         "maximum_amount_in_cents": null,
@@ -66,6 +67,10 @@ $nusii->lineItems()->listBySection(sectionId: 100);
 ```
 
 This endpoint retrieves all line items from a given section. This response doesn't support pagination.
+
+<aside class="notice">
+Responses report the amount as <code>amount</code> — integer cents, the same value you send on create and update — alongside <code>amount_formatted</code> for display. <code>amount_in_cents</code> is a legacy alias of <code>amount</code>, kept for backwards compatibility; prefer <code>amount</code>.
+</aside>
 
 ### HTTP Request
 
@@ -128,6 +133,7 @@ $nusii->lineItems()->createForSection(sectionId: 100, attributes: [
       "updated_at": "2017-11-27T10:45:09.919Z",
       "created_at": "2017-11-27T10:45:09.919Z",
       "currency": "GBP",
+      "amount": null,
       "amount_in_cents": null,
       "amount_formatted": "£0.00",
       "maximum_amount_in_cents": null,
@@ -216,6 +222,7 @@ $nusii->lineItems()->update(100, [
       "updated_at": "2017-11-27T10:45:09.919Z",
       "created_at": "2017-11-27T10:45:09.919Z",
       "currency": "GBP",
+      "amount": 10000,
       "amount_in_cents": 10000,
       "amount_formatted": "£100.00",
       "maximum_amount_in_cents": null,
@@ -304,6 +311,7 @@ $nusii->lineItems()->delete(100);
       "updated_at": "2017-11-27T10:45:09.919Z",
       "created_at": "2017-11-27T10:45:09.919Z",
       "currency": "GBP",
+      "amount": 10000,
       "amount_in_cents": 10000,
       "amount_formatted": "£100.00",
       "maximum_amount_in_cents": null,
@@ -343,6 +351,7 @@ This endpoint deletes a specific line item.
       "updated_at": "2017-11-27T10:45:09.919Z",
       "created_at": "2017-11-27T10:45:09.919Z",
       "currency": "GBP",
+      "amount": 500000,
       "amount_in_cents": 500000,
       "amount_formatted": "£5,000.00",
       "maximum_amount_in_cents": 800000,
@@ -386,6 +395,7 @@ Price ranges are a feature that has to be enabled for your account. While it is 
       "updated_at": "2017-11-27T10:45:09.919Z",
       "created_at": "2017-11-27T10:45:09.919Z",
       "currency": "GBP",
+      "amount": 250000,
       "amount_in_cents": 250000,
       "amount_formatted": "£2,500.00",
       "maximum_amount_in_cents": null,
