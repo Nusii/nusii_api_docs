@@ -1429,6 +1429,34 @@ Always store the new refresh token from the response. The previous refresh token
 <p>This endpoint retrieves all clients.</p>
 <h3 id='http-request'>HTTP Request</h3>
 <p><code>GET https://app.nusii.com/api/v2/clients</code></p>
+<h3 id='query-parameters'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>query</td>
+<td>null</td>
+<td>Search by the client&#39;s name, surname, email, business, telephone, address, postcode, country, state, city, web, or VAT number. Matches whole words (the same search the Nusii app uses), not substrings.</td>
+</tr>
+<tr>
+<td>email</td>
+<td>null</td>
+<td>Filter by a single email address. Exact match, case-insensitive.</td>
+</tr>
+<tr>
+<td>emails</td>
+<td>null</td>
+<td>Comma-separated list of email addresses (up to 30). Returns clients matching any of the listed addresses. Can be combined with <code>email</code>.</td>
+</tr>
+</tbody></table>
+
+<aside class="notice">
+Filter values must be plain strings. Sending a nested or non-string value for any filter returns <code>400 Bad Request</code>.
+</aside>
 <h2 id='get-a-client'>Get a Client</h2><div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> GET <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www.yourapp.com)'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
@@ -1549,7 +1577,7 @@ Always store the new refresh token from the response. The previous refresh token
 <td>email</td>
 <td>yes</td>
 <td>String</td>
-<td>Email of the client.</td>
+<td>Email of the client. Stored lowercase — whatever casing you send, responses return the lowercase address.</td>
 </tr>
 <tr>
 <td>name</td>
@@ -1723,7 +1751,7 @@ Always store the new refresh token from the response. The previous refresh token
 <td>email</td>
 <td>yes</td>
 <td>String</td>
-<td>Email of the client.</td>
+<td>Email of the client. Stored lowercase — whatever casing you send, responses return the lowercase address.</td>
 </tr>
 <tr>
 <td>name</td>
@@ -2975,7 +3003,7 @@ nusii templates list <span class="nt">--public-templates</span>
       </span><span class="nl">"proposal_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">126</span><span class="p">,</span><span class="w">
       </span><span class="nl">"template_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
       </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Introduction"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Introduction"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"body"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
       </span><span class="nl">"position"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
       </span><span class="nl">"reusable"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
@@ -3033,7 +3061,7 @@ nusii templates list <span class="nt">--public-templates</span>
 <td>title</td>
 <td>no</td>
 <td>String</td>
-<td>Title of the section</td>
+<td>Title of the section, shown as the heading on the proposal page. When only <code>name</code> is sent, <code>title</code> is filled from it</td>
 </tr>
 <tr>
 <td>body</td>
@@ -3045,7 +3073,7 @@ nusii templates list <span class="nt">--public-templates</span>
 <td>name</td>
 <td>no</td>
 <td>String</td>
-<td>Internal name of the section</td>
+<td>Internal name of the section, shown in the editor navigation. When only <code>title</code> is sent, <code>name</code> is filled from it</td>
 </tr>
 <tr>
 <td>position</td>
@@ -3084,6 +3112,10 @@ nusii templates list <span class="nt">--public-templates</span>
 <td>Default <code>false</code>. Include a subtotal within the section. Not just the end of the proposal.</td>
 </tr>
 </tbody></table>
+
+<aside class="notice">
+Filling in the missing <code>title</code> / <code>name</code> only happens on create, so the proposal page and the editor navigation always get a heading. An update only changes the attributes you send — sending only <code>name</code> never rewrites an existing <code>title</code> — and sections created from a reusable section keep that section's own title and name.
+</aside>
 <h2 id='update-a-section'>Update a section</h2><div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> PUT <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www.yourapp.com)'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
@@ -3314,6 +3346,7 @@ nusii templates list <span class="nt">--public-templates</span>
         </span><span class="nl">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-11-24T10:30:40.282Z"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-11-24T10:30:40.282Z"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GBP"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">150000</span><span class="p">,</span><span class="w">
         </span><span class="nl">"amount_in_cents"</span><span class="p">:</span><span class="w"> </span><span class="mi">150000</span><span class="p">,</span><span class="w">
         </span><span class="nl">"amount_formatted"</span><span class="p">:</span><span class="w"> </span><span class="s2">"£1,500.00"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"maximum_amount_in_cents"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
@@ -3327,6 +3360,10 @@ nusii templates list <span class="nt">--public-templates</span>
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>This endpoint retrieves all line items from a given section. This response doesn&#39;t support pagination.</p>
+
+<aside class="notice">
+Responses report the amount as <code>amount</code> — integer cents, the same value you send on create and update — alongside <code>amount_formatted</code> for display. <code>amount_in_cents</code> is a legacy alias of <code>amount</code>, kept for backwards compatibility; prefer <code>amount</code>.
+</aside>
 <h3 id='http-request'>HTTP Request</h3>
 <p><code>GET https://app.nusii.com/api/v2/sections/100/line_items</code></p>
 <h2 id='create-a-line-item'>Create a line item</h2><div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> POST <span class="se">\</span>
@@ -3373,6 +3410,7 @@ nusii templates list <span class="nt">--public-templates</span>
       </span><span class="nl">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-11-27T10:45:09.919Z"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-11-27T10:45:09.919Z"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GBP"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
       </span><span class="nl">"amount_in_cents"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
       </span><span class="nl">"amount_formatted"</span><span class="p">:</span><span class="w"> </span><span class="s2">"£0.00"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"maximum_amount_in_cents"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
@@ -3494,6 +3532,7 @@ nusii templates list <span class="nt">--public-templates</span>
       </span><span class="nl">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-11-27T10:45:09.919Z"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-11-27T10:45:09.919Z"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GBP"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">10000</span><span class="p">,</span><span class="w">
       </span><span class="nl">"amount_in_cents"</span><span class="p">:</span><span class="w"> </span><span class="mi">10000</span><span class="p">,</span><span class="w">
       </span><span class="nl">"amount_formatted"</span><span class="p">:</span><span class="w"> </span><span class="s2">"£100.00"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"maximum_amount_in_cents"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
@@ -3615,6 +3654,7 @@ nusii templates list <span class="nt">--public-templates</span>
       </span><span class="nl">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-11-27T10:45:09.919Z"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-11-27T10:45:09.919Z"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GBP"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">10000</span><span class="p">,</span><span class="w">
       </span><span class="nl">"amount_in_cents"</span><span class="p">:</span><span class="w"> </span><span class="mi">10000</span><span class="p">,</span><span class="w">
       </span><span class="nl">"amount_formatted"</span><span class="p">:</span><span class="w"> </span><span class="s2">"£100.00"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"maximum_amount_in_cents"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
@@ -3649,6 +3689,7 @@ nusii templates list <span class="nt">--public-templates</span>
       </span><span class="nl">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-11-27T10:45:09.919Z"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-11-27T10:45:09.919Z"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GBP"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">500000</span><span class="p">,</span><span class="w">
       </span><span class="nl">"amount_in_cents"</span><span class="p">:</span><span class="w"> </span><span class="mi">500000</span><span class="p">,</span><span class="w">
       </span><span class="nl">"amount_formatted"</span><span class="p">:</span><span class="w"> </span><span class="s2">"£5,000.00"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"maximum_amount_in_cents"</span><span class="p">:</span><span class="w"> </span><span class="mi">800000</span><span class="p">,</span><span class="w">
@@ -3691,6 +3732,7 @@ Price ranges are a feature that has to be enabled for your account. While it is 
       </span><span class="nl">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-11-27T10:45:09.919Z"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-11-27T10:45:09.919Z"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GBP"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">250000</span><span class="p">,</span><span class="w">
       </span><span class="nl">"amount_in_cents"</span><span class="p">:</span><span class="w"> </span><span class="mi">250000</span><span class="p">,</span><span class="w">
       </span><span class="nl">"amount_formatted"</span><span class="p">:</span><span class="w"> </span><span class="s2">"£2,500.00"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"maximum_amount_in_cents"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
