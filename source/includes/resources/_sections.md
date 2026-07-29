@@ -235,7 +235,7 @@ $nusii->sections()->create([
       "proposal_id": 126,
       "template_id": null,
       "title": "Introduction",
-      "name": null,
+      "name": "Introduction",
       "body": null,
       "position": 0,
       "reusable": false,
@@ -278,15 +278,19 @@ Parameter | Mandatory | Type | Description
 --------- | ------- | ----------- | -----------
 proposal_id | no | ID | ID of the proposal
 template_id | no | ID | ID of the template
-title | no | String | Title of the section
+title | no | String | Title of the section, shown as the heading on the proposal page. When only `name` is sent, `title` is filled from it
 body | no | Text | Body of the section
-name | no | String | Internal name of the section
+name | no | String | Internal name of the section, shown in the editor navigation. When only `title` is sent, `name` is filled from it
 position | no | Integer | Position in the proposal or template.
 reusable | no | Boolean | Default `false`. Reusable sections can be reused to any template / proposal you want.
 section_type | no | String | Default `text`. Can be `text` or `cost`. A text section is just a section with a body. A `cost` section can have line items and has a total.
 page_break | no | Boolean | Default `false`. PDF page break
 optional | no | Boolean | Default `false`. Client can choose the price package when `true`. Price is fixed when `false`
 include_total | no | Boolean | Default `false`. Include a subtotal within the section. Not just the end of the proposal.
+
+<aside class="notice">
+Filling in the missing <code>title</code> / <code>name</code> only happens on create, so the proposal page and the editor navigation always get a heading. An update only changes the attributes you send — sending only <code>name</code> never rewrites an existing <code>title</code> — and sections created from a reusable section keep that section's own title and name.
+</aside>
 
 ## Update a section
 
