@@ -76,6 +76,18 @@ This endpoint retrieves all clients.
 
 `GET https://app.nusii.com/api/v2/clients`
 
+### Query Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+query | null | Search by the client's name, surname, email, business, telephone, address, postcode, country, state, city, web, or VAT number. Matches whole words (the same search the Nusii app uses), not substrings.
+email | null | Filter by a single email address. Exact match, case-insensitive.
+emails | null | Comma-separated list of email addresses (up to 30). Returns clients matching any of the listed addresses. Can be combined with `email`.
+
+<aside class="notice">
+Filter values must be plain strings. Sending a nested or non-string value for any filter returns <code>400 Bad Request</code>.
+</aside>
+
 ## Get a Client
 
 ```shell--curl
@@ -221,7 +233,7 @@ This will return 201 Created and the current JSON representation of the client i
 
 Parameter | Mandatory | Type | Description
 --------- | ------- | ----------- | -----------
-email | yes | String | Email of the client.
+email | yes | String | Email of the client. Stored lowercase — whatever casing you send, responses return the lowercase address.
 name | yes | String | First name of the client.
 surname | no | String | Surname of the client.
 currency | no | String | Currency of the client. Default: Account's default currency or USD.
@@ -317,7 +329,7 @@ This will return 200 OK and the current JSON representation of the client if the
 
 Parameter | Mandatory | Type | Description
 --------- | ------- | ----------- | -----------
-email | yes | String | Email of the client.
+email | yes | String | Email of the client. Stored lowercase — whatever casing you send, responses return the lowercase address.
 name | yes | String | First name of the client.
 surname | no | String | Surname of the client.
 currency | no | String | Currency of the client. Default: Account's default currency or USD.
