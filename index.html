@@ -577,7 +577,7 @@
 <div class="highlight"><pre class="highlight plaintext"><code>https://app.nusii.com/mcp
 </code></pre></div>
 
-<p>Nusii has a built-in MCP (<a href="https://modelcontextprotocol.io">Model Context Protocol</a>) server, so AI assistants like Claude, ChatGPT, and Gemini (and agent platforms like Microsoft Copilot Studio) can work with your Nusii account: summarize your proposals, draft new ones from your templates, and update pricing, straight from a chat.</p>
+<p>Nusii has a built-in MCP (<a href="https://modelcontextprotocol.io">Model Context Protocol</a>) server, so AI assistants like Claude, ChatGPT, and Gemini (and agent platforms like Microsoft Copilot Studio) can work with your Nusii account: summarize your proposals, draft new ones from your templates, and update pricing and document settings, straight from a chat.</p>
 
 <p>The MCP server is the assistant-facing sibling of the REST API. It speaks MCP over Streamable HTTP, authenticates with the same OAuth tokens as the v2 API, and enforces the same permissions: an assistant can only see and do what the connected user can see and do in the app.</p>
 
@@ -753,6 +753,10 @@
 <tr>
 <td><code>attach_client_to_proposal</code></td>
 <td>Set or replace a proposal&#39;s client, with the same id/email resolution as create.</td>
+</tr>
+<tr>
+<td><code>update_proposal_settings</code></td>
+<td>Change a proposal&#39;s document settings — theme, table of contents, total visibility, read-only report mode, forced signature, the &quot;Prepared for&quot; line, the thank-you email, expiry and display dates, and the deposit share collected through Stripe on acceptance. Only the settings passed change; an empty string clears a date, and a deposit of <code>0</code> turns collection off.</td>
 </tr>
 </tbody></table>
 
