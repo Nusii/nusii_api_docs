@@ -6,7 +6,7 @@
 https://app.nusii.com/mcp
 ```
 
-Nusii has a built-in MCP ([Model Context Protocol](https://modelcontextprotocol.io)) server, so AI assistants like Claude, ChatGPT, and Gemini (and agent platforms like Microsoft Copilot Studio) can work with your Nusii account: summarize your proposals, draft new ones from your templates, and update pricing, straight from a chat.
+Nusii has a built-in MCP ([Model Context Protocol](https://modelcontextprotocol.io)) server, so AI assistants like Claude, ChatGPT, and Gemini (and agent platforms like Microsoft Copilot Studio) can work with your Nusii account: summarize your proposals, draft new ones from your templates, and update pricing and document settings, straight from a chat.
 
 The MCP server is the assistant-facing sibling of the REST API. It speaks MCP over Streamable HTTP, authenticates with the same OAuth tokens as the v2 API, and enforces the same permissions: an assistant can only see and do what the connected user can see and do in the app.
 
@@ -94,6 +94,7 @@ Tool | Description
 `remove_line_items` | Delete line items from a proposal. Totals recalculate automatically.
 `set_proposal_taxes` | Replace the set of taxes applied to a proposal: the account's saved taxes by id or name, ad-hoc name and percentage rates (a negative percentage acts as a discount), or an empty list to clear them.
 `attach_client_to_proposal` | Set or replace a proposal's client, with the same id/email resolution as create.
+`update_proposal_settings` | Change a proposal's document settings — theme, table of contents, total visibility, read-only report mode, forced signature, the "Prepared for" line, the thank-you email, expiry and display dates, and the deposit share collected through Stripe on acceptance. Only the settings passed change; an empty string clears a date, and a deposit of `0` turns collection off.
 
 ### Tool limits
 
