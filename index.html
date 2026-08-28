@@ -317,6 +317,11 @@
       <ul id="toc" class="toc-list-h1">
           <li>
             <a href="#introduction" class="toc-h1 toc-link" data-title="Introduction">Introduction</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#openapi-specification" class="toc-h2 toc-link" data-title="OpenAPI Specification">OpenAPI Specification</a>
+                  </li>
+              </ul>
           </li>
           <li>
             <a href="#mcp-server" class="toc-h1 toc-link" data-title="MCP Server">MCP Server</a>
@@ -558,6 +563,7 @@
         <ul class="toc-footer">
             <li><a href='https://app.nusii.com/settings/api'>Get your API Key</a></li>
             <li><a href='https://app.nusii.com/settings/api'>Register an OAuth App</a></li>
+            <li><a href='openapi/v2.yaml'>OpenAPI Specification (YAML)</a></li>
             <li><a href='https://github.com/Nusii/nusii-cli'>Nusii CLI on GitHub</a></li>
             <li><a href='https://github.com/nusii/nusii-php'>Nusii PHP on GitHub</a></li>
         </ul>
@@ -567,6 +573,8 @@
       <div class="content">
         <h1 id='introduction'>Introduction</h1>
 <p>Welcome to the Nusii API! You can use our API to access Nusii API endpoints. All endpoint URLs begin with <code>https://app.nusii.com/api/v2/</code>. All requests must be serialized in JSON and Nusii uses the <a href="http://jsonapi.org/">jsonapi.org</a> specification.</p>
+<h2 id='openapi-specification'>OpenAPI Specification</h2>
+<p>The complete API surface is available as a machine-readable <a href="openapi/v2.yaml">OpenAPI 3.1 specification (YAML)</a>, also served by the API itself at <code>https://app.nusii.com/api/v2/openapi.yaml</code>. It is generated from Nusii&#39;s test suite on every API change, so it always describes what the API actually returns. Keep a copy in your repository and diff it against new versions to spot changes — including breaking ones — before they reach your integration.</p>
 
 <h1 id='mcp-server'>MCP Server</h1>
 
