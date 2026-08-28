@@ -10,6 +10,7 @@ language_tabs: # must be one of https://git.io/vQNgJ
 toc_footers:
   - <a href='https://app.nusii.com/settings/api'>Get your API Key</a>
   - <a href='https://app.nusii.com/settings/api'>Register an OAuth App</a>
+  - <a href='openapi/v2.yaml'>OpenAPI Specification (YAML)</a>
   - <a href='https://github.com/Nusii/nusii-cli'>Nusii CLI on GitHub</a>
   - <a href='https://github.com/nusii/nusii-php'>Nusii PHP on GitHub</a>
 
@@ -26,6 +27,10 @@ meta:
 # Introduction
 
 Welcome to the Nusii API! You can use our API to access Nusii API endpoints. All endpoint URLs begin with `https://app.nusii.com/api/v2/`. All requests must be serialized in JSON and Nusii uses the [jsonapi.org](http://jsonapi.org/) specification.
+
+## OpenAPI Specification
+
+The complete API surface is available as a machine-readable [OpenAPI 3.1 specification (YAML)](openapi/v2.yaml), also served by the API itself at `https://app.nusii.com/api/v2/openapi.yaml`. It is generated from Nusii's test suite on every API change, so it always describes what the API actually returns. Keep a copy in your repository and diff it against new versions to spot changes — including breaking ones — before they reach your integration.
 
 <%= partial("includes/mcp") %>
 
