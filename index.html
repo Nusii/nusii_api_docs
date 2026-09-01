@@ -707,16 +707,16 @@
 <td>Case-insensitive client lookup by name, company, or email.</td>
 </tr>
 <tr>
-<td><code>proposal_details</code></td>
-<td>A whole proposal for review: metadata, client, and every section in order.</td>
-</tr>
-<tr>
 <td><code>proposal_pricing</code></td>
 <td>A proposal&#39;s cost sections, line items, and totals, including per-unit, recurring, and range items, plus the subtotal and applied taxes.</td>
 </tr>
 <tr>
 <td><code>section_body</code></td>
 <td>One section&#39;s raw editor HTML, so rewrites can round-trip without destroying formatting.</td>
+</tr>
+<tr>
+<td><code>proposal_details</code></td>
+<td>A whole proposal for review: metadata, client, and every section in order.</td>
 </tr>
 </tbody></table>
 
@@ -739,12 +739,8 @@
 <td>Create a draft proposal from scratch, with optional sections and pricing built in a single transaction.</td>
 </tr>
 <tr>
-<td><code>create_section</code></td>
-<td>Add a text or cost section to a proposal, at an optional position.</td>
-</tr>
-<tr>
-<td><code>update_section</code></td>
-<td>Replace a section&#39;s title or body.</td>
+<td><code>add_line_items</code></td>
+<td>Append line items to an existing cost section&#39;s table, in array order — amounts are decimal strings (<code>&quot;1200.50&quot;</code>), never cents, and text sections are refused. Atomic: one invalid item and nothing is added. The response carries the new item ids and the recalculated totals.</td>
 </tr>
 <tr>
 <td><code>update_line_items</code></td>
@@ -766,6 +762,18 @@
 <td><code>update_proposal_settings</code></td>
 <td>Change a proposal&#39;s document settings — theme, table of contents, total visibility, read-only report mode, forced signature, the &quot;Prepared for&quot; line, the thank-you email, expiry and display dates, and the deposit share collected through Stripe on acceptance. Only the settings passed change; an empty string clears a date, and a deposit of <code>0</code> turns collection off.</td>
 </tr>
+<tr>
+<td><code>update_section</code></td>
+<td>Update a section&#39;s title, body, or position, and its flags: optional (the client chooses whether to take a cost section), a page break before the section, and showing the section&#39;s own subtotal. The body replaces the current HTML entirely — fetch it with <code>section_body</code> first.</td>
+</tr>
+<tr>
+<td><code>create_section</code></td>
+<td>Add a text or cost section to a proposal, at an optional position.</td>
+</tr>
+<tr>
+<td><code>remove_section</code></td>
+<td>Remove one whole section — text, or a cost section together with its pricing table. The same soft delete as deleting the section in the app or the v2 API, and totals recalculate; there is no undo over MCP.</td>
+</tr>
 </tbody></table>
 
 <h3 id='tool-limits'>Tool limits</h3>
@@ -774,7 +782,7 @@
 
 <ul>
 <li>20 sections per <code>create_proposal</code> call, and 100 sections per proposal overall</li>
-<li>50 line items per section</li>
+<li>50 line items per section — <code>add_line_items</code> refuses additions that would pass it</li>
 <li>50,000 characters per section body</li>
 <li>10 taxes per <code>set_proposal_taxes</code> call</li>
 <li><code>clients_search</code> returns at most 20 matches; <code>templates_list</code> pages 50 at a time</li>
