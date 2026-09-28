@@ -121,7 +121,7 @@ If you're building an autonomous agent on the MCP server, keep a human in the lo
 
 ## MCP Rate Limiting
 
-The MCP endpoint is rate limited to 60 requests per minute per IP. If the limit is exceeded you will receive a response `HTTP 429 (Too Many Requests)`. Client registration is throttled separately.
+The MCP endpoint is rate limited to 60 requests per minute per access token; requests without a token are limited to 60 per minute per IP. If the limit is exceeded you will receive a response `HTTP 429 (Too Many Requests)`. Client registration is throttled separately.
 
 ## MCP Logs
 
