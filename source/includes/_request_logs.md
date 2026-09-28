@@ -12,4 +12,4 @@ For each request we record:
 
 You can filter the list by API token (including revoked tokens), and click any request to see its full parameters and response. Response bodies are truncated at 64 KB.
 
-Logs are kept for 30 days, or 90 days on the Business plan. Viewing them requires the "View API logs" permission, so account owners can control which team members have access.
+You can see the logs from the last 30 days, or 90 days on the Business and Enterprise plans. Viewing them requires the "View API logs" permission, so account owners can control which team members have access.

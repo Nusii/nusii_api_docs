@@ -134,4 +134,4 @@ For each request we record:
 - The outcome and duration
 - The connected client and user
 
-Logs follow the same retention as API logs: 30 days, or 90 days on the Business plan. Owners and administrators see the whole account's requests; other roles see their own, or none, depending on their log permissions.
+As with API logs, you can see the requests from the last 30 days, or 90 days on the Business and Enterprise plans. How long we store them is in our [privacy policy](https://nusii.com/privacy/). Owners and administrators see the whole account's requests; other roles see their own, or none, depending on their log permissions.
