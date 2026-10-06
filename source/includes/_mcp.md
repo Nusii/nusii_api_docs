@@ -76,8 +76,8 @@ Tool | Description
 `templates_list` | The account's templates (id, name, dates), optionally filtered by name, with cursor pagination.
 `template_details` | One template's full content: text sections, cost sections with line items, and the template total.
 `clients_search` | Case-insensitive client lookup by name, company, or email.
-`proposal_pricing` | A proposal's cost sections, line items, and totals, including per-unit, recurring, and range items, plus the subtotal and applied taxes.
-`section_body` | One section's raw editor HTML, so rewrites can round-trip without destroying formatting.
+`proposal_pricing` | A proposal's cost sections, line items, and totals, including per-unit, recurring, and range items, plus the subtotal and applied taxes. Line item names are plain text — `section_body` returns them as HTML.
+`section_body` | One section's raw editor HTML, so rewrites can round-trip without destroying formatting. For a cost section it also returns each line item's name as raw HTML, to edit and send back through `update_line_items`.
 `proposal_details` | A whole proposal for review: metadata, client, and every section in order.
 
 ### Write tools
@@ -89,7 +89,7 @@ Tool | Description
 `create_proposal_from_template` | Create a draft proposal from a template, optionally attaching a client by id or email (creating the client if needed).
 `create_proposal` | Create a draft proposal from scratch, with optional sections and pricing built in a single transaction.
 `add_line_items` | Append line items to an existing cost section's table, in array order — amounts are decimal strings (`"1200.50"`), never cents, and text sections are refused. Atomic: one invalid item and nothing is added. The response carries the new item ids and the recalculated totals.
-`update_line_items` | Batch-update line item names, amounts, and quantities. Atomic: one invalid item rolls back the whole batch.
+`update_line_items` | Batch-update line item names, amounts, and quantities. A name is editor HTML and replaces the whole name — fetch it with `section_body` first, so bold text and paragraphs survive. Atomic: one invalid item rolls back the whole batch.
 `remove_line_items` | Delete line items from a proposal. Totals recalculate automatically.
 `set_proposal_taxes` | Replace the set of taxes applied to a proposal: the account's saved taxes by id or name, ad-hoc name and percentage rates (a negative percentage acts as a discount), or an empty list to clear them.
 `attach_client_to_proposal` | Set or replace a proposal's client, with the same id/email resolution as create.
