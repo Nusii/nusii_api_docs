@@ -708,11 +708,11 @@
 </tr>
 <tr>
 <td><code>proposal_pricing</code></td>
-<td>A proposal&#39;s cost sections, line items, and totals, including per-unit, recurring, and range items, plus the subtotal and applied taxes.</td>
+<td>A proposal&#39;s cost sections, line items, and totals, including per-unit, recurring, and range items, plus the subtotal and applied taxes. Line item names are plain text — <code>section_body</code> returns them as HTML.</td>
 </tr>
 <tr>
 <td><code>section_body</code></td>
-<td>One section&#39;s raw editor HTML, so rewrites can round-trip without destroying formatting.</td>
+<td>One section&#39;s raw editor HTML, so rewrites can round-trip without destroying formatting. For a cost section it also returns each line item&#39;s name as raw HTML, to edit and send back through <code>update_line_items</code>.</td>
 </tr>
 <tr>
 <td><code>proposal_details</code></td>
@@ -744,7 +744,7 @@
 </tr>
 <tr>
 <td><code>update_line_items</code></td>
-<td>Batch-update line item names, amounts, and quantities. Atomic: one invalid item rolls back the whole batch.</td>
+<td>Batch-update line item names, amounts, and quantities. A name is editor HTML and replaces the whole name — fetch it with <code>section_body</code> first, so bold text and paragraphs survive. Atomic: one invalid item rolls back the whole batch.</td>
 </tr>
 <tr>
 <td><code>remove_line_items</code></td>
