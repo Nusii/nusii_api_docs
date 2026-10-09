@@ -54,6 +54,17 @@ const { data: templates } = await nusii.templates.list();
 await nusii.templates.list({ public_templates: true });
 ```
 
+```python
+from nusii import Nusii
+
+nusii = Nusii(api_key="YOUR_API_KEY")
+
+templates = nusii.templates.list()
+
+# Nusii's public templates
+nusii.templates.list(public_templates=True)
+```
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -129,6 +140,14 @@ import { Nusii } from '@nusii/nusii';
 const nusii = new Nusii({ apiKey: 'YOUR_API_KEY' });
 
 const template = await nusii.templates.get(12);
+```
+
+```python
+from nusii import Nusii
+
+nusii = Nusii(api_key="YOUR_API_KEY")
+
+template = nusii.templates.get(12)
 ```
 
 > The above command returns JSON structured like this:

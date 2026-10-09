@@ -40,6 +40,14 @@ const nusii = new Nusii({ apiKey: 'YOUR_API_KEY' });
 const account = await nusii.account.me();
 ```
 
+```python
+from nusii import Nusii
+
+nusii = Nusii(api_key="YOUR_API_KEY")
+
+account = nusii.account.me()
+```
+
 > The above command returns JSON structured like this:
 
 ```json

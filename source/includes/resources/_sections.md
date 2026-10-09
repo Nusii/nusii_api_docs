@@ -41,6 +41,15 @@ const nusii = new Nusii({ apiKey: 'YOUR_API_KEY' });
 const { data: sections } = await nusii.sections.list({ proposal_id: 126, page: 1 });
 ```
 
+```python
+from nusii import Nusii
+
+nusii = Nusii(api_key="YOUR_API_KEY")
+
+# Line items of cost sections are included as section["line_items"]
+sections = nusii.sections.list(proposal_id=126, page=1)
+```
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -151,6 +160,14 @@ const nusii = new Nusii({ apiKey: 'YOUR_API_KEY' });
 const section = await nusii.sections.get(100);
 ```
 
+```python
+from nusii import Nusii
+
+nusii = Nusii(api_key="YOUR_API_KEY")
+
+section = nusii.sections.get(100)
+```
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -248,6 +265,17 @@ const section = await nusii.sections.create({
   proposal_id: 126,
   title: 'Introduction',
 });
+```
+
+```python
+from nusii import Nusii
+
+nusii = Nusii(api_key="YOUR_API_KEY")
+
+section = nusii.sections.create(
+    proposal_id=126,
+    title="Introduction",
+)
 ```
 
 > The above command returns JSON structured like this:
@@ -367,6 +395,14 @@ const section = await nusii.sections.update(100, {
 });
 ```
 
+```python
+from nusii import Nusii
+
+nusii = Nusii(api_key="YOUR_API_KEY")
+
+section = nusii.sections.update(100, title="Introduction")
+```
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -461,6 +497,14 @@ import { Nusii } from '@nusii/nusii';
 const nusii = new Nusii({ apiKey: 'YOUR_API_KEY' });
 
 await nusii.sections.delete(100);
+```
+
+```python
+from nusii import Nusii
+
+nusii = Nusii(api_key="YOUR_API_KEY")
+
+nusii.sections.delete(100)
 ```
 
 > The above command returns JSON structured like this:

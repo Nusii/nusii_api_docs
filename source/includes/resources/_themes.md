@@ -31,6 +31,14 @@ const nusii = new Nusii({ apiKey: 'YOUR_API_KEY' });
 const themes = await nusii.themes.list();
 ```
 
+```python
+from nusii import Nusii
+
+nusii = Nusii(api_key="YOUR_API_KEY")
+
+themes = nusii.themes.list()
+```
+
 > The above command returns JSON structured like this:
 
 ```json

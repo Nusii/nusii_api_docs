@@ -27,6 +27,21 @@ for await (const proposal of nusii.proposals.listAll()) {
 }
 ```
 
+```python
+from nusii import Nusii
+
+nusii = Nusii(api_key="YOUR_API_KEY")
+
+page = nusii.proposals.list(page=2, per_page=10)
+page.total_pages  # 4
+
+next_page = page.get_next_page()
+
+# Or let the SDK fetch every page for you
+for proposal in nusii.proposals.list_all():
+    print(proposal["title"])
+```
+
 
 ```json
 {

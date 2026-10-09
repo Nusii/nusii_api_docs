@@ -107,6 +107,29 @@ await nusii.proposals.list({
 });
 ```
 
+```python
+from nusii import Nusii
+
+nusii = Nusii(api_key="YOUR_API_KEY")
+
+# Get all proposals
+nusii.proposals.list(page=1)
+
+# Get only accepted proposals
+nusii.proposals.list(status="accepted")
+
+# Get only draft proposals
+nusii.proposals.list(status="draft")
+
+# Get proposals sent to a specific recipient
+nusii.proposals.list(recipient_email="alice@example.com")
+
+# Get proposals sent to any of multiple recipients
+nusii.proposals.list(
+    recipient_emails=["alice@example.com", "bob@example.com", "carol@example.com"],
+)
+```
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -206,6 +229,14 @@ const nusii = new Nusii({ apiKey: 'YOUR_API_KEY' });
 const proposal = await nusii.proposals.get(100);
 ```
 
+```python
+from nusii import Nusii
+
+nusii = Nusii(api_key="YOUR_API_KEY")
+
+proposal = nusii.proposals.get(100)
+```
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -300,6 +331,17 @@ const proposal = await nusii.proposals.create({
   title: 'Webdesign yourwebsite.com',
   client_id: 100,
 });
+```
+
+```python
+from nusii import Nusii
+
+nusii = Nusii(api_key="YOUR_API_KEY")
+
+proposal = nusii.proposals.create(
+    title="Webdesign yourwebsite.com",
+    client_id=100,
+)
 ```
 
 > The above command returns JSON structured like this:
@@ -405,6 +447,14 @@ const proposal = await nusii.proposals.update(100, {
 });
 ```
 
+```python
+from nusii import Nusii
+
+nusii = Nusii(api_key="YOUR_API_KEY")
+
+proposal = nusii.proposals.update(100, title="Webdesign yourwebsite.com")
+```
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -501,6 +551,14 @@ const nusii = new Nusii({ apiKey: 'YOUR_API_KEY' });
 await nusii.proposals.delete(100);
 ```
 
+```python
+from nusii import Nusii
+
+nusii = Nusii(api_key="YOUR_API_KEY")
+
+nusii.proposals.delete(100)
+```
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -566,6 +624,14 @@ import { Nusii } from '@nusii/nusii';
 const nusii = new Nusii({ apiKey: 'YOUR_API_KEY' });
 
 await nusii.proposals.archive(100);
+```
+
+```python
+from nusii import Nusii
+
+nusii = Nusii(api_key="YOUR_API_KEY")
+
+nusii.proposals.archive(100)
 ```
 
 > The above command returns JSON structured like this:
@@ -645,6 +711,18 @@ const result = await nusii.proposals.send(100, {
 });
 ```
 
+```python
+from nusii import Nusii
+
+nusii = Nusii(api_key="YOUR_API_KEY")
+
+result = nusii.proposals.send(
+    100,
+    email="your_client@email.com",
+    subject="Your Proposal",
+)
+```
+
 > Send to multiple recipients:
 
 ```shell--curl
@@ -706,6 +784,23 @@ const result = await nusii.proposals.send(100, {
     { name: 'Bob', email: 'bob@example.com', eligible_to_sign: false },
   ],
 });
+```
+
+```python
+from nusii import Nusii
+
+nusii = Nusii(api_key="YOUR_API_KEY")
+
+result = nusii.proposals.send(
+    100,
+    subject="Your Proposal",
+    message="Please review the attached proposal.",
+    sender_email="sender@example.com",
+    recipients=[
+        {"name": "Alice", "email": "alice@example.com", "eligible_to_sign": True},
+        {"name": "Bob", "email": "bob@example.com", "eligible_to_sign": False},
+    ],
+)
 ```
 
 > The above command returns JSON structured like this:

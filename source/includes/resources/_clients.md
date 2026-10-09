@@ -46,6 +46,19 @@ await nusii.clients.list({ query: 'acme' });
 await nusii.clients.list({ emails: ['john@doe.com', 'jane@doe.com'] });
 ```
 
+```python
+from nusii import Nusii
+
+nusii = Nusii(api_key="YOUR_API_KEY")
+
+# One page of clients, 25 per page by default
+clients = nusii.clients.list(page=1)
+
+# Search, or filter by email
+nusii.clients.list(query="acme")
+nusii.clients.list(emails=["john@doe.com", "jane@doe.com"])
+```
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -141,6 +154,14 @@ const nusii = new Nusii({ apiKey: 'YOUR_API_KEY' });
 const client = await nusii.clients.get(100);
 ```
 
+```python
+from nusii import Nusii
+
+nusii = Nusii(api_key="YOUR_API_KEY")
+
+client = nusii.clients.get(100)
+```
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -227,6 +248,19 @@ const client = await nusii.clients.create({
   surname: 'Doe',
   locale: 'en',
 });
+```
+
+```python
+from nusii import Nusii
+
+nusii = Nusii(api_key="YOUR_API_KEY")
+
+client = nusii.clients.create(
+    email="john@doe.com",
+    name="John",
+    surname="Doe",
+    locale="en",
+)
 ```
 
 > The above command returns JSON structured like this:
@@ -336,6 +370,18 @@ const client = await nusii.clients.update(100, {
 });
 ```
 
+```python
+from nusii import Nusii
+
+nusii = Nusii(api_key="YOUR_API_KEY")
+
+client = nusii.clients.update(
+    100,
+    email="john@doe.com",
+    name="John Doe",
+)
+```
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -432,6 +478,14 @@ import { Nusii } from '@nusii/nusii';
 const nusii = new Nusii({ apiKey: 'YOUR_API_KEY' });
 
 await nusii.clients.delete(100);
+```
+
+```python
+from nusii import Nusii
+
+nusii = Nusii(api_key="YOUR_API_KEY")
+
+nusii.clients.delete(100)
 ```
 
 > The above command returns JSON structured like this:

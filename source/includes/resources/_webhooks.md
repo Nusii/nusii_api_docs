@@ -39,6 +39,25 @@ export async function POST(request) {
 }
 ```
 
+```python
+# Receiving a webhook, e.g. in a Flask app.
+# With Django pass request.body, with FastAPI await request.body().
+from flask import Flask, request
+from nusii import parse_webhook_event
+
+app = Flask(__name__)
+
+
+@app.post("/webhooks/nusii")
+def nusii_webhook():
+    event = parse_webhook_event(request.get_data())
+
+    if event["event_name"] == "proposal_accepted":
+        print(f"{event['proposal']['title']} was accepted")
+
+    return "", 204
+```
+
 ## Webhook endpoint errors
 
 We consider all responses with `2xx` as successful. Any other response is considered a failed delivery, so make sure your endpoint responds with a 2xx. If we receive a `410 GONE`, the endpoint will get removed from our database.
@@ -97,6 +116,14 @@ import { Nusii } from '@nusii/nusii';
 const nusii = new Nusii({ apiKey: 'YOUR_API_KEY' });
 
 const { data: endpoints } = await nusii.webhookEndpoints.list();
+```
+
+```python
+from nusii import Nusii
+
+nusii = Nusii(api_key="YOUR_API_KEY")
+
+endpoints = nusii.webhook_endpoints.list()
 ```
 
 > The above command returns JSON structured like this:
@@ -171,6 +198,14 @@ import { Nusii } from '@nusii/nusii';
 const nusii = new Nusii({ apiKey: 'YOUR_API_KEY' });
 
 const endpoint = await nusii.webhookEndpoints.get(100);
+```
+
+```python
+from nusii import Nusii
+
+nusii = Nusii(api_key="YOUR_API_KEY")
+
+endpoint = nusii.webhook_endpoints.get(100)
 ```
 
 > The above command returns JSON structured like this:
@@ -248,6 +283,17 @@ const endpoint = await nusii.webhookEndpoints.create({
 });
 ```
 
+```python
+from nusii import Nusii
+
+nusii = Nusii(api_key="YOUR_API_KEY")
+
+endpoint = nusii.webhook_endpoints.create(
+    target_url="http://example.com",
+    events=["proposal_created", "client_created"],
+)
+```
+
 > The above command returns JSON structured like this:
 
 
@@ -320,6 +366,14 @@ import { Nusii } from '@nusii/nusii';
 const nusii = new Nusii({ apiKey: 'YOUR_API_KEY' });
 
 await nusii.webhookEndpoints.delete(100);
+```
+
+```python
+from nusii import Nusii
+
+nusii = Nusii(api_key="YOUR_API_KEY")
+
+nusii.webhook_endpoints.delete(100)
 ```
 
 > The above command returns JSON structured like this:

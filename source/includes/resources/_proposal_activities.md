@@ -49,6 +49,14 @@ const { data: activities } = await nusii.proposalActivities.list({
 });
 ```
 
+```python
+from nusii import Nusii
+
+nusii = Nusii(api_key="YOUR_API_KEY")
+
+activities = nusii.proposal_activities.list(proposal_id=100, page=1)
+```
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -151,6 +159,14 @@ import { Nusii } from '@nusii/nusii';
 const nusii = new Nusii({ apiKey: 'YOUR_API_KEY' });
 
 const activity = await nusii.proposalActivities.get(44);
+```
+
+```python
+from nusii import Nusii
+
+nusii = Nusii(api_key="YOUR_API_KEY")
+
+activity = nusii.proposal_activities.get(44)
 ```
 
 > The above command returns JSON structured like this:

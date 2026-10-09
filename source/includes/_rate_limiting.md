@@ -11,4 +11,4 @@ X-RateLimit-Remaining | The amount of API calls that are still remaining (`0` on
 Retry-After | The amount of seconds until it is allowed again to make API calls
 X-RateLimit-Reset | The time when it is allowed again to make API calls.
 
-The [JavaScript SDK](#javascript-sdk) handles this for you: it waits for `Retry-After` and retries the request.
+The [JavaScript SDK](#javascript-sdk) and the [Python SDK](#python-sdk) handle this for you: they wait for `Retry-After` and retry the request.
