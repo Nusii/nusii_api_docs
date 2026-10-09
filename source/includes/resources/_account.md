@@ -32,6 +32,14 @@ $nusii = new Nusii('YOUR_API_KEY');
 $nusii->accounts()->me();
 ```
 
+```javascript
+import { Nusii } from '@nusii/nusii';
+
+const nusii = new Nusii({ apiKey: 'YOUR_API_KEY' });
+
+const account = await nusii.account.me();
+```
+
 > The above command returns JSON structured like this:
 
 ```json

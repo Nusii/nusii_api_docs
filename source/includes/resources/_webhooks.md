@@ -24,6 +24,21 @@ The object | An hash that represents the object. The key is always the name of t
   }
 ```
 
+```javascript
+// Receiving a webhook, e.g. in a Next.js route handler, Hono or Cloudflare Workers
+import { parseWebhookEvent } from '@nusii/nusii';
+
+export async function POST(request) {
+  const event = parseWebhookEvent(await request.text());
+
+  if (event.event_name === 'proposal_accepted') {
+    console.log(`${event.proposal.title} was accepted`);
+  }
+
+  return new Response(null, { status: 204 });
+}
+```
+
 ## Webhook endpoint errors
 
 We consider all responses with `2xx` as successful. Any other response is considered a failed delivery, so make sure your endpoint responds with a 2xx. If we receive a `410 GONE`, the endpoint will get removed from our database.
@@ -74,6 +89,14 @@ use Nusii\Nusii;
 $nusii = new Nusii('YOUR_API_KEY');
 
 $nusii->webhookEndpoints()->list();
+```
+
+```javascript
+import { Nusii } from '@nusii/nusii';
+
+const nusii = new Nusii({ apiKey: 'YOUR_API_KEY' });
+
+const { data: endpoints } = await nusii.webhookEndpoints.list();
 ```
 
 > The above command returns JSON structured like this:
@@ -142,6 +165,14 @@ $nusii = new Nusii('YOUR_API_KEY');
 $nusii->webhookEndpoints()->get(100);
 ```
 
+```javascript
+import { Nusii } from '@nusii/nusii';
+
+const nusii = new Nusii({ apiKey: 'YOUR_API_KEY' });
+
+const endpoint = await nusii.webhookEndpoints.get(100);
+```
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -204,6 +235,17 @@ $nusii->webhookEndpoints()->create([
     'target_url' => 'http://example.com',
     'events' => ['proposal_created', 'client_created'],
 ]);
+```
+
+```javascript
+import { Nusii } from '@nusii/nusii';
+
+const nusii = new Nusii({ apiKey: 'YOUR_API_KEY' });
+
+const endpoint = await nusii.webhookEndpoints.create({
+  target_url: 'http://example.com',
+  events: ['proposal_created', 'client_created'],
+});
 ```
 
 > The above command returns JSON structured like this:
@@ -270,6 +312,14 @@ use Nusii\Nusii;
 $nusii = new Nusii('YOUR_API_KEY');
 
 $nusii->webhookEndpoints()->delete(100);
+```
+
+```javascript
+import { Nusii } from '@nusii/nusii';
+
+const nusii = new Nusii({ apiKey: 'YOUR_API_KEY' });
+
+await nusii.webhookEndpoints.delete(100);
 ```
 
 > The above command returns JSON structured like this:

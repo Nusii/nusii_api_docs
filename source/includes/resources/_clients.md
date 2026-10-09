@@ -33,6 +33,19 @@ $nusii = new Nusii('YOUR_API_KEY');
 $nusii->clients()->list(page: 1);
 ```
 
+```javascript
+import { Nusii } from '@nusii/nusii';
+
+const nusii = new Nusii({ apiKey: 'YOUR_API_KEY' });
+
+// One page of clients, 25 per page by default
+const { data: clients, meta } = await nusii.clients.list({ page: 1 });
+
+// Search, or filter by email
+await nusii.clients.list({ query: 'acme' });
+await nusii.clients.list({ emails: ['john@doe.com', 'jane@doe.com'] });
+```
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -120,6 +133,14 @@ $nusii = new Nusii('YOUR_API_KEY');
 $nusii->clients()->get(100);
 ```
 
+```javascript
+import { Nusii } from '@nusii/nusii';
+
+const nusii = new Nusii({ apiKey: 'YOUR_API_KEY' });
+
+const client = await nusii.clients.get(100);
+```
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -193,6 +214,19 @@ $nusii->clients()->create([
     'name' => 'John',
     'surname' => 'Doe',
 ]);
+```
+
+```javascript
+import { Nusii } from '@nusii/nusii';
+
+const nusii = new Nusii({ apiKey: 'YOUR_API_KEY' });
+
+const client = await nusii.clients.create({
+  email: 'john@doe.com',
+  name: 'John',
+  surname: 'Doe',
+  locale: 'en',
+});
 ```
 
 > The above command returns JSON structured like this:
@@ -291,6 +325,17 @@ $nusii->clients()->update(100, [
 ]);
 ```
 
+```javascript
+import { Nusii } from '@nusii/nusii';
+
+const nusii = new Nusii({ apiKey: 'YOUR_API_KEY' });
+
+const client = await nusii.clients.update(100, {
+  email: 'john@doe.com',
+  name: 'John Doe',
+});
+```
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -379,6 +424,14 @@ use Nusii\Nusii;
 $nusii = new Nusii('YOUR_API_KEY');
 
 $nusii->clients()->delete(100);
+```
+
+```javascript
+import { Nusii } from '@nusii/nusii';
+
+const nusii = new Nusii({ apiKey: 'YOUR_API_KEY' });
+
+await nusii.clients.delete(100);
 ```
 
 > The above command returns JSON structured like this:

@@ -11,6 +11,22 @@ curl "https://app.nusii.com/api/v2/proposals" \
 nusii proposals list --page 2 --per-page 10
 ```
 
+```javascript
+import { Nusii } from '@nusii/nusii';
+
+const nusii = new Nusii({ apiKey: 'YOUR_API_KEY' });
+
+const page = await nusii.proposals.list({ page: 2, per_page: 10 });
+page.meta.total_pages; // 4
+
+const next = await page.getNextPage();
+
+// Or let the SDK fetch every page for you
+for await (const proposal of nusii.proposals.listAll()) {
+  console.log(proposal.title);
+}
+```
+
 
 ```json
 {

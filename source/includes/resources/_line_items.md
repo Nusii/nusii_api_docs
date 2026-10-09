@@ -32,6 +32,14 @@ $nusii = new Nusii('YOUR_API_KEY');
 $nusii->lineItems()->listBySection(sectionId: 100);
 ```
 
+```javascript
+import { Nusii } from '@nusii/nusii';
+
+const nusii = new Nusii({ apiKey: 'YOUR_API_KEY' });
+
+const lineItems = await nusii.lineItems.list(100);
+```
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -112,6 +120,16 @@ $nusii = new Nusii('YOUR_API_KEY');
 $nusii->lineItems()->createForSection(sectionId: 100, attributes: [
     'name' => 'Development Costs',
 ]);
+```
+
+```javascript
+import { Nusii } from '@nusii/nusii';
+
+const nusii = new Nusii({ apiKey: 'YOUR_API_KEY' });
+
+const lineItem = await nusii.lineItems.create(100, {
+  name: 'Development Costs',
+});
 ```
 
 > The above command returns JSON structured like this:
@@ -203,6 +221,16 @@ $nusii->lineItems()->update(100, [
 ]);
 ```
 
+```javascript
+import { Nusii } from '@nusii/nusii';
+
+const nusii = new Nusii({ apiKey: 'YOUR_API_KEY' });
+
+const lineItem = await nusii.lineItems.update(100, {
+  amount: 10000,
+});
+```
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -292,6 +320,14 @@ $nusii = new Nusii('YOUR_API_KEY');
 $nusii->lineItems()->delete(100);
 ```
 
+```javascript
+import { Nusii } from '@nusii/nusii';
+
+const nusii = new Nusii({ apiKey: 'YOUR_API_KEY' });
+
+await nusii.lineItems.delete(100);
+```
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -363,6 +399,19 @@ This endpoint deletes a specific line item.
 }
 ```
 
+```javascript
+import { Nusii } from '@nusii/nusii';
+
+const nusii = new Nusii({ apiKey: 'YOUR_API_KEY' });
+
+const lineItem = await nusii.lineItems.create(458, {
+  name: 'Discovery & UX research',
+  cost_type: 'range',
+  amount: 500000, // £5,000.00, the low end
+  maximum_amount: 800000, // £8,000.00, the high end
+});
+```
+
 A line item with `cost_type` of `range` shows a price range, e.g. **£5,000.00 – £8,000.00**, instead of a single value. The existing `amount` is the low end of the range, and `maximum_amount` is the high end.
 
 - Both values are in cents. `maximum_amount` should be greater than or equal to `amount`.
@@ -405,6 +454,18 @@ Price ranges are a feature that has to be enabled for your account. While it is 
     }
   }
 }
+```
+
+```javascript
+import { Nusii } from '@nusii/nusii';
+
+const nusii = new Nusii({ apiKey: 'YOUR_API_KEY' });
+
+const lineItem = await nusii.lineItems.create(458, {
+  name: 'Premium support',
+  amount: 250000,
+  choice_type: 'radio', // or 'checkbox', or 'none'
+});
 ```
 
 A line item can be an option your client chooses from, rather than a fixed part of the price. This is controlled by the `choice_type` attribute, which is returned with every line item and can be set when creating or updating one:

@@ -32,6 +32,15 @@ $nusii = new Nusii('YOUR_API_KEY');
 $nusii->sections()->list(proposalId: 126, page: 1);
 ```
 
+```javascript
+import { Nusii } from '@nusii/nusii';
+
+const nusii = new Nusii({ apiKey: 'YOUR_API_KEY' });
+
+// Line items of cost sections are included as section.line_items
+const { data: sections } = await nusii.sections.list({ proposal_id: 126, page: 1 });
+```
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -134,6 +143,14 @@ $nusii = new Nusii('YOUR_API_KEY');
 $nusii->sections()->get(100);
 ```
 
+```javascript
+import { Nusii } from '@nusii/nusii';
+
+const nusii = new Nusii({ apiKey: 'YOUR_API_KEY' });
+
+const section = await nusii.sections.get(100);
+```
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -220,6 +237,17 @@ $nusii->sections()->create([
     'proposal_id' => 126,
     'title' => 'Introduction',
 ]);
+```
+
+```javascript
+import { Nusii } from '@nusii/nusii';
+
+const nusii = new Nusii({ apiKey: 'YOUR_API_KEY' });
+
+const section = await nusii.sections.create({
+  proposal_id: 126,
+  title: 'Introduction',
+});
 ```
 
 > The above command returns JSON structured like this:
@@ -329,6 +357,16 @@ $nusii->sections()->update(100, [
 ]);
 ```
 
+```javascript
+import { Nusii } from '@nusii/nusii';
+
+const nusii = new Nusii({ apiKey: 'YOUR_API_KEY' });
+
+const section = await nusii.sections.update(100, {
+  title: 'Introduction',
+});
+```
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -415,6 +453,14 @@ use Nusii\Nusii;
 $nusii = new Nusii('YOUR_API_KEY');
 
 $nusii->sections()->delete(100);
+```
+
+```javascript
+import { Nusii } from '@nusii/nusii';
+
+const nusii = new Nusii({ apiKey: 'YOUR_API_KEY' });
+
+await nusii.sections.delete(100);
 ```
 
 > The above command returns JSON structured like this:

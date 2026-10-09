@@ -38,6 +38,17 @@ $nusii->proposalActivities()->list(
 );
 ```
 
+```javascript
+import { Nusii } from '@nusii/nusii';
+
+const nusii = new Nusii({ apiKey: 'YOUR_API_KEY' });
+
+const { data: activities } = await nusii.proposalActivities.list({
+  proposal_id: 100,
+  page: 1,
+});
+```
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -132,6 +143,14 @@ use Nusii\Nusii;
 $nusii = new Nusii('YOUR_API_KEY');
 
 $nusii->proposalActivities()->get(44);
+```
+
+```javascript
+import { Nusii } from '@nusii/nusii';
+
+const nusii = new Nusii({ apiKey: 'YOUR_API_KEY' });
+
+const activity = await nusii.proposalActivities.get(44);
 ```
 
 > The above command returns JSON structured like this:

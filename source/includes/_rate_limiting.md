@@ -10,3 +10,5 @@ X-RateLimit-Limit | The amount of API calls you can make every 30 seconds (alway
 X-RateLimit-Remaining | The amount of API calls that are still remaining (`0` on a 429 response)
 Retry-After | The amount of seconds until it is allowed again to make API calls
 X-RateLimit-Reset | The time when it is allowed again to make API calls.
+
+The [JavaScript SDK](#javascript-sdk) handles this for you: it waits for `Retry-After` and retries the request.

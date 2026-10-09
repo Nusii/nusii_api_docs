@@ -23,6 +23,14 @@ $nusii = new Nusii('YOUR_API_KEY');
 $nusii->themes()->list();
 ```
 
+```javascript
+import { Nusii } from '@nusii/nusii';
+
+const nusii = new Nusii({ apiKey: 'YOUR_API_KEY' });
+
+const themes = await nusii.themes.list();
+```
+
 > The above command returns JSON structured like this:
 
 ```json

@@ -43,6 +43,17 @@ $nusii = new Nusii('YOUR_API_KEY');
 $nusii->templates()->list();
 ```
 
+```javascript
+import { Nusii } from '@nusii/nusii';
+
+const nusii = new Nusii({ apiKey: 'YOUR_API_KEY' });
+
+const { data: templates } = await nusii.templates.list();
+
+// Nusii's public templates
+await nusii.templates.list({ public_templates: true });
+```
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -110,6 +121,14 @@ use Nusii\Nusii;
 $nusii = new Nusii('YOUR_API_KEY');
 
 $nusii->templates()->get(12);
+```
+
+```javascript
+import { Nusii } from '@nusii/nusii';
+
+const nusii = new Nusii({ apiKey: 'YOUR_API_KEY' });
+
+const template = await nusii.templates.get(12);
 ```
 
 > The above command returns JSON structured like this:
