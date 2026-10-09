@@ -295,7 +295,7 @@
     </script>
   </head>
 
-  <body class="index" data-languages="[&quot;shell--curl&quot;,&quot;shell--cli&quot;,&quot;ruby&quot;,&quot;php&quot;,&quot;javascript&quot;]">
+  <body class="index" data-languages="[&quot;shell--curl&quot;,&quot;shell--cli&quot;,&quot;ruby&quot;,&quot;php&quot;,&quot;javascript&quot;,&quot;python&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -310,6 +310,7 @@
               <a href="#" data-language-name="ruby">Ruby</a>
               <a href="#" data-language-name="php">PHP</a>
               <a href="#" data-language-name="javascript">JavaScript</a>
+              <a href="#" data-language-name="python">Python</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -352,6 +353,9 @@
           </li>
           <li>
             <a href="#javascript-sdk" class="toc-h1 toc-link" data-title="JavaScript SDK">JavaScript SDK</a>
+          </li>
+          <li>
+            <a href="#python-sdk" class="toc-h1 toc-link" data-title="Python SDK">Python SDK</a>
           </li>
           <li>
             <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
@@ -571,6 +575,7 @@
             <li><a href='https://github.com/Nusii/nusii-cli'>Nusii CLI on GitHub</a></li>
             <li><a href='https://github.com/nusii/nusii-php'>Nusii PHP on GitHub</a></li>
             <li><a href='https://github.com/Nusii/nusii-typescript'>Nusii JavaScript on GitHub</a></li>
+            <li><a href='https://github.com/Nusii/nusii-python'>Nusii Python on GitHub</a></li>
         </ul>
     </div>
     <div class="page-wrapper">
@@ -845,7 +850,9 @@ nusii auth status
 <span class="c1">// Install: brew install nusii/tap/nusii</span>
 </code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="c1">// The Nusii CLI is an alternative to the JavaScript SDK.</span>
 <span class="c1">// Install: brew install nusii/tap/nusii</span>
-</code></pre></div><h1 id='javascript-sdk'>JavaScript SDK</h1>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="c1"># The Nusii CLI is an alternative to the Python SDK.
+# Install: brew install nusii/tap/nusii
+</span></code></pre></div><h1 id='javascript-sdk'>JavaScript SDK</h1>
 <p>The <a href="https://github.com/Nusii/nusii-typescript">Nusii JavaScript SDK</a> is the official client for Node.js, Bun, Deno and edge runtimes, published on npm as <a href="https://www.npmjs.com/package/@nusii/nusii"><code>@nusii/nusii</code></a>. It has TypeScript types for every request and response and no dependencies.</p>
 
 <p>It flattens the JSON:API responses into plain objects, pages through lists for you, retries rate limited requests, and throws a typed error for every failure. Select the <strong>JavaScript</strong> tab to see it in every example of this reference.</p>
@@ -857,7 +864,9 @@ nusii auth status
 <span class="kd">const</span> <span class="nx">nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Nusii</span><span class="p">({</span> <span class="na">apiKey</span><span class="p">:</span> <span class="dl">'</span><span class="s1">YOUR_API_KEY</span><span class="dl">'</span> <span class="p">});</span>
 
 <span class="kd">const</span> <span class="p">{</span> <span class="na">data</span><span class="p">:</span> <span class="nx">proposals</span> <span class="p">}</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">nusii</span><span class="p">.</span><span class="nx">proposals</span><span class="p">.</span><span class="nx">list</span><span class="p">({</span> <span class="na">status</span><span class="p">:</span> <span class="dl">'</span><span class="s1">pending</span><span class="dl">'</span> <span class="p">});</span>
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell--curl"><code><span class="c"># The JavaScript SDK is an alternative to using cURL.</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="c1"># The JavaScript SDK is an alternative to the Python SDK.
+# Install: pip install nusii
+</span></code></pre></div><div class="highlight"><pre class="highlight shell tab-shell--curl"><code><span class="c"># The JavaScript SDK is an alternative to using cURL.</span>
 <span class="c"># Install: npm install @nusii/nusii</span>
 </code></pre></div><div class="highlight"><pre class="highlight shell tab-shell--cli"><code><span class="c"># The JavaScript SDK is an alternative to the Nusii CLI.</span>
 <span class="c"># Install: npm install @nusii/nusii</span>
@@ -865,6 +874,28 @@ nusii auth status
 <span class="c1"># Install: npm install @nusii/nusii</span>
 </code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="c1">// The JavaScript SDK is an alternative to the PHP package.</span>
 <span class="c1">// Install: npm install @nusii/nusii</span>
+</code></pre></div><h1 id='python-sdk'>Python SDK</h1>
+<p>The <a href="https://github.com/Nusii/nusii-python">Nusii Python SDK</a> is the official client for Python 3.10 and newer, published on PyPI as <a href="https://pypi.org/project/nusii/"><code>nusii</code></a>. It has type hints for every request and response, so editors autocomplete them and mypy or Pyright catch mistakes.</p>
+
+<p>It flattens the JSON:API responses into plain dictionaries, pages through lists for you, retries rate limited requests, and raises a typed exception for every failure. Select the <strong>Python</strong> tab to see it in every example of this reference.</p>
+<div class="highlight"><pre class="highlight python tab-python"><code><span class="c1"># Install with pip (or uv, poetry)
+# pip install nusii
+</span>
+<span class="kn">from</span> <span class="nn">nusii</span> <span class="kn">import</span> <span class="n">Nusii</span>
+
+<span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">"YOUR_API_KEY"</span><span class="p">)</span>
+
+<span class="n">proposals</span> <span class="o">=</span> <span class="n">nusii</span><span class="p">.</span><span class="n">proposals</span><span class="p">.</span><span class="nb">list</span><span class="p">(</span><span class="n">status</span><span class="o">=</span><span class="s">"pending"</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell--curl"><code><span class="c"># The Python SDK is an alternative to using cURL.</span>
+<span class="c"># Install: pip install nusii</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell--cli"><code><span class="c"># The Python SDK is an alternative to the Nusii CLI.</span>
+<span class="c"># Install: pip install nusii</span>
+</code></pre></div><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="c1"># The Python SDK is an alternative to the Ruby gem.</span>
+<span class="c1"># Install: pip install nusii</span>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="c1">// The Python SDK is an alternative to the PHP package.</span>
+<span class="c1">// Install: pip install nusii</span>
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="c1">// The Python SDK is an alternative to the JavaScript SDK.</span>
+<span class="c1">// Install: pip install nusii</span>
 </code></pre></div><h1 id='authentication'>Authentication</h1>
 <blockquote>
 <p>We offer a token based authentication. You can find your API access token <a href="https://app.nusii.com/settings/api">here</a>. Tokens need to be added in the HTTP_AUTHORIZATION header as <code>Token token=YOUR_API_KEY</code></p>
@@ -893,7 +924,14 @@ curl <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www
 
 <span class="kd">const</span> <span class="nx">nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Nusii</span><span class="p">({</span> <span class="na">apiKey</span><span class="p">:</span> <span class="dl">'</span><span class="s1">YOUR_API_KEY</span><span class="dl">'</span> <span class="p">});</span>
 <span class="c1">// Or set the NUSII_API_KEY environment variable and call new Nusii()</span>
-</code></pre></div>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="c1"># Install with pip (or uv, poetry)
+# pip install nusii
+</span>
+<span class="kn">from</span> <span class="nn">nusii</span> <span class="kn">import</span> <span class="n">Nusii</span>
+
+<span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">"YOUR_API_KEY"</span><span class="p">)</span>
+<span class="c1"># Or set the NUSII_API_KEY environment variable and call Nusii()
+</span></code></pre></div>
 <blockquote>
 <p>Make sure to replace <code>YOUR_API_KEY</code> with your API key.</p>
 </blockquote>
@@ -967,6 +1005,13 @@ Keep your Client Secret confidential. You can copy it again from the application
 
 <span class="kd">const</span> <span class="nx">codeVerifier</span> <span class="o">=</span> <span class="nx">randomBytes</span><span class="p">(</span><span class="mi">64</span><span class="p">).</span><span class="nx">toString</span><span class="p">(</span><span class="dl">'</span><span class="s1">base64url</span><span class="dl">'</span><span class="p">);</span>
 <span class="kd">const</span> <span class="nx">codeChallenge</span> <span class="o">=</span> <span class="nx">createHash</span><span class="p">(</span><span class="dl">'</span><span class="s1">sha256</span><span class="dl">'</span><span class="p">).</span><span class="nx">update</span><span class="p">(</span><span class="nx">codeVerifier</span><span class="p">).</span><span class="nx">digest</span><span class="p">(</span><span class="dl">'</span><span class="s1">base64url</span><span class="dl">'</span><span class="p">);</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">base64</span>
+<span class="kn">import</span> <span class="nn">hashlib</span>
+<span class="kn">import</span> <span class="nn">secrets</span>
+
+<span class="n">code_verifier</span> <span class="o">=</span> <span class="n">secrets</span><span class="p">.</span><span class="n">token_urlsafe</span><span class="p">(</span><span class="mi">64</span><span class="p">)</span>
+<span class="n">digest</span> <span class="o">=</span> <span class="n">hashlib</span><span class="p">.</span><span class="n">sha256</span><span class="p">(</span><span class="n">code_verifier</span><span class="p">.</span><span class="n">encode</span><span class="p">()).</span><span class="n">digest</span><span class="p">()</span>
+<span class="n">code_challenge</span> <span class="o">=</span> <span class="n">base64</span><span class="p">.</span><span class="n">urlsafe_b64encode</span><span class="p">(</span><span class="n">digest</span><span class="p">).</span><span class="n">rstrip</span><span class="p">(</span><span class="sa">b</span><span class="s">"="</span><span class="p">).</span><span class="n">decode</span><span class="p">()</span>
 </code></pre></div>
 <p>PKCE protects the authorization flow by ensuring the app that started the flow is the same one exchanging the code. Generate a random <code>code_verifier</code> and derive a <code>code_challenge</code> from it.</p>
 <h3 id='step-2-redirect-the-user-to-authorize'>Step 2: Redirect the User to Authorize</h3><div class="highlight"><pre class="highlight shell tab-shell--curl"><code><span class="c"># Redirect the user's browser to:</span>
@@ -1012,7 +1057,22 @@ https://app.nusii.com/oauth/authorize?<span class="se">\</span>
 
 <span class="kd">const</span> <span class="nx">authUrl</span> <span class="o">=</span> <span class="s2">`https://app.nusii.com/oauth/authorize?</span><span class="p">${</span><span class="nx">params</span><span class="p">}</span><span class="s2">`</span><span class="p">;</span>
 <span class="c1">// Redirect the user to authUrl</span>
-</code></pre></div>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="kn">import</span> <span class="n">urlencode</span>
+
+<span class="n">params</span> <span class="o">=</span> <span class="n">urlencode</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="s">"client_id"</span><span class="p">:</span> <span class="s">"YOUR_CLIENT_ID"</span><span class="p">,</span>
+        <span class="s">"redirect_uri"</span><span class="p">:</span> <span class="s">"YOUR_REDIRECT_URI"</span><span class="p">,</span>
+        <span class="s">"response_type"</span><span class="p">:</span> <span class="s">"code"</span><span class="p">,</span>
+        <span class="s">"scope"</span><span class="p">:</span> <span class="s">"read write"</span><span class="p">,</span>
+        <span class="s">"code_challenge"</span><span class="p">:</span> <span class="n">code_challenge</span><span class="p">,</span>
+        <span class="s">"code_challenge_method"</span><span class="p">:</span> <span class="s">"S256"</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+
+<span class="n">auth_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s">"https://app.nusii.com/oauth/authorize?</span><span class="si">{</span><span class="n">params</span><span class="si">}</span><span class="s">"</span>
+<span class="c1"># Redirect the user to auth_url
+</span></code></pre></div>
 <p>Redirect the user&#39;s browser to the authorization URL. They&#39;ll be asked to sign in to Nusii (if not already) and approve your app&#39;s access.</p>
 
 <p>If the user belongs to multiple Nusii accounts, they&#39;ll be asked to select which account to authorize.</p>
@@ -1119,6 +1179,23 @@ curl <span class="nt">-X</span> POST <span class="se">\</span>
 <span class="p">});</span>
 
 <span class="kd">const</span> <span class="p">{</span> <span class="nx">access_token</span><span class="p">,</span> <span class="nx">refresh_token</span> <span class="p">}</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">httpx</span>  <span class="c1"># installed with the nusii package
+</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">httpx</span><span class="p">.</span><span class="n">post</span><span class="p">(</span>
+    <span class="s">"https://app.nusii.com/oauth/token"</span><span class="p">,</span>
+    <span class="n">data</span><span class="o">=</span><span class="p">{</span>
+        <span class="s">"grant_type"</span><span class="p">:</span> <span class="s">"authorization_code"</span><span class="p">,</span>
+        <span class="s">"code"</span><span class="p">:</span> <span class="s">"AUTHORIZATION_CODE"</span><span class="p">,</span>
+        <span class="s">"redirect_uri"</span><span class="p">:</span> <span class="s">"YOUR_REDIRECT_URI"</span><span class="p">,</span>
+        <span class="s">"client_id"</span><span class="p">:</span> <span class="s">"YOUR_CLIENT_ID"</span><span class="p">,</span>
+        <span class="s">"client_secret"</span><span class="p">:</span> <span class="s">"YOUR_CLIENT_SECRET"</span><span class="p">,</span>
+        <span class="s">"code_verifier"</span><span class="p">:</span> <span class="n">code_verifier</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">)</span>
+
+<span class="n">tokens</span> <span class="o">=</span> <span class="n">response</span><span class="p">.</span><span class="n">json</span><span class="p">()</span>
+<span class="n">access_token</span> <span class="o">=</span> <span class="n">tokens</span><span class="p">[</span><span class="s">"access_token"</span><span class="p">]</span>
+<span class="n">refresh_token</span> <span class="o">=</span> <span class="n">tokens</span><span class="p">[</span><span class="s">"refresh_token"</span><span class="p">]</span>
 </code></pre></div>
 <blockquote>
 <p>A successful response returns:</p>
@@ -1214,6 +1291,12 @@ Access tokens expire after <strong>24 hours</strong>. Use the refresh token to g
 <span class="kd">const</span> <span class="nx">nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Nusii</span><span class="p">({</span> <span class="na">accessToken</span><span class="p">:</span> <span class="dl">'</span><span class="s1">YOUR_ACCESS_TOKEN</span><span class="dl">'</span> <span class="p">});</span>
 
 <span class="kd">const</span> <span class="p">{</span> <span class="na">data</span><span class="p">:</span> <span class="nx">clients</span> <span class="p">}</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">nusii</span><span class="p">.</span><span class="nx">clients</span><span class="p">.</span><span class="nx">list</span><span class="p">();</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">from</span> <span class="nn">nusii</span> <span class="kn">import</span> <span class="n">Nusii</span>
+
+<span class="c1"># Use an OAuth access token instead of an API key
+</span><span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">access_token</span><span class="o">=</span><span class="s">"YOUR_ACCESS_TOKEN"</span><span class="p">)</span>
+
+<span class="n">clients</span> <span class="o">=</span> <span class="n">nusii</span><span class="p">.</span><span class="n">clients</span><span class="p">.</span><span class="nb">list</span><span class="p">()</span>
 </code></pre></div>
 <p>Once you have an access token, include it in the <code>Authorization</code> header as a Bearer token:</p>
 
@@ -1272,6 +1355,21 @@ Access tokens expire after <strong>24 hours</strong>. Use the refresh token to g
 <span class="p">});</span>
 
 <span class="kd">const</span> <span class="p">{</span> <span class="nx">access_token</span><span class="p">,</span> <span class="nx">refresh_token</span> <span class="p">}</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">httpx</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">httpx</span><span class="p">.</span><span class="n">post</span><span class="p">(</span>
+    <span class="s">"https://app.nusii.com/oauth/token"</span><span class="p">,</span>
+    <span class="n">data</span><span class="o">=</span><span class="p">{</span>
+        <span class="s">"grant_type"</span><span class="p">:</span> <span class="s">"refresh_token"</span><span class="p">,</span>
+        <span class="s">"refresh_token"</span><span class="p">:</span> <span class="s">"YOUR_REFRESH_TOKEN"</span><span class="p">,</span>
+        <span class="s">"client_id"</span><span class="p">:</span> <span class="s">"YOUR_CLIENT_ID"</span><span class="p">,</span>
+        <span class="s">"client_secret"</span><span class="p">:</span> <span class="s">"YOUR_CLIENT_SECRET"</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">)</span>
+
+<span class="n">tokens</span> <span class="o">=</span> <span class="n">response</span><span class="p">.</span><span class="n">json</span><span class="p">()</span>
+<span class="n">new_access_token</span> <span class="o">=</span> <span class="n">tokens</span><span class="p">[</span><span class="s">"access_token"</span><span class="p">]</span>
+<span class="n">new_refresh_token</span> <span class="o">=</span> <span class="n">tokens</span><span class="p">[</span><span class="s">"refresh_token"</span><span class="p">]</span>
 </code></pre></div>
 <blockquote>
 <p>A successful response returns a new token pair:</p>
@@ -1357,6 +1455,16 @@ Always store the new refresh token from the response. The previous refresh token
     <span class="na">client_secret</span><span class="p">:</span> <span class="dl">'</span><span class="s1">YOUR_CLIENT_SECRET</span><span class="dl">'</span><span class="p">,</span>
   <span class="p">}),</span>
 <span class="p">});</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">httpx</span>
+
+<span class="n">httpx</span><span class="p">.</span><span class="n">post</span><span class="p">(</span>
+    <span class="s">"https://app.nusii.com/oauth/revoke"</span><span class="p">,</span>
+    <span class="n">data</span><span class="o">=</span><span class="p">{</span>
+        <span class="s">"token"</span><span class="p">:</span> <span class="s">"YOUR_ACCESS_TOKEN"</span><span class="p">,</span>
+        <span class="s">"client_id"</span><span class="p">:</span> <span class="s">"YOUR_CLIENT_ID"</span><span class="p">,</span>
+        <span class="s">"client_secret"</span><span class="p">:</span> <span class="s">"YOUR_CLIENT_SECRET"</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">)</span>
 </code></pre></div>
 <p>Revoke a token when a user disconnects your app or you no longer need access. You can revoke either the access token or the refresh token.</p>
 
@@ -1454,6 +1562,11 @@ Always store the new refresh token from the response. The previous refresh token
 <span class="kd">const</span> <span class="nx">nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Nusii</span><span class="p">({</span> <span class="na">apiKey</span><span class="p">:</span> <span class="dl">'</span><span class="s1">YOUR_API_KEY</span><span class="dl">'</span> <span class="p">});</span>
 
 <span class="kd">const</span> <span class="nx">account</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">nusii</span><span class="p">.</span><span class="nx">account</span><span class="p">.</span><span class="nx">me</span><span class="p">();</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">from</span> <span class="nn">nusii</span> <span class="kn">import</span> <span class="n">Nusii</span>
+
+<span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">"YOUR_API_KEY"</span><span class="p">)</span>
+
+<span class="n">account</span> <span class="o">=</span> <span class="n">nusii</span><span class="p">.</span><span class="n">account</span><span class="p">.</span><span class="n">me</span><span class="p">()</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -1511,6 +1624,16 @@ Always store the new refresh token from the response. The previous refresh token
 <span class="c1">// Search, or filter by email</span>
 <span class="k">await</span> <span class="nx">nusii</span><span class="p">.</span><span class="nx">clients</span><span class="p">.</span><span class="nx">list</span><span class="p">({</span> <span class="na">query</span><span class="p">:</span> <span class="dl">'</span><span class="s1">acme</span><span class="dl">'</span> <span class="p">});</span>
 <span class="k">await</span> <span class="nx">nusii</span><span class="p">.</span><span class="nx">clients</span><span class="p">.</span><span class="nx">list</span><span class="p">({</span> <span class="na">emails</span><span class="p">:</span> <span class="p">[</span><span class="dl">'</span><span class="s1">john@doe.com</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">jane@doe.com</span><span class="dl">'</span><span class="p">]</span> <span class="p">});</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">from</span> <span class="nn">nusii</span> <span class="kn">import</span> <span class="n">Nusii</span>
+
+<span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">"YOUR_API_KEY"</span><span class="p">)</span>
+
+<span class="c1"># One page of clients, 25 per page by default
+</span><span class="n">clients</span> <span class="o">=</span> <span class="n">nusii</span><span class="p">.</span><span class="n">clients</span><span class="p">.</span><span class="nb">list</span><span class="p">(</span><span class="n">page</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Search, or filter by email
+</span><span class="n">nusii</span><span class="p">.</span><span class="n">clients</span><span class="p">.</span><span class="nb">list</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s">"acme"</span><span class="p">)</span>
+<span class="n">nusii</span><span class="p">.</span><span class="n">clients</span><span class="p">.</span><span class="nb">list</span><span class="p">(</span><span class="n">emails</span><span class="o">=</span><span class="p">[</span><span class="s">"john@doe.com"</span><span class="p">,</span> <span class="s">"jane@doe.com"</span><span class="p">])</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -1602,6 +1725,11 @@ Filter values must be plain strings. Sending a nested or non-string value for an
 <span class="kd">const</span> <span class="nx">nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Nusii</span><span class="p">({</span> <span class="na">apiKey</span><span class="p">:</span> <span class="dl">'</span><span class="s1">YOUR_API_KEY</span><span class="dl">'</span> <span class="p">});</span>
 
 <span class="kd">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">nusii</span><span class="p">.</span><span class="nx">clients</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">from</span> <span class="nn">nusii</span> <span class="kn">import</span> <span class="n">Nusii</span>
+
+<span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">"YOUR_API_KEY"</span><span class="p">)</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">nusii</span><span class="p">.</span><span class="n">clients</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -1670,6 +1798,16 @@ Filter values must be plain strings. Sending a nested or non-string value for an
   <span class="na">surname</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Doe</span><span class="dl">'</span><span class="p">,</span>
   <span class="na">locale</span><span class="p">:</span> <span class="dl">'</span><span class="s1">en</span><span class="dl">'</span><span class="p">,</span>
 <span class="p">});</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">from</span> <span class="nn">nusii</span> <span class="kn">import</span> <span class="n">Nusii</span>
+
+<span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">"YOUR_API_KEY"</span><span class="p">)</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">nusii</span><span class="p">.</span><span class="n">clients</span><span class="p">.</span><span class="n">create</span><span class="p">(</span>
+    <span class="n">email</span><span class="o">=</span><span class="s">"john@doe.com"</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s">"John"</span><span class="p">,</span>
+    <span class="n">surname</span><span class="o">=</span><span class="s">"Doe"</span><span class="p">,</span>
+    <span class="n">locale</span><span class="o">=</span><span class="s">"en"</span><span class="p">,</span>
+<span class="p">)</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -1852,6 +1990,15 @@ Filter values must be plain strings. Sending a nested or non-string value for an
   <span class="na">email</span><span class="p">:</span> <span class="dl">'</span><span class="s1">john@doe.com</span><span class="dl">'</span><span class="p">,</span>
   <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">John Doe</span><span class="dl">'</span><span class="p">,</span>
 <span class="p">});</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">from</span> <span class="nn">nusii</span> <span class="kn">import</span> <span class="n">Nusii</span>
+
+<span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">"YOUR_API_KEY"</span><span class="p">)</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">nusii</span><span class="p">.</span><span class="n">clients</span><span class="p">.</span><span class="n">update</span><span class="p">(</span>
+    <span class="mi">100</span><span class="p">,</span>
+    <span class="n">email</span><span class="o">=</span><span class="s">"john@doe.com"</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s">"John Doe"</span><span class="p">,</span>
+<span class="p">)</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -2025,6 +2172,11 @@ Filter values must be plain strings. Sending a nested or non-string value for an
 <span class="kd">const</span> <span class="nx">nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Nusii</span><span class="p">({</span> <span class="na">apiKey</span><span class="p">:</span> <span class="dl">'</span><span class="s1">YOUR_API_KEY</span><span class="dl">'</span> <span class="p">});</span>
 
 <span class="k">await</span> <span class="nx">nusii</span><span class="p">.</span><span class="nx">clients</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">from</span> <span class="nn">nusii</span> <span class="kn">import</span> <span class="n">Nusii</span>
+
+<span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">"YOUR_API_KEY"</span><span class="p">)</span>
+
+<span class="n">nusii</span><span class="p">.</span><span class="n">clients</span><span class="p">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -2147,6 +2299,26 @@ nusii proposals list <span class="nt">--status</span> draft
 <span class="k">await</span> <span class="nx">nusii</span><span class="p">.</span><span class="nx">proposals</span><span class="p">.</span><span class="nx">list</span><span class="p">({</span>
   <span class="na">recipient_emails</span><span class="p">:</span> <span class="p">[</span><span class="dl">'</span><span class="s1">alice@example.com</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">bob@example.com</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">carol@example.com</span><span class="dl">'</span><span class="p">],</span>
 <span class="p">});</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">from</span> <span class="nn">nusii</span> <span class="kn">import</span> <span class="n">Nusii</span>
+
+<span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">"YOUR_API_KEY"</span><span class="p">)</span>
+
+<span class="c1"># Get all proposals
+</span><span class="n">nusii</span><span class="p">.</span><span class="n">proposals</span><span class="p">.</span><span class="nb">list</span><span class="p">(</span><span class="n">page</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Get only accepted proposals
+</span><span class="n">nusii</span><span class="p">.</span><span class="n">proposals</span><span class="p">.</span><span class="nb">list</span><span class="p">(</span><span class="n">status</span><span class="o">=</span><span class="s">"accepted"</span><span class="p">)</span>
+
+<span class="c1"># Get only draft proposals
+</span><span class="n">nusii</span><span class="p">.</span><span class="n">proposals</span><span class="p">.</span><span class="nb">list</span><span class="p">(</span><span class="n">status</span><span class="o">=</span><span class="s">"draft"</span><span class="p">)</span>
+
+<span class="c1"># Get proposals sent to a specific recipient
+</span><span class="n">nusii</span><span class="p">.</span><span class="n">proposals</span><span class="p">.</span><span class="nb">list</span><span class="p">(</span><span class="n">recipient_email</span><span class="o">=</span><span class="s">"alice@example.com"</span><span class="p">)</span>
+
+<span class="c1"># Get proposals sent to any of multiple recipients
+</span><span class="n">nusii</span><span class="p">.</span><span class="n">proposals</span><span class="p">.</span><span class="nb">list</span><span class="p">(</span>
+    <span class="n">recipient_emails</span><span class="o">=</span><span class="p">[</span><span class="s">"alice@example.com"</span><span class="p">,</span> <span class="s">"bob@example.com"</span><span class="p">,</span> <span class="s">"carol@example.com"</span><span class="p">],</span>
+<span class="p">)</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -2262,6 +2434,11 @@ nusii proposals list <span class="nt">--status</span> draft
 <span class="kd">const</span> <span class="nx">nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Nusii</span><span class="p">({</span> <span class="na">apiKey</span><span class="p">:</span> <span class="dl">'</span><span class="s1">YOUR_API_KEY</span><span class="dl">'</span> <span class="p">});</span>
 
 <span class="kd">const</span> <span class="nx">proposal</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">nusii</span><span class="p">.</span><span class="nx">proposals</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">from</span> <span class="nn">nusii</span> <span class="kn">import</span> <span class="n">Nusii</span>
+
+<span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">"YOUR_API_KEY"</span><span class="p">)</span>
+
+<span class="n">proposal</span> <span class="o">=</span> <span class="n">nusii</span><span class="p">.</span><span class="n">proposals</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -2337,6 +2514,14 @@ nusii proposals list <span class="nt">--status</span> draft
   <span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Webdesign yourwebsite.com</span><span class="dl">'</span><span class="p">,</span>
   <span class="na">client_id</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
 <span class="p">});</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">from</span> <span class="nn">nusii</span> <span class="kn">import</span> <span class="n">Nusii</span>
+
+<span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">"YOUR_API_KEY"</span><span class="p">)</span>
+
+<span class="n">proposal</span> <span class="o">=</span> <span class="n">nusii</span><span class="p">.</span><span class="n">proposals</span><span class="p">.</span><span class="n">create</span><span class="p">(</span>
+    <span class="n">title</span><span class="o">=</span><span class="s">"Webdesign yourwebsite.com"</span><span class="p">,</span>
+    <span class="n">client_id</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+<span class="p">)</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -2495,6 +2680,11 @@ nusii proposals list <span class="nt">--status</span> draft
 <span class="kd">const</span> <span class="nx">proposal</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">nusii</span><span class="p">.</span><span class="nx">proposals</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="p">{</span>
   <span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Webdesign yourwebsite.com</span><span class="dl">'</span><span class="p">,</span>
 <span class="p">});</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">from</span> <span class="nn">nusii</span> <span class="kn">import</span> <span class="n">Nusii</span>
+
+<span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">"YOUR_API_KEY"</span><span class="p">)</span>
+
+<span class="n">proposal</span> <span class="o">=</span> <span class="n">nusii</span><span class="p">.</span><span class="n">proposals</span><span class="p">.</span><span class="n">update</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s">"Webdesign yourwebsite.com"</span><span class="p">)</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -2641,6 +2831,11 @@ nusii proposals list <span class="nt">--status</span> draft
 <span class="kd">const</span> <span class="nx">nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Nusii</span><span class="p">({</span> <span class="na">apiKey</span><span class="p">:</span> <span class="dl">'</span><span class="s1">YOUR_API_KEY</span><span class="dl">'</span> <span class="p">});</span>
 
 <span class="k">await</span> <span class="nx">nusii</span><span class="p">.</span><span class="nx">proposals</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">from</span> <span class="nn">nusii</span> <span class="kn">import</span> <span class="n">Nusii</span>
+
+<span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">"YOUR_API_KEY"</span><span class="p">)</span>
+
+<span class="n">nusii</span><span class="p">.</span><span class="n">proposals</span><span class="p">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -2688,6 +2883,11 @@ nusii proposals list <span class="nt">--status</span> draft
 <span class="kd">const</span> <span class="nx">nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Nusii</span><span class="p">({</span> <span class="na">apiKey</span><span class="p">:</span> <span class="dl">'</span><span class="s1">YOUR_API_KEY</span><span class="dl">'</span> <span class="p">});</span>
 
 <span class="k">await</span> <span class="nx">nusii</span><span class="p">.</span><span class="nx">proposals</span><span class="p">.</span><span class="nx">archive</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">from</span> <span class="nn">nusii</span> <span class="kn">import</span> <span class="n">Nusii</span>
+
+<span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">"YOUR_API_KEY"</span><span class="p">)</span>
+
+<span class="n">nusii</span><span class="p">.</span><span class="n">proposals</span><span class="p">.</span><span class="n">archive</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -2747,6 +2947,15 @@ nusii proposals list <span class="nt">--status</span> draft
   <span class="na">email</span><span class="p">:</span> <span class="dl">'</span><span class="s1">your_client@email.com</span><span class="dl">'</span><span class="p">,</span>
   <span class="na">subject</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Your Proposal</span><span class="dl">'</span><span class="p">,</span>
 <span class="p">});</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">from</span> <span class="nn">nusii</span> <span class="kn">import</span> <span class="n">Nusii</span>
+
+<span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">"YOUR_API_KEY"</span><span class="p">)</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">nusii</span><span class="p">.</span><span class="n">proposals</span><span class="p">.</span><span class="n">send</span><span class="p">(</span>
+    <span class="mi">100</span><span class="p">,</span>
+    <span class="n">email</span><span class="o">=</span><span class="s">"your_client@email.com"</span><span class="p">,</span>
+    <span class="n">subject</span><span class="o">=</span><span class="s">"Your Proposal"</span><span class="p">,</span>
+<span class="p">)</span>
 </code></pre></div>
 <blockquote>
 <p>Send to multiple recipients:</p>
@@ -2797,6 +3006,20 @@ nusii proposals list <span class="nt">--status</span> draft
     <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Bob</span><span class="dl">'</span><span class="p">,</span> <span class="na">email</span><span class="p">:</span> <span class="dl">'</span><span class="s1">bob@example.com</span><span class="dl">'</span><span class="p">,</span> <span class="na">eligible_to_sign</span><span class="p">:</span> <span class="kc">false</span> <span class="p">},</span>
   <span class="p">],</span>
 <span class="p">});</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">from</span> <span class="nn">nusii</span> <span class="kn">import</span> <span class="n">Nusii</span>
+
+<span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">"YOUR_API_KEY"</span><span class="p">)</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">nusii</span><span class="p">.</span><span class="n">proposals</span><span class="p">.</span><span class="n">send</span><span class="p">(</span>
+    <span class="mi">100</span><span class="p">,</span>
+    <span class="n">subject</span><span class="o">=</span><span class="s">"Your Proposal"</span><span class="p">,</span>
+    <span class="n">message</span><span class="o">=</span><span class="s">"Please review the attached proposal."</span><span class="p">,</span>
+    <span class="n">sender_email</span><span class="o">=</span><span class="s">"sender@example.com"</span><span class="p">,</span>
+    <span class="n">recipients</span><span class="o">=</span><span class="p">[</span>
+        <span class="p">{</span><span class="s">"name"</span><span class="p">:</span> <span class="s">"Alice"</span><span class="p">,</span> <span class="s">"email"</span><span class="p">:</span> <span class="s">"alice@example.com"</span><span class="p">,</span> <span class="s">"eligible_to_sign"</span><span class="p">:</span> <span class="bp">True</span><span class="p">},</span>
+        <span class="p">{</span><span class="s">"name"</span><span class="p">:</span> <span class="s">"Bob"</span><span class="p">,</span> <span class="s">"email"</span><span class="p">:</span> <span class="s">"bob@example.com"</span><span class="p">,</span> <span class="s">"eligible_to_sign"</span><span class="p">:</span> <span class="bp">False</span><span class="p">},</span>
+    <span class="p">],</span>
+<span class="p">)</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -2950,6 +3173,14 @@ nusii templates list <span class="nt">--public-templates</span>
 
 <span class="c1">// Nusii's public templates</span>
 <span class="k">await</span> <span class="nx">nusii</span><span class="p">.</span><span class="nx">templates</span><span class="p">.</span><span class="nx">list</span><span class="p">({</span> <span class="na">public_templates</span><span class="p">:</span> <span class="kc">true</span> <span class="p">});</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">from</span> <span class="nn">nusii</span> <span class="kn">import</span> <span class="n">Nusii</span>
+
+<span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">"YOUR_API_KEY"</span><span class="p">)</span>
+
+<span class="n">templates</span> <span class="o">=</span> <span class="n">nusii</span><span class="p">.</span><span class="n">templates</span><span class="p">.</span><span class="nb">list</span><span class="p">()</span>
+
+<span class="c1"># Nusii's public templates
+</span><span class="n">nusii</span><span class="p">.</span><span class="n">templates</span><span class="p">.</span><span class="nb">list</span><span class="p">(</span><span class="n">public_templates</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -3015,6 +3246,11 @@ nusii templates list <span class="nt">--public-templates</span>
 <span class="kd">const</span> <span class="nx">nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Nusii</span><span class="p">({</span> <span class="na">apiKey</span><span class="p">:</span> <span class="dl">'</span><span class="s1">YOUR_API_KEY</span><span class="dl">'</span> <span class="p">});</span>
 
 <span class="kd">const</span> <span class="nx">template</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">nusii</span><span class="p">.</span><span class="nx">templates</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="mi">12</span><span class="p">);</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">from</span> <span class="nn">nusii</span> <span class="kn">import</span> <span class="n">Nusii</span>
+
+<span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">"YOUR_API_KEY"</span><span class="p">)</span>
+
+<span class="n">template</span> <span class="o">=</span> <span class="n">nusii</span><span class="p">.</span><span class="n">templates</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -3061,6 +3297,12 @@ nusii templates list <span class="nt">--public-templates</span>
 
 <span class="c1">// Line items of cost sections are included as section.line_items</span>
 <span class="kd">const</span> <span class="p">{</span> <span class="na">data</span><span class="p">:</span> <span class="nx">sections</span> <span class="p">}</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">nusii</span><span class="p">.</span><span class="nx">sections</span><span class="p">.</span><span class="nx">list</span><span class="p">({</span> <span class="na">proposal_id</span><span class="p">:</span> <span class="mi">126</span><span class="p">,</span> <span class="na">page</span><span class="p">:</span> <span class="mi">1</span> <span class="p">});</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">from</span> <span class="nn">nusii</span> <span class="kn">import</span> <span class="n">Nusii</span>
+
+<span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">"YOUR_API_KEY"</span><span class="p">)</span>
+
+<span class="c1"># Line items of cost sections are included as section["line_items"]
+</span><span class="n">sections</span> <span class="o">=</span> <span class="n">nusii</span><span class="p">.</span><span class="n">sections</span><span class="p">.</span><span class="nb">list</span><span class="p">(</span><span class="n">proposal_id</span><span class="o">=</span><span class="mi">126</span><span class="p">,</span> <span class="n">page</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -3163,6 +3405,11 @@ nusii templates list <span class="nt">--public-templates</span>
 <span class="kd">const</span> <span class="nx">nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Nusii</span><span class="p">({</span> <span class="na">apiKey</span><span class="p">:</span> <span class="dl">'</span><span class="s1">YOUR_API_KEY</span><span class="dl">'</span> <span class="p">});</span>
 
 <span class="kd">const</span> <span class="nx">section</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">nusii</span><span class="p">.</span><span class="nx">sections</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">from</span> <span class="nn">nusii</span> <span class="kn">import</span> <span class="n">Nusii</span>
+
+<span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">"YOUR_API_KEY"</span><span class="p">)</span>
+
+<span class="n">section</span> <span class="o">=</span> <span class="n">nusii</span><span class="p">.</span><span class="n">sections</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -3242,6 +3489,14 @@ nusii templates list <span class="nt">--public-templates</span>
   <span class="na">proposal_id</span><span class="p">:</span> <span class="mi">126</span><span class="p">,</span>
   <span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Introduction</span><span class="dl">'</span><span class="p">,</span>
 <span class="p">});</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">from</span> <span class="nn">nusii</span> <span class="kn">import</span> <span class="n">Nusii</span>
+
+<span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">"YOUR_API_KEY"</span><span class="p">)</span>
+
+<span class="n">section</span> <span class="o">=</span> <span class="n">nusii</span><span class="p">.</span><span class="n">sections</span><span class="p">.</span><span class="n">create</span><span class="p">(</span>
+    <span class="n">proposal_id</span><span class="o">=</span><span class="mi">126</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s">"Introduction"</span><span class="p">,</span>
+<span class="p">)</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -3399,6 +3654,11 @@ Filling in the missing <code>title</code> / <code>name</code> only happens on cr
 <span class="kd">const</span> <span class="nx">section</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">nusii</span><span class="p">.</span><span class="nx">sections</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="p">{</span>
   <span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Introduction</span><span class="dl">'</span><span class="p">,</span>
 <span class="p">});</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">from</span> <span class="nn">nusii</span> <span class="kn">import</span> <span class="n">Nusii</span>
+
+<span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">"YOUR_API_KEY"</span><span class="p">)</span>
+
+<span class="n">section</span> <span class="o">=</span> <span class="n">nusii</span><span class="p">.</span><span class="n">sections</span><span class="p">.</span><span class="n">update</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s">"Introduction"</span><span class="p">)</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -3535,6 +3795,11 @@ Filling in the missing <code>title</code> / <code>name</code> only happens on cr
 <span class="kd">const</span> <span class="nx">nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Nusii</span><span class="p">({</span> <span class="na">apiKey</span><span class="p">:</span> <span class="dl">'</span><span class="s1">YOUR_API_KEY</span><span class="dl">'</span> <span class="p">});</span>
 
 <span class="k">await</span> <span class="nx">nusii</span><span class="p">.</span><span class="nx">sections</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">from</span> <span class="nn">nusii</span> <span class="kn">import</span> <span class="n">Nusii</span>
+
+<span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">"YOUR_API_KEY"</span><span class="p">)</span>
+
+<span class="n">nusii</span><span class="p">.</span><span class="n">sections</span><span class="p">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -3595,6 +3860,11 @@ Filling in the missing <code>title</code> / <code>name</code> only happens on cr
 <span class="kd">const</span> <span class="nx">nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Nusii</span><span class="p">({</span> <span class="na">apiKey</span><span class="p">:</span> <span class="dl">'</span><span class="s1">YOUR_API_KEY</span><span class="dl">'</span> <span class="p">});</span>
 
 <span class="kd">const</span> <span class="nx">lineItems</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">nusii</span><span class="p">.</span><span class="nx">lineItems</span><span class="p">.</span><span class="nx">list</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">from</span> <span class="nn">nusii</span> <span class="kn">import</span> <span class="n">Nusii</span>
+
+<span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">"YOUR_API_KEY"</span><span class="p">)</span>
+
+<span class="n">line_items</span> <span class="o">=</span> <span class="n">nusii</span><span class="p">.</span><span class="n">line_items</span><span class="p">.</span><span class="nb">list</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -3667,6 +3937,11 @@ Responses report the amount as <code>amount</code> — integer cents, the same v
 <span class="kd">const</span> <span class="nx">lineItem</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">nusii</span><span class="p">.</span><span class="nx">lineItems</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="p">{</span>
   <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Development Costs</span><span class="dl">'</span><span class="p">,</span>
 <span class="p">});</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">from</span> <span class="nn">nusii</span> <span class="kn">import</span> <span class="n">Nusii</span>
+
+<span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">"YOUR_API_KEY"</span><span class="p">)</span>
+
+<span class="n">line_item</span> <span class="o">=</span> <span class="n">nusii</span><span class="p">.</span><span class="n">line_items</span><span class="p">.</span><span class="n">create</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">"Development Costs"</span><span class="p">)</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -3796,6 +4071,11 @@ Responses report the amount as <code>amount</code> — integer cents, the same v
 <span class="kd">const</span> <span class="nx">lineItem</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">nusii</span><span class="p">.</span><span class="nx">lineItems</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="p">{</span>
   <span class="na">amount</span><span class="p">:</span> <span class="mi">10000</span><span class="p">,</span>
 <span class="p">});</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">from</span> <span class="nn">nusii</span> <span class="kn">import</span> <span class="n">Nusii</span>
+
+<span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">"YOUR_API_KEY"</span><span class="p">)</span>
+
+<span class="n">line_item</span> <span class="o">=</span> <span class="n">nusii</span><span class="p">.</span><span class="n">line_items</span><span class="p">.</span><span class="n">update</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">amount</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -3923,6 +4203,11 @@ Responses report the amount as <code>amount</code> — integer cents, the same v
 <span class="kd">const</span> <span class="nx">nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Nusii</span><span class="p">({</span> <span class="na">apiKey</span><span class="p">:</span> <span class="dl">'</span><span class="s1">YOUR_API_KEY</span><span class="dl">'</span> <span class="p">});</span>
 
 <span class="k">await</span> <span class="nx">nusii</span><span class="p">.</span><span class="nx">lineItems</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">from</span> <span class="nn">nusii</span> <span class="kn">import</span> <span class="n">Nusii</span>
+
+<span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">"YOUR_API_KEY"</span><span class="p">)</span>
+
+<span class="n">nusii</span><span class="p">.</span><span class="n">line_items</span><span class="p">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -3998,6 +4283,17 @@ Responses report the amount as <code>amount</code> — integer cents, the same v
   <span class="na">amount</span><span class="p">:</span> <span class="mi">500000</span><span class="p">,</span> <span class="c1">// £5,000.00, the low end</span>
   <span class="na">maximum_amount</span><span class="p">:</span> <span class="mi">800000</span><span class="p">,</span> <span class="c1">// £8,000.00, the high end</span>
 <span class="p">});</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">from</span> <span class="nn">nusii</span> <span class="kn">import</span> <span class="n">Nusii</span>
+
+<span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">"YOUR_API_KEY"</span><span class="p">)</span>
+
+<span class="n">line_item</span> <span class="o">=</span> <span class="n">nusii</span><span class="p">.</span><span class="n">line_items</span><span class="p">.</span><span class="n">create</span><span class="p">(</span>
+    <span class="mi">458</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s">"Discovery &amp; UX research"</span><span class="p">,</span>
+    <span class="n">cost_type</span><span class="o">=</span><span class="s">"range"</span><span class="p">,</span>
+    <span class="n">amount</span><span class="o">=</span><span class="mi">500000</span><span class="p">,</span>  <span class="c1"># £5,000.00, the low end
+</span>    <span class="n">maximum_amount</span><span class="o">=</span><span class="mi">800000</span><span class="p">,</span>  <span class="c1"># £8,000.00, the high end
+</span><span class="p">)</span>
 </code></pre></div>
 <p>A line item with <code>cost_type</code> of <code>range</code> shows a price range, e.g. <strong>£5,000.00 – £8,000.00</strong>, instead of a single value. The existing <code>amount</code> is the low end of the range, and <code>maximum_amount</code> is the high end.</p>
 
@@ -4050,6 +4346,16 @@ Price ranges are a feature that has to be enabled for your account. While it is 
   <span class="na">amount</span><span class="p">:</span> <span class="mi">250000</span><span class="p">,</span>
   <span class="na">choice_type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">radio</span><span class="dl">'</span><span class="p">,</span> <span class="c1">// or 'checkbox', or 'none'</span>
 <span class="p">});</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">from</span> <span class="nn">nusii</span> <span class="kn">import</span> <span class="n">Nusii</span>
+
+<span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">"YOUR_API_KEY"</span><span class="p">)</span>
+
+<span class="n">line_item</span> <span class="o">=</span> <span class="n">nusii</span><span class="p">.</span><span class="n">line_items</span><span class="p">.</span><span class="n">create</span><span class="p">(</span>
+    <span class="mi">458</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s">"Premium support"</span><span class="p">,</span>
+    <span class="n">amount</span><span class="o">=</span><span class="mi">250000</span><span class="p">,</span>
+    <span class="n">choice_type</span><span class="o">=</span><span class="s">"radio"</span><span class="p">,</span>  <span class="c1"># or "checkbox", or "none"
+</span><span class="p">)</span>
 </code></pre></div>
 <p>A line item can be an option your client chooses from, rather than a fixed part of the price. This is controlled by the <code>choice_type</code> attribute, which is returned with every line item and can be set when creating or updating one:</p>
 
@@ -4103,6 +4409,11 @@ Line items created via the API default to <code>choice_type: "none"</code>. Dele
   <span class="na">proposal_id</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
   <span class="na">page</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
 <span class="p">});</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">from</span> <span class="nn">nusii</span> <span class="kn">import</span> <span class="n">Nusii</span>
+
+<span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">"YOUR_API_KEY"</span><span class="p">)</span>
+
+<span class="n">activities</span> <span class="o">=</span> <span class="n">nusii</span><span class="p">.</span><span class="n">proposal_activities</span><span class="p">.</span><span class="nb">list</span><span class="p">(</span><span class="n">proposal_id</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">page</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -4199,6 +4510,11 @@ Line items created via the API default to <code>choice_type: "none"</code>. Dele
 <span class="kd">const</span> <span class="nx">nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Nusii</span><span class="p">({</span> <span class="na">apiKey</span><span class="p">:</span> <span class="dl">'</span><span class="s1">YOUR_API_KEY</span><span class="dl">'</span> <span class="p">});</span>
 
 <span class="kd">const</span> <span class="nx">activity</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">nusii</span><span class="p">.</span><span class="nx">proposalActivities</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="mi">44</span><span class="p">);</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">from</span> <span class="nn">nusii</span> <span class="kn">import</span> <span class="n">Nusii</span>
+
+<span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">"YOUR_API_KEY"</span><span class="p">)</span>
+
+<span class="n">activity</span> <span class="o">=</span> <span class="n">nusii</span><span class="p">.</span><span class="n">proposal_activities</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="mi">44</span><span class="p">)</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -4304,6 +4620,11 @@ Line items created via the API default to <code>choice_type: "none"</code>. Dele
 <span class="kd">const</span> <span class="nx">nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Nusii</span><span class="p">({</span> <span class="na">apiKey</span><span class="p">:</span> <span class="dl">'</span><span class="s1">YOUR_API_KEY</span><span class="dl">'</span> <span class="p">});</span>
 
 <span class="kd">const</span> <span class="p">{</span> <span class="na">data</span><span class="p">:</span> <span class="nx">users</span> <span class="p">}</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">nusii</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">list</span><span class="p">();</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">from</span> <span class="nn">nusii</span> <span class="kn">import</span> <span class="n">Nusii</span>
+
+<span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">"YOUR_API_KEY"</span><span class="p">)</span>
+
+<span class="n">users</span> <span class="o">=</span> <span class="n">nusii</span><span class="p">.</span><span class="n">users</span><span class="p">.</span><span class="nb">list</span><span class="p">()</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -4349,6 +4670,11 @@ Line items created via the API default to <code>choice_type: "none"</code>. Dele
 <span class="kd">const</span> <span class="nx">nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Nusii</span><span class="p">({</span> <span class="na">apiKey</span><span class="p">:</span> <span class="dl">'</span><span class="s1">YOUR_API_KEY</span><span class="dl">'</span> <span class="p">});</span>
 
 <span class="kd">const</span> <span class="nx">themes</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">nusii</span><span class="p">.</span><span class="nx">themes</span><span class="p">.</span><span class="nx">list</span><span class="p">();</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">from</span> <span class="nn">nusii</span> <span class="kn">import</span> <span class="n">Nusii</span>
+
+<span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">"YOUR_API_KEY"</span><span class="p">)</span>
+
+<span class="n">themes</span> <span class="o">=</span> <span class="n">nusii</span><span class="p">.</span><span class="n">themes</span><span class="p">.</span><span class="nb">list</span><span class="p">()</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -4414,6 +4740,22 @@ Line items created via the API default to <code>choice_type: "none"</code>. Dele
 
   <span class="k">return</span> <span class="k">new</span> <span class="nx">Response</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span> <span class="na">status</span><span class="p">:</span> <span class="mi">204</span> <span class="p">});</span>
 <span class="p">}</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="c1"># Receiving a webhook, e.g. in a Flask app.
+# With Django pass request.body, with FastAPI await request.body().
+</span><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">request</span>
+<span class="kn">from</span> <span class="nn">nusii</span> <span class="kn">import</span> <span class="n">parse_webhook_event</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+
+
+<span class="o">@</span><span class="n">app</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="s">"/webhooks/nusii"</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">nusii_webhook</span><span class="p">():</span>
+    <span class="n">event</span> <span class="o">=</span> <span class="n">parse_webhook_event</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">get_data</span><span class="p">())</span>
+
+    <span class="k">if</span> <span class="n">event</span><span class="p">[</span><span class="s">"event_name"</span><span class="p">]</span> <span class="o">==</span> <span class="s">"proposal_accepted"</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"</span><span class="si">{</span><span class="n">event</span><span class="p">[</span><span class="s">'proposal'</span><span class="p">][</span><span class="s">'title'</span><span class="p">]</span><span class="si">}</span><span class="s"> was accepted"</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="s">""</span><span class="p">,</span> <span class="mi">204</span>
 </code></pre></div><h2 id='webhook-endpoint-errors'>Webhook endpoint errors</h2>
 <p>We consider all responses with <code>2xx</code> as successful. Any other response is considered a failed delivery, so make sure your endpoint responds with a 2xx. If we receive a <code>410 GONE</code>, the endpoint will get removed from our database.</p>
 <h2 id='available-webhooks'>Available webhooks</h2>
@@ -4487,6 +4829,11 @@ Line items created via the API default to <code>choice_type: "none"</code>. Dele
 <span class="kd">const</span> <span class="nx">nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Nusii</span><span class="p">({</span> <span class="na">apiKey</span><span class="p">:</span> <span class="dl">'</span><span class="s1">YOUR_API_KEY</span><span class="dl">'</span> <span class="p">});</span>
 
 <span class="kd">const</span> <span class="p">{</span> <span class="na">data</span><span class="p">:</span> <span class="nx">endpoints</span> <span class="p">}</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">nusii</span><span class="p">.</span><span class="nx">webhookEndpoints</span><span class="p">.</span><span class="nx">list</span><span class="p">();</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">from</span> <span class="nn">nusii</span> <span class="kn">import</span> <span class="n">Nusii</span>
+
+<span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">"YOUR_API_KEY"</span><span class="p">)</span>
+
+<span class="n">endpoints</span> <span class="o">=</span> <span class="n">nusii</span><span class="p">.</span><span class="n">webhook_endpoints</span><span class="p">.</span><span class="nb">list</span><span class="p">()</span>
 </code></pre></div>
 
 <blockquote>
@@ -4546,6 +4893,11 @@ Line items created via the API default to <code>choice_type: "none"</code>. Dele
 <p><span class="kd">const</span> <span class="nx">nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Nusii</span><span class="p">({</span> <span class="na">apiKey</span><span class="p">:</span> <span class="dl">&#39;</span><span class="s1">YOUR_API_KEY</span><span class="dl">&#39;</span> <span class="p">});</span></p>
 
 <p><span class="kd">const</span> <span class="nx">endpoint</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">nusii</span><span class="p">.</span><span class="nx">webhookEndpoints</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">from</span> <span class="nn">nusii</span> <span class="kn">import</span> <span class="n">Nusii</span></p>
+
+<p><span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">&quot;YOUR_API_KEY&quot;</span><span class="p">)</span></p>
+
+<p><span class="n">endpoint</span> <span class="o">=</span> <span class="n">nusii</span><span class="p">.</span><span class="n">webhook_endpoints</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -4600,6 +4952,14 @@ Line items created via the API default to <code>choice_type: "none"</code>. Dele
   <span class="na">target_url</span><span class="p">:</span> <span class="dl">&#39;</span><span class="s1">http://example.com</span><span class="dl">&#39;</span><span class="p">,</span>
   <span class="na">events</span><span class="p">:</span> <span class="p">[</span><span class="dl">&#39;</span><span class="s1">proposal_created</span><span class="dl">&#39;</span><span class="p">,</span> <span class="dl">&#39;</span><span class="s1">client_created</span><span class="dl">&#39;</span><span class="p">],</span>
 <span class="p">});</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">from</span> <span class="nn">nusii</span> <span class="kn">import</span> <span class="n">Nusii</span></p>
+
+<p><span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">&quot;YOUR_API_KEY&quot;</span><span class="p">)</span></p>
+
+<p><span class="n">endpoint</span> <span class="o">=</span> <span class="n">nusii</span><span class="p">.</span><span class="n">webhook_endpoints</span><span class="p">.</span><span class="n">create</span><span class="p">(</span>
+    <span class="n">target_url</span><span class="o">=</span><span class="s">&quot;http://example.com&quot;</span><span class="p">,</span>
+    <span class="n">events</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;proposal_created&quot;</span><span class="p">,</span> <span class="s">&quot;client_created&quot;</span><span class="p">],</span>
+<span class="p">)</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -4667,6 +5027,11 @@ Line items created via the API default to <code>choice_type: "none"</code>. Dele
 <p><span class="kd">const</span> <span class="nx">nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Nusii</span><span class="p">({</span> <span class="na">apiKey</span><span class="p">:</span> <span class="dl">&#39;</span><span class="s1">YOUR_API_KEY</span><span class="dl">&#39;</span> <span class="p">});</span></p>
 
 <p><span class="k">await</span> <span class="nx">nusii</span><span class="p">.</span><span class="nx">webhookEndpoints</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">from</span> <span class="nn">nusii</span> <span class="kn">import</span> <span class="n">Nusii</span></p>
+
+<p><span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">&quot;YOUR_API_KEY&quot;</span><span class="p">)</span></p>
+
+<p><span class="n">nusii</span><span class="p">.</span><span class="n">webhook_endpoints</span><span class="p">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -4709,6 +5074,18 @@ Line items created via the API default to <code>choice_type: "none"</code>. Dele
 <span class="k">for</span> <span class="k">await</span> <span class="p">(</span><span class="kd">const</span> <span class="nx">proposal</span> <span class="k">of</span> <span class="nx">nusii</span><span class="p">.</span><span class="nx">proposals</span><span class="p">.</span><span class="nx">listAll</span><span class="p">())</span> <span class="p">{</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">proposal</span><span class="p">.</span><span class="nx">title</span><span class="p">);</span>
 <span class="p">}</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">from</span> <span class="nn">nusii</span> <span class="kn">import</span> <span class="n">Nusii</span></p>
+
+<p><span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">&quot;YOUR_API_KEY&quot;</span><span class="p">)</span></p>
+
+<p><span class="n">page</span> <span class="o">=</span> <span class="n">nusii</span><span class="p">.</span><span class="n">proposals</span><span class="p">.</span><span class="nb">list</span><span class="p">(</span><span class="n">page</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">per_page</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">page</span><span class="p">.</span><span class="n">total_pages</span>  <span class="c1"># 4
+</span>
+<span class="n">next_page</span> <span class="o">=</span> <span class="n">page</span><span class="p">.</span><span class="n">get_next_page</span><span class="p">()</span></p>
+
+<p><span class="c1"># Or let the SDK fetch every page for you
+</span><span class="k">for</span> <span class="n">proposal</span> <span class="ow">in</span> <span class="n">nusii</span><span class="p">.</span><span class="n">proposals</span><span class="p">.</span><span class="n">list_all</span><span class="p">():</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">proposal</span><span class="p">[</span><span class="s">&quot;title&quot;</span><span class="p">])</span>
 </code></pre></div><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="err">...</span><span class="p">},</span><span class="w">
@@ -4772,7 +5149,7 @@ Line items created via the API default to <code>choice_type: "none"</code>. Dele
 </tr>
 </tbody></table>
 
-<p>The <a href="#javascript-sdk">JavaScript SDK</a> handles this for you: it waits for <code>Retry-After</code> and retries the request.</p>
+<p>The <a href="#javascript-sdk">JavaScript SDK</a> and the <a href="#python-sdk">Python SDK</a> handle this for you: they wait for <code>Retry-After</code> and retry the request.</p>
 
 <h1 id='request-logs'>Request Logs</h1>
 
@@ -4860,6 +5237,7 @@ Line items created via the API default to <code>choice_type: "none"</code>. Dele
                 <a href="#" data-language-name="ruby">Ruby</a>
                 <a href="#" data-language-name="php">PHP</a>
                 <a href="#" data-language-name="javascript">JavaScript</a>
+                <a href="#" data-language-name="python">Python</a>
           </div>
       </div>
     </div>
