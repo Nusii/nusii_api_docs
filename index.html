@@ -295,7 +295,7 @@
     </script>
   </head>
 
-  <body class="index" data-languages="[&quot;shell--curl&quot;,&quot;shell--cli&quot;,&quot;ruby&quot;,&quot;php&quot;,&quot;javascript&quot;,&quot;python&quot;]">
+  <body class="index" data-languages="[&quot;shell--curl&quot;,&quot;shell--cli&quot;,&quot;ruby&quot;,&quot;php&quot;,&quot;javascript&quot;,&quot;python&quot;,&quot;go&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -311,6 +311,7 @@
               <a href="#" data-language-name="php">PHP</a>
               <a href="#" data-language-name="javascript">JavaScript</a>
               <a href="#" data-language-name="python">Python</a>
+              <a href="#" data-language-name="go">Go</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -365,6 +366,9 @@
                   </li>
                   <li>
                     <a href="#python-sdk" class="toc-h2 toc-link" data-title="Python SDK">Python SDK</a>
+                  </li>
+                  <li>
+                    <a href="#go-sdk" class="toc-h2 toc-link" data-title="Go SDK">Go SDK</a>
                   </li>
               </ul>
           </li>
@@ -588,6 +592,7 @@
             <li><a href='https://github.com/Nusii/nusii-php' target='_blank' rel='noopener'>Nusii PHP on GitHub</a></li>
             <li><a href='https://github.com/Nusii/nusii-typescript' target='_blank' rel='noopener'>Nusii JavaScript on GitHub</a></li>
             <li><a href='https://github.com/Nusii/nusii-python' target='_blank' rel='noopener'>Nusii Python on GitHub</a></li>
+            <li><a href='https://github.com/Nusii/nusii-go' target='_blank' rel='noopener'>Nusii Go on GitHub</a></li>
         </ul>
     </div>
     <div class="page-wrapper">
@@ -874,6 +879,11 @@ If you're building an autonomous agent on the MCP server, keep a human in the lo
 <td><code>pip install nusii</code></td>
 <td><a href="https://github.com/Nusii/nusii-python">Nusii/nusii-python</a></td>
 </tr>
+<tr>
+<td>Go</td>
+<td><code>go get github.com/nusii/nusii-go</code></td>
+<td><a href="https://github.com/Nusii/nusii-go">Nusii/nusii-go</a></td>
+</tr>
 </tbody></table>
 <div class="highlight"><pre class="highlight shell tab-shell--curl"><code><span class="c"># No SDK needed: every example also works with plain cURL.</span>
 </code></pre></div><h2 id='nusii-cli'>Nusii CLI</h2>
@@ -932,6 +942,21 @@ nusii auth status
 <span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">"YOUR_API_KEY"</span><span class="p">)</span>
 
 <span class="n">proposals</span> <span class="o">=</span> <span class="n">nusii</span><span class="p">.</span><span class="n">proposals</span><span class="p">.</span><span class="nb">list</span><span class="p">(</span><span class="n">status</span><span class="o">=</span><span class="s">"pending"</span><span class="p">)</span>
+</code></pre></div><h2 id='go-sdk'>Go SDK</h2>
+<p>The <a href="https://github.com/Nusii/nusii-go">Nusii Go SDK</a> is the official client for Go 1.24 and newer, installed with <code>go get github.com/nusii/nusii-go</code>. Every request and response is a Go struct, and it has no dependencies outside the standard library.</p>
+
+<p>It flattens the JSON:API responses into structs, pages through lists with range-over-func iterators, retries rate limited requests, and returns errors you can match with <code>errors.Is</code>. Select the <strong>Go</strong> tab to see it in every example of this reference. The examples use <code>ctx</code> for a <code>context.Context</code> and leave out error handling.</p>
+<div class="highlight"><pre class="highlight go tab-go"><code><span class="c">// Install with go get</span>
+<span class="c">// go get github.com/nusii/nusii-go</span>
+
+<span class="k">import</span> <span class="s">"github.com/nusii/nusii-go"</span>
+
+<span class="n">n</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">nusii</span><span class="o">.</span><span class="n">New</span><span class="p">(</span><span class="n">nusii</span><span class="o">.</span><span class="n">WithAPIKey</span><span class="p">(</span><span class="s">"YOUR_API_KEY"</span><span class="p">))</span>
+<span class="k">if</span> <span class="n">err</span> <span class="o">!=</span> <span class="no">nil</span> <span class="p">{</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">Fatal</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="n">page</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">n</span><span class="o">.</span><span class="n">Proposals</span><span class="o">.</span><span class="n">List</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">nusii</span><span class="o">.</span><span class="n">ProposalListParams</span><span class="p">{</span><span class="n">Status</span><span class="o">:</span> <span class="n">nusii</span><span class="o">.</span><span class="n">ProposalStatusPending</span><span class="p">})</span>
 </code></pre></div><h1 id='authentication'>Authentication</h1>
 <blockquote>
 <p>We offer a token based authentication. You can find your API access token <a href="https://app.nusii.com/settings/api">here</a>. Tokens need to be added in the HTTP_AUTHORIZATION header as <code>Token token=YOUR_API_KEY</code></p>
@@ -967,7 +992,14 @@ curl <span class="nt">-H</span> <span class="s1">'User-Agent: Your App Name (www
 
 <span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">"YOUR_API_KEY"</span><span class="p">)</span>
 <span class="c1"># Or set the NUSII_API_KEY environment variable and call Nusii()
-</span></code></pre></div>
+</span></code></pre></div><div class="highlight"><pre class="highlight go tab-go"><code><span class="c">// Install with go get</span>
+<span class="c">// go get github.com/nusii/nusii-go</span>
+
+<span class="k">import</span> <span class="s">"github.com/nusii/nusii-go"</span>
+
+<span class="n">n</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">nusii</span><span class="o">.</span><span class="n">New</span><span class="p">(</span><span class="n">nusii</span><span class="o">.</span><span class="n">WithAPIKey</span><span class="p">(</span><span class="s">"YOUR_API_KEY"</span><span class="p">))</span>
+<span class="c">// Or set the NUSII_API_KEY environment variable and call nusii.New()</span>
+</code></pre></div>
 <blockquote>
 <p>Make sure to replace <code>YOUR_API_KEY</code> with your API key.</p>
 </blockquote>
@@ -1048,6 +1080,18 @@ Keep your Client Secret confidential. You can copy it again from the application
 <span class="n">code_verifier</span> <span class="o">=</span> <span class="n">secrets</span><span class="p">.</span><span class="n">token_urlsafe</span><span class="p">(</span><span class="mi">64</span><span class="p">)</span>
 <span class="n">digest</span> <span class="o">=</span> <span class="n">hashlib</span><span class="p">.</span><span class="n">sha256</span><span class="p">(</span><span class="n">code_verifier</span><span class="p">.</span><span class="n">encode</span><span class="p">()).</span><span class="n">digest</span><span class="p">()</span>
 <span class="n">code_challenge</span> <span class="o">=</span> <span class="n">base64</span><span class="p">.</span><span class="n">urlsafe_b64encode</span><span class="p">(</span><span class="n">digest</span><span class="p">).</span><span class="n">rstrip</span><span class="p">(</span><span class="sa">b</span><span class="s">"="</span><span class="p">).</span><span class="n">decode</span><span class="p">()</span>
+</code></pre></div><div class="highlight"><pre class="highlight go tab-go"><code><span class="k">import</span> <span class="p">(</span>
+    <span class="s">"crypto/rand"</span>
+    <span class="s">"crypto/sha256"</span>
+    <span class="s">"encoding/base64"</span>
+<span class="p">)</span>
+
+<span class="n">verifier</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">byte</span><span class="p">,</span> <span class="m">64</span><span class="p">)</span>
+<span class="n">rand</span><span class="o">.</span><span class="n">Read</span><span class="p">(</span><span class="n">verifier</span><span class="p">)</span>
+<span class="n">codeVerifier</span> <span class="o">:=</span> <span class="n">base64</span><span class="o">.</span><span class="n">RawURLEncoding</span><span class="o">.</span><span class="n">EncodeToString</span><span class="p">(</span><span class="n">verifier</span><span class="p">)</span>
+
+<span class="n">digest</span> <span class="o">:=</span> <span class="n">sha256</span><span class="o">.</span><span class="n">Sum256</span><span class="p">([]</span><span class="kt">byte</span><span class="p">(</span><span class="n">codeVerifier</span><span class="p">))</span>
+<span class="n">codeChallenge</span> <span class="o">:=</span> <span class="n">base64</span><span class="o">.</span><span class="n">RawURLEncoding</span><span class="o">.</span><span class="n">EncodeToString</span><span class="p">(</span><span class="n">digest</span><span class="p">[</span><span class="o">:</span><span class="p">])</span>
 </code></pre></div>
 <p>PKCE protects the authorization flow by ensuring the app that started the flow is the same one exchanging the code. Generate a random <code>code_verifier</code> and derive a <code>code_challenge</code> from it.</p>
 <h3 id='step-2-redirect-the-user-to-authorize'>Step 2: Redirect the User to Authorize</h3><div class="highlight"><pre class="highlight shell tab-shell--curl"><code><span class="c"># Redirect the user's browser to:</span>
@@ -1108,7 +1152,20 @@ https://app.nusii.com/oauth/authorize?<span class="se">\</span>
 
 <span class="n">auth_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s">"https://app.nusii.com/oauth/authorize?</span><span class="si">{</span><span class="n">params</span><span class="si">}</span><span class="s">"</span>
 <span class="c1"># Redirect the user to auth_url
-</span></code></pre></div>
+</span></code></pre></div><div class="highlight"><pre class="highlight go tab-go"><code><span class="k">import</span> <span class="s">"net/url"</span>
+
+<span class="n">params</span> <span class="o">:=</span> <span class="n">url</span><span class="o">.</span><span class="n">Values</span><span class="p">{</span>
+    <span class="s">"client_id"</span><span class="o">:</span>             <span class="p">{</span><span class="s">"YOUR_CLIENT_ID"</span><span class="p">},</span>
+    <span class="s">"redirect_uri"</span><span class="o">:</span>          <span class="p">{</span><span class="s">"YOUR_REDIRECT_URI"</span><span class="p">},</span>
+    <span class="s">"response_type"</span><span class="o">:</span>         <span class="p">{</span><span class="s">"code"</span><span class="p">},</span>
+    <span class="s">"scope"</span><span class="o">:</span>                 <span class="p">{</span><span class="s">"read write"</span><span class="p">},</span>
+    <span class="s">"code_challenge"</span><span class="o">:</span>        <span class="p">{</span><span class="n">codeChallenge</span><span class="p">},</span>
+    <span class="s">"code_challenge_method"</span><span class="o">:</span> <span class="p">{</span><span class="s">"S256"</span><span class="p">},</span>
+<span class="p">}</span>
+
+<span class="n">authURL</span> <span class="o">:=</span> <span class="s">"https://app.nusii.com/oauth/authorize?"</span> <span class="o">+</span> <span class="n">params</span><span class="o">.</span><span class="n">Encode</span><span class="p">()</span>
+<span class="c">// Redirect the user to authURL</span>
+</code></pre></div>
 <p>Redirect the user&#39;s browser to the authorization URL. They&#39;ll be asked to sign in to Nusii (if not already) and approve your app&#39;s access.</p>
 
 <p>If the user belongs to multiple Nusii accounts, they&#39;ll be asked to select which account to authorize.</p>
@@ -1232,6 +1289,31 @@ curl <span class="nt">-X</span> POST <span class="se">\</span>
 <span class="n">tokens</span> <span class="o">=</span> <span class="n">response</span><span class="p">.</span><span class="n">json</span><span class="p">()</span>
 <span class="n">access_token</span> <span class="o">=</span> <span class="n">tokens</span><span class="p">[</span><span class="s">"access_token"</span><span class="p">]</span>
 <span class="n">refresh_token</span> <span class="o">=</span> <span class="n">tokens</span><span class="p">[</span><span class="s">"refresh_token"</span><span class="p">]</span>
+</code></pre></div><div class="highlight"><pre class="highlight go tab-go"><code><span class="k">import</span> <span class="p">(</span>
+    <span class="s">"encoding/json"</span>
+    <span class="s">"log"</span>
+    <span class="s">"net/http"</span>
+    <span class="s">"net/url"</span>
+<span class="p">)</span>
+
+<span class="n">response</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">http</span><span class="o">.</span><span class="n">PostForm</span><span class="p">(</span><span class="s">"https://app.nusii.com/oauth/token"</span><span class="p">,</span> <span class="n">url</span><span class="o">.</span><span class="n">Values</span><span class="p">{</span>
+    <span class="s">"grant_type"</span><span class="o">:</span>    <span class="p">{</span><span class="s">"authorization_code"</span><span class="p">},</span>
+    <span class="s">"code"</span><span class="o">:</span>          <span class="p">{</span><span class="s">"AUTHORIZATION_CODE"</span><span class="p">},</span>
+    <span class="s">"redirect_uri"</span><span class="o">:</span>  <span class="p">{</span><span class="s">"YOUR_REDIRECT_URI"</span><span class="p">},</span>
+    <span class="s">"client_id"</span><span class="o">:</span>     <span class="p">{</span><span class="s">"YOUR_CLIENT_ID"</span><span class="p">},</span>
+    <span class="s">"client_secret"</span><span class="o">:</span> <span class="p">{</span><span class="s">"YOUR_CLIENT_SECRET"</span><span class="p">},</span>
+    <span class="s">"code_verifier"</span><span class="o">:</span> <span class="p">{</span><span class="n">codeVerifier</span><span class="p">},</span>
+<span class="p">})</span>
+<span class="k">if</span> <span class="n">err</span> <span class="o">!=</span> <span class="no">nil</span> <span class="p">{</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">Fatal</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="k">defer</span> <span class="n">response</span><span class="o">.</span><span class="n">Body</span><span class="o">.</span><span class="n">Close</span><span class="p">()</span>
+
+<span class="k">var</span> <span class="n">tokens</span> <span class="k">struct</span> <span class="p">{</span>
+    <span class="n">AccessToken</span>  <span class="kt">string</span> <span class="s">`json:"access_token"`</span>
+    <span class="n">RefreshToken</span> <span class="kt">string</span> <span class="s">`json:"refresh_token"`</span>
+<span class="p">}</span>
+<span class="n">err</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">NewDecoder</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">Body</span><span class="p">)</span><span class="o">.</span><span class="n">Decode</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tokens</span><span class="p">)</span>
 </code></pre></div>
 <blockquote>
 <p>A successful response returns:</p>
@@ -1333,6 +1415,12 @@ Access tokens expire after <strong>24 hours</strong>. Use the refresh token to g
 </span><span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">access_token</span><span class="o">=</span><span class="s">"YOUR_ACCESS_TOKEN"</span><span class="p">)</span>
 
 <span class="n">clients</span> <span class="o">=</span> <span class="n">nusii</span><span class="p">.</span><span class="n">clients</span><span class="p">.</span><span class="nb">list</span><span class="p">()</span>
+</code></pre></div><div class="highlight"><pre class="highlight go tab-go"><code><span class="k">import</span> <span class="s">"github.com/nusii/nusii-go"</span>
+
+<span class="c">// Use an OAuth access token instead of an API key</span>
+<span class="n">n</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">nusii</span><span class="o">.</span><span class="n">New</span><span class="p">(</span><span class="n">nusii</span><span class="o">.</span><span class="n">WithAccessToken</span><span class="p">(</span><span class="s">"YOUR_ACCESS_TOKEN"</span><span class="p">))</span>
+
+<span class="n">clients</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">n</span><span class="o">.</span><span class="n">Clients</span><span class="o">.</span><span class="n">List</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="no">nil</span><span class="p">)</span>
 </code></pre></div>
 <p>Once you have an access token, include it in the <code>Authorization</code> header as a Bearer token:</p>
 
@@ -1406,6 +1494,29 @@ Access tokens expire after <strong>24 hours</strong>. Use the refresh token to g
 <span class="n">tokens</span> <span class="o">=</span> <span class="n">response</span><span class="p">.</span><span class="n">json</span><span class="p">()</span>
 <span class="n">new_access_token</span> <span class="o">=</span> <span class="n">tokens</span><span class="p">[</span><span class="s">"access_token"</span><span class="p">]</span>
 <span class="n">new_refresh_token</span> <span class="o">=</span> <span class="n">tokens</span><span class="p">[</span><span class="s">"refresh_token"</span><span class="p">]</span>
+</code></pre></div><div class="highlight"><pre class="highlight go tab-go"><code><span class="k">import</span> <span class="p">(</span>
+    <span class="s">"encoding/json"</span>
+    <span class="s">"log"</span>
+    <span class="s">"net/http"</span>
+    <span class="s">"net/url"</span>
+<span class="p">)</span>
+
+<span class="n">response</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">http</span><span class="o">.</span><span class="n">PostForm</span><span class="p">(</span><span class="s">"https://app.nusii.com/oauth/token"</span><span class="p">,</span> <span class="n">url</span><span class="o">.</span><span class="n">Values</span><span class="p">{</span>
+    <span class="s">"grant_type"</span><span class="o">:</span>    <span class="p">{</span><span class="s">"refresh_token"</span><span class="p">},</span>
+    <span class="s">"refresh_token"</span><span class="o">:</span> <span class="p">{</span><span class="s">"YOUR_REFRESH_TOKEN"</span><span class="p">},</span>
+    <span class="s">"client_id"</span><span class="o">:</span>     <span class="p">{</span><span class="s">"YOUR_CLIENT_ID"</span><span class="p">},</span>
+    <span class="s">"client_secret"</span><span class="o">:</span> <span class="p">{</span><span class="s">"YOUR_CLIENT_SECRET"</span><span class="p">},</span>
+<span class="p">})</span>
+<span class="k">if</span> <span class="n">err</span> <span class="o">!=</span> <span class="no">nil</span> <span class="p">{</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">Fatal</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="k">defer</span> <span class="n">response</span><span class="o">.</span><span class="n">Body</span><span class="o">.</span><span class="n">Close</span><span class="p">()</span>
+
+<span class="k">var</span> <span class="n">tokens</span> <span class="k">struct</span> <span class="p">{</span>
+    <span class="n">AccessToken</span>  <span class="kt">string</span> <span class="s">`json:"access_token"`</span>
+    <span class="n">RefreshToken</span> <span class="kt">string</span> <span class="s">`json:"refresh_token"`</span>
+<span class="p">}</span>
+<span class="n">err</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">NewDecoder</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">Body</span><span class="p">)</span><span class="o">.</span><span class="n">Decode</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tokens</span><span class="p">)</span>
 </code></pre></div>
 <blockquote>
 <p>A successful response returns a new token pair:</p>
@@ -1501,6 +1612,16 @@ Always store the new refresh token from the response. The previous refresh token
         <span class="s">"client_secret"</span><span class="p">:</span> <span class="s">"YOUR_CLIENT_SECRET"</span><span class="p">,</span>
     <span class="p">},</span>
 <span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight go tab-go"><code><span class="k">import</span> <span class="p">(</span>
+    <span class="s">"net/http"</span>
+    <span class="s">"net/url"</span>
+<span class="p">)</span>
+
+<span class="n">_</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">http</span><span class="o">.</span><span class="n">PostForm</span><span class="p">(</span><span class="s">"https://app.nusii.com/oauth/revoke"</span><span class="p">,</span> <span class="n">url</span><span class="o">.</span><span class="n">Values</span><span class="p">{</span>
+    <span class="s">"token"</span><span class="o">:</span>         <span class="p">{</span><span class="s">"YOUR_ACCESS_TOKEN"</span><span class="p">},</span>
+    <span class="s">"client_id"</span><span class="o">:</span>     <span class="p">{</span><span class="s">"YOUR_CLIENT_ID"</span><span class="p">},</span>
+    <span class="s">"client_secret"</span><span class="o">:</span> <span class="p">{</span><span class="s">"YOUR_CLIENT_SECRET"</span><span class="p">},</span>
+<span class="p">})</span>
 </code></pre></div>
 <p>Revoke a token when a user disconnects your app or you no longer need access. You can revoke either the access token or the refresh token.</p>
 
@@ -1603,6 +1724,11 @@ Always store the new refresh token from the response. The previous refresh token
 <span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">"YOUR_API_KEY"</span><span class="p">)</span>
 
 <span class="n">account</span> <span class="o">=</span> <span class="n">nusii</span><span class="p">.</span><span class="n">account</span><span class="p">.</span><span class="n">me</span><span class="p">()</span>
+</code></pre></div><div class="highlight"><pre class="highlight go tab-go"><code><span class="k">import</span> <span class="s">"github.com/nusii/nusii-go"</span>
+
+<span class="n">n</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">nusii</span><span class="o">.</span><span class="n">New</span><span class="p">(</span><span class="n">nusii</span><span class="o">.</span><span class="n">WithAPIKey</span><span class="p">(</span><span class="s">"YOUR_API_KEY"</span><span class="p">))</span>
+
+<span class="n">account</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">n</span><span class="o">.</span><span class="n">Account</span><span class="o">.</span><span class="n">Me</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -1670,6 +1796,16 @@ Always store the new refresh token from the response. The previous refresh token
 <span class="c1"># Search, or filter by email
 </span><span class="n">nusii</span><span class="p">.</span><span class="n">clients</span><span class="p">.</span><span class="nb">list</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s">"acme"</span><span class="p">)</span>
 <span class="n">nusii</span><span class="p">.</span><span class="n">clients</span><span class="p">.</span><span class="nb">list</span><span class="p">(</span><span class="n">emails</span><span class="o">=</span><span class="p">[</span><span class="s">"john@doe.com"</span><span class="p">,</span> <span class="s">"jane@doe.com"</span><span class="p">])</span>
+</code></pre></div><div class="highlight"><pre class="highlight go tab-go"><code><span class="k">import</span> <span class="s">"github.com/nusii/nusii-go"</span>
+
+<span class="n">n</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">nusii</span><span class="o">.</span><span class="n">New</span><span class="p">(</span><span class="n">nusii</span><span class="o">.</span><span class="n">WithAPIKey</span><span class="p">(</span><span class="s">"YOUR_API_KEY"</span><span class="p">))</span>
+
+<span class="c">// One page of clients, 25 per page by default</span>
+<span class="n">clients</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">n</span><span class="o">.</span><span class="n">Clients</span><span class="o">.</span><span class="n">List</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">nusii</span><span class="o">.</span><span class="n">ClientListParams</span><span class="p">{</span><span class="n">Page</span><span class="o">:</span> <span class="m">1</span><span class="p">})</span>
+
+<span class="c">// Search, or filter by email</span>
+<span class="n">n</span><span class="o">.</span><span class="n">Clients</span><span class="o">.</span><span class="n">List</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">nusii</span><span class="o">.</span><span class="n">ClientListParams</span><span class="p">{</span><span class="n">Query</span><span class="o">:</span> <span class="s">"acme"</span><span class="p">})</span>
+<span class="n">n</span><span class="o">.</span><span class="n">Clients</span><span class="o">.</span><span class="n">List</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">nusii</span><span class="o">.</span><span class="n">ClientListParams</span><span class="p">{</span><span class="n">Emails</span><span class="o">:</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">"john@doe.com"</span><span class="p">,</span> <span class="s">"jane@doe.com"</span><span class="p">}})</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -1766,6 +1902,11 @@ Filter values must be plain strings. Sending a nested or non-string value for an
 <span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">"YOUR_API_KEY"</span><span class="p">)</span>
 
 <span class="n">client</span> <span class="o">=</span> <span class="n">nusii</span><span class="p">.</span><span class="n">clients</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight go tab-go"><code><span class="k">import</span> <span class="s">"github.com/nusii/nusii-go"</span>
+
+<span class="n">n</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">nusii</span><span class="o">.</span><span class="n">New</span><span class="p">(</span><span class="n">nusii</span><span class="o">.</span><span class="n">WithAPIKey</span><span class="p">(</span><span class="s">"YOUR_API_KEY"</span><span class="p">))</span>
+
+<span class="n">client</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">n</span><span class="o">.</span><span class="n">Clients</span><span class="o">.</span><span class="n">Get</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="m">100</span><span class="p">)</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -1844,6 +1985,16 @@ Filter values must be plain strings. Sending a nested or non-string value for an
     <span class="n">surname</span><span class="o">=</span><span class="s">"Doe"</span><span class="p">,</span>
     <span class="n">locale</span><span class="o">=</span><span class="s">"en"</span><span class="p">,</span>
 <span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight go tab-go"><code><span class="k">import</span> <span class="s">"github.com/nusii/nusii-go"</span>
+
+<span class="n">n</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">nusii</span><span class="o">.</span><span class="n">New</span><span class="p">(</span><span class="n">nusii</span><span class="o">.</span><span class="n">WithAPIKey</span><span class="p">(</span><span class="s">"YOUR_API_KEY"</span><span class="p">))</span>
+
+<span class="n">client</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">n</span><span class="o">.</span><span class="n">Clients</span><span class="o">.</span><span class="n">Create</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">nusii</span><span class="o">.</span><span class="n">ClientCreateParams</span><span class="p">{</span>
+    <span class="n">Email</span><span class="o">:</span>   <span class="s">"john@doe.com"</span><span class="p">,</span>
+    <span class="n">Name</span><span class="o">:</span>    <span class="s">"John"</span><span class="p">,</span>
+    <span class="n">Surname</span><span class="o">:</span> <span class="n">nusii</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="s">"Doe"</span><span class="p">),</span>
+    <span class="n">Locale</span><span class="o">:</span>  <span class="n">nusii</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="s">"en"</span><span class="p">),</span>
+<span class="p">})</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -2035,6 +2186,14 @@ Filter values must be plain strings. Sending a nested or non-string value for an
     <span class="n">email</span><span class="o">=</span><span class="s">"john@doe.com"</span><span class="p">,</span>
     <span class="n">name</span><span class="o">=</span><span class="s">"John Doe"</span><span class="p">,</span>
 <span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight go tab-go"><code><span class="k">import</span> <span class="s">"github.com/nusii/nusii-go"</span>
+
+<span class="n">n</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">nusii</span><span class="o">.</span><span class="n">New</span><span class="p">(</span><span class="n">nusii</span><span class="o">.</span><span class="n">WithAPIKey</span><span class="p">(</span><span class="s">"YOUR_API_KEY"</span><span class="p">))</span>
+
+<span class="n">client</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">n</span><span class="o">.</span><span class="n">Clients</span><span class="o">.</span><span class="n">Update</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="m">100</span><span class="p">,</span> <span class="n">nusii</span><span class="o">.</span><span class="n">ClientUpdateParams</span><span class="p">{</span>
+    <span class="n">Email</span><span class="o">:</span> <span class="n">nusii</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="s">"john@doe.com"</span><span class="p">),</span>
+    <span class="n">Name</span><span class="o">:</span>  <span class="n">nusii</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="s">"John Doe"</span><span class="p">),</span>
+<span class="p">})</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -2213,6 +2372,11 @@ Filter values must be plain strings. Sending a nested or non-string value for an
 <span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">"YOUR_API_KEY"</span><span class="p">)</span>
 
 <span class="n">nusii</span><span class="p">.</span><span class="n">clients</span><span class="p">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight go tab-go"><code><span class="k">import</span> <span class="s">"github.com/nusii/nusii-go"</span>
+
+<span class="n">n</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">nusii</span><span class="o">.</span><span class="n">New</span><span class="p">(</span><span class="n">nusii</span><span class="o">.</span><span class="n">WithAPIKey</span><span class="p">(</span><span class="s">"YOUR_API_KEY"</span><span class="p">))</span>
+
+<span class="n">_</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="n">n</span><span class="o">.</span><span class="n">Clients</span><span class="o">.</span><span class="n">Delete</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="m">100</span><span class="p">)</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -2355,6 +2519,26 @@ nusii proposals list <span class="nt">--status</span> draft
 </span><span class="n">nusii</span><span class="p">.</span><span class="n">proposals</span><span class="p">.</span><span class="nb">list</span><span class="p">(</span>
     <span class="n">recipient_emails</span><span class="o">=</span><span class="p">[</span><span class="s">"alice@example.com"</span><span class="p">,</span> <span class="s">"bob@example.com"</span><span class="p">,</span> <span class="s">"carol@example.com"</span><span class="p">],</span>
 <span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight go tab-go"><code><span class="k">import</span> <span class="s">"github.com/nusii/nusii-go"</span>
+
+<span class="n">n</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">nusii</span><span class="o">.</span><span class="n">New</span><span class="p">(</span><span class="n">nusii</span><span class="o">.</span><span class="n">WithAPIKey</span><span class="p">(</span><span class="s">"YOUR_API_KEY"</span><span class="p">))</span>
+
+<span class="c">// Get all proposals</span>
+<span class="n">n</span><span class="o">.</span><span class="n">Proposals</span><span class="o">.</span><span class="n">List</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">nusii</span><span class="o">.</span><span class="n">ProposalListParams</span><span class="p">{</span><span class="n">Page</span><span class="o">:</span> <span class="m">1</span><span class="p">})</span>
+
+<span class="c">// Get only accepted proposals</span>
+<span class="n">n</span><span class="o">.</span><span class="n">Proposals</span><span class="o">.</span><span class="n">List</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">nusii</span><span class="o">.</span><span class="n">ProposalListParams</span><span class="p">{</span><span class="n">Status</span><span class="o">:</span> <span class="n">nusii</span><span class="o">.</span><span class="n">ProposalStatusAccepted</span><span class="p">})</span>
+
+<span class="c">// Get only draft proposals</span>
+<span class="n">n</span><span class="o">.</span><span class="n">Proposals</span><span class="o">.</span><span class="n">List</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">nusii</span><span class="o">.</span><span class="n">ProposalListParams</span><span class="p">{</span><span class="n">Status</span><span class="o">:</span> <span class="n">nusii</span><span class="o">.</span><span class="n">ProposalStatusDraft</span><span class="p">})</span>
+
+<span class="c">// Get proposals sent to a specific recipient</span>
+<span class="n">n</span><span class="o">.</span><span class="n">Proposals</span><span class="o">.</span><span class="n">List</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">nusii</span><span class="o">.</span><span class="n">ProposalListParams</span><span class="p">{</span><span class="n">RecipientEmail</span><span class="o">:</span> <span class="s">"alice@example.com"</span><span class="p">})</span>
+
+<span class="c">// Get proposals sent to any of multiple recipients</span>
+<span class="n">n</span><span class="o">.</span><span class="n">Proposals</span><span class="o">.</span><span class="n">List</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">nusii</span><span class="o">.</span><span class="n">ProposalListParams</span><span class="p">{</span>
+    <span class="n">RecipientEmails</span><span class="o">:</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">"alice@example.com"</span><span class="p">,</span> <span class="s">"bob@example.com"</span><span class="p">,</span> <span class="s">"carol@example.com"</span><span class="p">},</span>
+<span class="p">})</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -2475,6 +2659,11 @@ nusii proposals list <span class="nt">--status</span> draft
 <span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">"YOUR_API_KEY"</span><span class="p">)</span>
 
 <span class="n">proposal</span> <span class="o">=</span> <span class="n">nusii</span><span class="p">.</span><span class="n">proposals</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight go tab-go"><code><span class="k">import</span> <span class="s">"github.com/nusii/nusii-go"</span>
+
+<span class="n">n</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">nusii</span><span class="o">.</span><span class="n">New</span><span class="p">(</span><span class="n">nusii</span><span class="o">.</span><span class="n">WithAPIKey</span><span class="p">(</span><span class="s">"YOUR_API_KEY"</span><span class="p">))</span>
+
+<span class="n">proposal</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">n</span><span class="o">.</span><span class="n">Proposals</span><span class="o">.</span><span class="n">Get</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="m">100</span><span class="p">)</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -2558,6 +2747,14 @@ nusii proposals list <span class="nt">--status</span> draft
     <span class="n">title</span><span class="o">=</span><span class="s">"Webdesign yourwebsite.com"</span><span class="p">,</span>
     <span class="n">client_id</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
 <span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight go tab-go"><code><span class="k">import</span> <span class="s">"github.com/nusii/nusii-go"</span>
+
+<span class="n">n</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">nusii</span><span class="o">.</span><span class="n">New</span><span class="p">(</span><span class="n">nusii</span><span class="o">.</span><span class="n">WithAPIKey</span><span class="p">(</span><span class="s">"YOUR_API_KEY"</span><span class="p">))</span>
+
+<span class="n">proposal</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">n</span><span class="o">.</span><span class="n">Proposals</span><span class="o">.</span><span class="n">Create</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">nusii</span><span class="o">.</span><span class="n">ProposalCreateParams</span><span class="p">{</span>
+    <span class="n">Title</span><span class="o">:</span>    <span class="n">nusii</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="s">"Webdesign yourwebsite.com"</span><span class="p">),</span>
+    <span class="n">ClientID</span><span class="o">:</span> <span class="n">nusii</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="m">100</span><span class="p">),</span>
+<span class="p">})</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -2721,6 +2918,13 @@ nusii proposals list <span class="nt">--status</span> draft
 <span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">"YOUR_API_KEY"</span><span class="p">)</span>
 
 <span class="n">proposal</span> <span class="o">=</span> <span class="n">nusii</span><span class="p">.</span><span class="n">proposals</span><span class="p">.</span><span class="n">update</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s">"Webdesign yourwebsite.com"</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight go tab-go"><code><span class="k">import</span> <span class="s">"github.com/nusii/nusii-go"</span>
+
+<span class="n">n</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">nusii</span><span class="o">.</span><span class="n">New</span><span class="p">(</span><span class="n">nusii</span><span class="o">.</span><span class="n">WithAPIKey</span><span class="p">(</span><span class="s">"YOUR_API_KEY"</span><span class="p">))</span>
+
+<span class="n">proposal</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">n</span><span class="o">.</span><span class="n">Proposals</span><span class="o">.</span><span class="n">Update</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="m">100</span><span class="p">,</span> <span class="n">nusii</span><span class="o">.</span><span class="n">ProposalUpdateParams</span><span class="p">{</span>
+    <span class="n">Title</span><span class="o">:</span> <span class="n">nusii</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="s">"Webdesign yourwebsite.com"</span><span class="p">),</span>
+<span class="p">})</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -2872,6 +3076,11 @@ nusii proposals list <span class="nt">--status</span> draft
 <span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">"YOUR_API_KEY"</span><span class="p">)</span>
 
 <span class="n">nusii</span><span class="p">.</span><span class="n">proposals</span><span class="p">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight go tab-go"><code><span class="k">import</span> <span class="s">"github.com/nusii/nusii-go"</span>
+
+<span class="n">n</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">nusii</span><span class="o">.</span><span class="n">New</span><span class="p">(</span><span class="n">nusii</span><span class="o">.</span><span class="n">WithAPIKey</span><span class="p">(</span><span class="s">"YOUR_API_KEY"</span><span class="p">))</span>
+
+<span class="n">_</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="n">n</span><span class="o">.</span><span class="n">Proposals</span><span class="o">.</span><span class="n">Delete</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="m">100</span><span class="p">)</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -2924,6 +3133,11 @@ nusii proposals list <span class="nt">--status</span> draft
 <span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">"YOUR_API_KEY"</span><span class="p">)</span>
 
 <span class="n">nusii</span><span class="p">.</span><span class="n">proposals</span><span class="p">.</span><span class="n">archive</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight go tab-go"><code><span class="k">import</span> <span class="s">"github.com/nusii/nusii-go"</span>
+
+<span class="n">n</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">nusii</span><span class="o">.</span><span class="n">New</span><span class="p">(</span><span class="n">nusii</span><span class="o">.</span><span class="n">WithAPIKey</span><span class="p">(</span><span class="s">"YOUR_API_KEY"</span><span class="p">))</span>
+
+<span class="n">_</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="n">n</span><span class="o">.</span><span class="n">Proposals</span><span class="o">.</span><span class="n">Archive</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="m">100</span><span class="p">)</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -2992,6 +3206,14 @@ nusii proposals list <span class="nt">--status</span> draft
     <span class="n">email</span><span class="o">=</span><span class="s">"your_client@email.com"</span><span class="p">,</span>
     <span class="n">subject</span><span class="o">=</span><span class="s">"Your Proposal"</span><span class="p">,</span>
 <span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight go tab-go"><code><span class="k">import</span> <span class="s">"github.com/nusii/nusii-go"</span>
+
+<span class="n">n</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">nusii</span><span class="o">.</span><span class="n">New</span><span class="p">(</span><span class="n">nusii</span><span class="o">.</span><span class="n">WithAPIKey</span><span class="p">(</span><span class="s">"YOUR_API_KEY"</span><span class="p">))</span>
+
+<span class="n">result</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">n</span><span class="o">.</span><span class="n">Proposals</span><span class="o">.</span><span class="n">Send</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="m">100</span><span class="p">,</span> <span class="n">nusii</span><span class="o">.</span><span class="n">ProposalSendParams</span><span class="p">{</span>
+    <span class="n">Email</span><span class="o">:</span>   <span class="n">nusii</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="s">"your_client@email.com"</span><span class="p">),</span>
+    <span class="n">Subject</span><span class="o">:</span> <span class="n">nusii</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="s">"Your Proposal"</span><span class="p">),</span>
+<span class="p">})</span>
 </code></pre></div>
 <blockquote>
 <p>Send to multiple recipients:</p>
@@ -3056,6 +3278,19 @@ nusii proposals list <span class="nt">--status</span> draft
         <span class="p">{</span><span class="s">"name"</span><span class="p">:</span> <span class="s">"Bob"</span><span class="p">,</span> <span class="s">"email"</span><span class="p">:</span> <span class="s">"bob@example.com"</span><span class="p">,</span> <span class="s">"eligible_to_sign"</span><span class="p">:</span> <span class="bp">False</span><span class="p">},</span>
     <span class="p">],</span>
 <span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight go tab-go"><code><span class="k">import</span> <span class="s">"github.com/nusii/nusii-go"</span>
+
+<span class="n">n</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">nusii</span><span class="o">.</span><span class="n">New</span><span class="p">(</span><span class="n">nusii</span><span class="o">.</span><span class="n">WithAPIKey</span><span class="p">(</span><span class="s">"YOUR_API_KEY"</span><span class="p">))</span>
+
+<span class="n">result</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">n</span><span class="o">.</span><span class="n">Proposals</span><span class="o">.</span><span class="n">Send</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="m">100</span><span class="p">,</span> <span class="n">nusii</span><span class="o">.</span><span class="n">ProposalSendParams</span><span class="p">{</span>
+    <span class="n">Subject</span><span class="o">:</span>     <span class="n">nusii</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="s">"Your Proposal"</span><span class="p">),</span>
+    <span class="n">Message</span><span class="o">:</span>     <span class="n">nusii</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="s">"Please review the attached proposal."</span><span class="p">),</span>
+    <span class="n">SenderEmail</span><span class="o">:</span> <span class="n">nusii</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="s">"sender@example.com"</span><span class="p">),</span>
+    <span class="n">Recipients</span><span class="o">:</span> <span class="p">[]</span><span class="n">nusii</span><span class="o">.</span><span class="n">ProposalRecipient</span><span class="p">{</span>
+        <span class="p">{</span><span class="n">Name</span><span class="o">:</span> <span class="s">"Alice"</span><span class="p">,</span> <span class="n">Email</span><span class="o">:</span> <span class="s">"alice@example.com"</span><span class="p">,</span> <span class="n">EligibleToSign</span><span class="o">:</span> <span class="n">nusii</span><span class="o">.</span><span class="n">Bool</span><span class="p">(</span><span class="no">true</span><span class="p">)},</span>
+        <span class="p">{</span><span class="n">Name</span><span class="o">:</span> <span class="s">"Bob"</span><span class="p">,</span> <span class="n">Email</span><span class="o">:</span> <span class="s">"bob@example.com"</span><span class="p">,</span> <span class="n">EligibleToSign</span><span class="o">:</span> <span class="n">nusii</span><span class="o">.</span><span class="n">Bool</span><span class="p">(</span><span class="no">false</span><span class="p">)},</span>
+    <span class="p">},</span>
+<span class="p">})</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -3217,6 +3452,14 @@ nusii templates list <span class="nt">--public-templates</span>
 
 <span class="c1"># Nusii's public templates
 </span><span class="n">nusii</span><span class="p">.</span><span class="n">templates</span><span class="p">.</span><span class="nb">list</span><span class="p">(</span><span class="n">public_templates</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight go tab-go"><code><span class="k">import</span> <span class="s">"github.com/nusii/nusii-go"</span>
+
+<span class="n">n</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">nusii</span><span class="o">.</span><span class="n">New</span><span class="p">(</span><span class="n">nusii</span><span class="o">.</span><span class="n">WithAPIKey</span><span class="p">(</span><span class="s">"YOUR_API_KEY"</span><span class="p">))</span>
+
+<span class="n">templates</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">n</span><span class="o">.</span><span class="n">Templates</span><span class="o">.</span><span class="n">List</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="no">nil</span><span class="p">)</span>
+
+<span class="c">// Nusii's public templates</span>
+<span class="n">n</span><span class="o">.</span><span class="n">Templates</span><span class="o">.</span><span class="n">List</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">nusii</span><span class="o">.</span><span class="n">TemplateListParams</span><span class="p">{</span><span class="n">PublicTemplates</span><span class="o">:</span> <span class="no">true</span><span class="p">})</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -3287,6 +3530,11 @@ nusii templates list <span class="nt">--public-templates</span>
 <span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">"YOUR_API_KEY"</span><span class="p">)</span>
 
 <span class="n">template</span> <span class="o">=</span> <span class="n">nusii</span><span class="p">.</span><span class="n">templates</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight go tab-go"><code><span class="k">import</span> <span class="s">"github.com/nusii/nusii-go"</span>
+
+<span class="n">n</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">nusii</span><span class="o">.</span><span class="n">New</span><span class="p">(</span><span class="n">nusii</span><span class="o">.</span><span class="n">WithAPIKey</span><span class="p">(</span><span class="s">"YOUR_API_KEY"</span><span class="p">))</span>
+
+<span class="n">template</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">n</span><span class="o">.</span><span class="n">Templates</span><span class="o">.</span><span class="n">Get</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="m">12</span><span class="p">)</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -3339,6 +3587,12 @@ nusii templates list <span class="nt">--public-templates</span>
 
 <span class="c1"># Line items of cost sections are included as section["line_items"]
 </span><span class="n">sections</span> <span class="o">=</span> <span class="n">nusii</span><span class="p">.</span><span class="n">sections</span><span class="p">.</span><span class="nb">list</span><span class="p">(</span><span class="n">proposal_id</span><span class="o">=</span><span class="mi">126</span><span class="p">,</span> <span class="n">page</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight go tab-go"><code><span class="k">import</span> <span class="s">"github.com/nusii/nusii-go"</span>
+
+<span class="n">n</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">nusii</span><span class="o">.</span><span class="n">New</span><span class="p">(</span><span class="n">nusii</span><span class="o">.</span><span class="n">WithAPIKey</span><span class="p">(</span><span class="s">"YOUR_API_KEY"</span><span class="p">))</span>
+
+<span class="c">// Line items of cost sections are included as section.LineItems</span>
+<span class="n">sections</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">n</span><span class="o">.</span><span class="n">Sections</span><span class="o">.</span><span class="n">List</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">nusii</span><span class="o">.</span><span class="n">SectionListParams</span><span class="p">{</span><span class="n">ProposalID</span><span class="o">:</span> <span class="m">126</span><span class="p">,</span> <span class="n">Page</span><span class="o">:</span> <span class="m">1</span><span class="p">})</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -3446,6 +3700,11 @@ nusii templates list <span class="nt">--public-templates</span>
 <span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">"YOUR_API_KEY"</span><span class="p">)</span>
 
 <span class="n">section</span> <span class="o">=</span> <span class="n">nusii</span><span class="p">.</span><span class="n">sections</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight go tab-go"><code><span class="k">import</span> <span class="s">"github.com/nusii/nusii-go"</span>
+
+<span class="n">n</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">nusii</span><span class="o">.</span><span class="n">New</span><span class="p">(</span><span class="n">nusii</span><span class="o">.</span><span class="n">WithAPIKey</span><span class="p">(</span><span class="s">"YOUR_API_KEY"</span><span class="p">))</span>
+
+<span class="n">section</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">n</span><span class="o">.</span><span class="n">Sections</span><span class="o">.</span><span class="n">Get</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="m">100</span><span class="p">)</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -3533,6 +3792,14 @@ nusii templates list <span class="nt">--public-templates</span>
     <span class="n">proposal_id</span><span class="o">=</span><span class="mi">126</span><span class="p">,</span>
     <span class="n">title</span><span class="o">=</span><span class="s">"Introduction"</span><span class="p">,</span>
 <span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight go tab-go"><code><span class="k">import</span> <span class="s">"github.com/nusii/nusii-go"</span>
+
+<span class="n">n</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">nusii</span><span class="o">.</span><span class="n">New</span><span class="p">(</span><span class="n">nusii</span><span class="o">.</span><span class="n">WithAPIKey</span><span class="p">(</span><span class="s">"YOUR_API_KEY"</span><span class="p">))</span>
+
+<span class="n">section</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">n</span><span class="o">.</span><span class="n">Sections</span><span class="o">.</span><span class="n">Create</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">nusii</span><span class="o">.</span><span class="n">SectionParams</span><span class="p">{</span>
+    <span class="n">ProposalID</span><span class="o">:</span> <span class="n">nusii</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="m">126</span><span class="p">),</span>
+    <span class="n">Title</span><span class="o">:</span>      <span class="n">nusii</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="s">"Introduction"</span><span class="p">),</span>
+<span class="p">})</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -3695,6 +3962,13 @@ Filling in the missing <code>title</code> / <code>name</code> only happens on cr
 <span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">"YOUR_API_KEY"</span><span class="p">)</span>
 
 <span class="n">section</span> <span class="o">=</span> <span class="n">nusii</span><span class="p">.</span><span class="n">sections</span><span class="p">.</span><span class="n">update</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s">"Introduction"</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight go tab-go"><code><span class="k">import</span> <span class="s">"github.com/nusii/nusii-go"</span>
+
+<span class="n">n</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">nusii</span><span class="o">.</span><span class="n">New</span><span class="p">(</span><span class="n">nusii</span><span class="o">.</span><span class="n">WithAPIKey</span><span class="p">(</span><span class="s">"YOUR_API_KEY"</span><span class="p">))</span>
+
+<span class="n">section</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">n</span><span class="o">.</span><span class="n">Sections</span><span class="o">.</span><span class="n">Update</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="m">100</span><span class="p">,</span> <span class="n">nusii</span><span class="o">.</span><span class="n">SectionParams</span><span class="p">{</span>
+    <span class="n">Title</span><span class="o">:</span> <span class="n">nusii</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="s">"Introduction"</span><span class="p">),</span>
+<span class="p">})</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -3836,6 +4110,11 @@ Filling in the missing <code>title</code> / <code>name</code> only happens on cr
 <span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">"YOUR_API_KEY"</span><span class="p">)</span>
 
 <span class="n">nusii</span><span class="p">.</span><span class="n">sections</span><span class="p">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight go tab-go"><code><span class="k">import</span> <span class="s">"github.com/nusii/nusii-go"</span>
+
+<span class="n">n</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">nusii</span><span class="o">.</span><span class="n">New</span><span class="p">(</span><span class="n">nusii</span><span class="o">.</span><span class="n">WithAPIKey</span><span class="p">(</span><span class="s">"YOUR_API_KEY"</span><span class="p">))</span>
+
+<span class="n">_</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="n">n</span><span class="o">.</span><span class="n">Sections</span><span class="o">.</span><span class="n">Delete</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="m">100</span><span class="p">)</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -3901,6 +4180,11 @@ Filling in the missing <code>title</code> / <code>name</code> only happens on cr
 <span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">"YOUR_API_KEY"</span><span class="p">)</span>
 
 <span class="n">line_items</span> <span class="o">=</span> <span class="n">nusii</span><span class="p">.</span><span class="n">line_items</span><span class="p">.</span><span class="nb">list</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight go tab-go"><code><span class="k">import</span> <span class="s">"github.com/nusii/nusii-go"</span>
+
+<span class="n">n</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">nusii</span><span class="o">.</span><span class="n">New</span><span class="p">(</span><span class="n">nusii</span><span class="o">.</span><span class="n">WithAPIKey</span><span class="p">(</span><span class="s">"YOUR_API_KEY"</span><span class="p">))</span>
+
+<span class="n">lineItems</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">n</span><span class="o">.</span><span class="n">LineItems</span><span class="o">.</span><span class="n">List</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="m">100</span><span class="p">)</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -3978,6 +4262,13 @@ Responses report the amount as <code>amount</code> — integer cents, the same v
 <span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">"YOUR_API_KEY"</span><span class="p">)</span>
 
 <span class="n">line_item</span> <span class="o">=</span> <span class="n">nusii</span><span class="p">.</span><span class="n">line_items</span><span class="p">.</span><span class="n">create</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">"Development Costs"</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight go tab-go"><code><span class="k">import</span> <span class="s">"github.com/nusii/nusii-go"</span>
+
+<span class="n">n</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">nusii</span><span class="o">.</span><span class="n">New</span><span class="p">(</span><span class="n">nusii</span><span class="o">.</span><span class="n">WithAPIKey</span><span class="p">(</span><span class="s">"YOUR_API_KEY"</span><span class="p">))</span>
+
+<span class="n">lineItem</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">n</span><span class="o">.</span><span class="n">LineItems</span><span class="o">.</span><span class="n">Create</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="m">100</span><span class="p">,</span> <span class="n">nusii</span><span class="o">.</span><span class="n">LineItemParams</span><span class="p">{</span>
+    <span class="n">Name</span><span class="o">:</span> <span class="n">nusii</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="s">"Development Costs"</span><span class="p">),</span>
+<span class="p">})</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -4112,6 +4403,13 @@ Responses report the amount as <code>amount</code> — integer cents, the same v
 <span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">"YOUR_API_KEY"</span><span class="p">)</span>
 
 <span class="n">line_item</span> <span class="o">=</span> <span class="n">nusii</span><span class="p">.</span><span class="n">line_items</span><span class="p">.</span><span class="n">update</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">amount</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight go tab-go"><code><span class="k">import</span> <span class="s">"github.com/nusii/nusii-go"</span>
+
+<span class="n">n</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">nusii</span><span class="o">.</span><span class="n">New</span><span class="p">(</span><span class="n">nusii</span><span class="o">.</span><span class="n">WithAPIKey</span><span class="p">(</span><span class="s">"YOUR_API_KEY"</span><span class="p">))</span>
+
+<span class="n">lineItem</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">n</span><span class="o">.</span><span class="n">LineItems</span><span class="o">.</span><span class="n">Update</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="m">100</span><span class="p">,</span> <span class="n">nusii</span><span class="o">.</span><span class="n">LineItemParams</span><span class="p">{</span>
+    <span class="n">Amount</span><span class="o">:</span> <span class="n">nusii</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="m">10000</span><span class="p">),</span>
+<span class="p">})</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -4244,6 +4542,11 @@ Responses report the amount as <code>amount</code> — integer cents, the same v
 <span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">"YOUR_API_KEY"</span><span class="p">)</span>
 
 <span class="n">nusii</span><span class="p">.</span><span class="n">line_items</span><span class="p">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight go tab-go"><code><span class="k">import</span> <span class="s">"github.com/nusii/nusii-go"</span>
+
+<span class="n">n</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">nusii</span><span class="o">.</span><span class="n">New</span><span class="p">(</span><span class="n">nusii</span><span class="o">.</span><span class="n">WithAPIKey</span><span class="p">(</span><span class="s">"YOUR_API_KEY"</span><span class="p">))</span>
+
+<span class="n">_</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="n">n</span><span class="o">.</span><span class="n">LineItems</span><span class="o">.</span><span class="n">Delete</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="m">100</span><span class="p">)</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -4330,6 +4633,16 @@ Responses report the amount as <code>amount</code> — integer cents, the same v
     <span class="n">amount</span><span class="o">=</span><span class="mi">500000</span><span class="p">,</span>  <span class="c1"># £5,000.00, the low end
 </span>    <span class="n">maximum_amount</span><span class="o">=</span><span class="mi">800000</span><span class="p">,</span>  <span class="c1"># £8,000.00, the high end
 </span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight go tab-go"><code><span class="k">import</span> <span class="s">"github.com/nusii/nusii-go"</span>
+
+<span class="n">n</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">nusii</span><span class="o">.</span><span class="n">New</span><span class="p">(</span><span class="n">nusii</span><span class="o">.</span><span class="n">WithAPIKey</span><span class="p">(</span><span class="s">"YOUR_API_KEY"</span><span class="p">))</span>
+
+<span class="n">lineItem</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">n</span><span class="o">.</span><span class="n">LineItems</span><span class="o">.</span><span class="n">Create</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="m">458</span><span class="p">,</span> <span class="n">nusii</span><span class="o">.</span><span class="n">LineItemParams</span><span class="p">{</span>
+    <span class="n">Name</span><span class="o">:</span>          <span class="n">nusii</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="s">"Discovery &amp; UX research"</span><span class="p">),</span>
+    <span class="n">CostType</span><span class="o">:</span>      <span class="n">nusii</span><span class="o">.</span><span class="n">CostTypeRange</span><span class="p">,</span>
+    <span class="n">Amount</span><span class="o">:</span>        <span class="n">nusii</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="m">500000</span><span class="p">),</span> <span class="c">// £5,000.00, the low end</span>
+    <span class="n">MaximumAmount</span><span class="o">:</span> <span class="n">nusii</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="m">800000</span><span class="p">),</span> <span class="c">// £8,000.00, the high end</span>
+<span class="p">})</span>
 </code></pre></div>
 <p>A line item with <code>cost_type</code> of <code>range</code> shows a price range, e.g. <strong>£5,000.00 – £8,000.00</strong>, instead of a single value. The existing <code>amount</code> is the low end of the range, and <code>maximum_amount</code> is the high end.</p>
 
@@ -4392,6 +4705,15 @@ Price ranges are a feature that has to be enabled for your account. While it is 
     <span class="n">amount</span><span class="o">=</span><span class="mi">250000</span><span class="p">,</span>
     <span class="n">choice_type</span><span class="o">=</span><span class="s">"radio"</span><span class="p">,</span>  <span class="c1"># or "checkbox", or "none"
 </span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight go tab-go"><code><span class="k">import</span> <span class="s">"github.com/nusii/nusii-go"</span>
+
+<span class="n">n</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">nusii</span><span class="o">.</span><span class="n">New</span><span class="p">(</span><span class="n">nusii</span><span class="o">.</span><span class="n">WithAPIKey</span><span class="p">(</span><span class="s">"YOUR_API_KEY"</span><span class="p">))</span>
+
+<span class="n">lineItem</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">n</span><span class="o">.</span><span class="n">LineItems</span><span class="o">.</span><span class="n">Create</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="m">458</span><span class="p">,</span> <span class="n">nusii</span><span class="o">.</span><span class="n">LineItemParams</span><span class="p">{</span>
+    <span class="n">Name</span><span class="o">:</span>       <span class="n">nusii</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="s">"Premium support"</span><span class="p">),</span>
+    <span class="n">Amount</span><span class="o">:</span>     <span class="n">nusii</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="m">250000</span><span class="p">),</span>
+    <span class="n">ChoiceType</span><span class="o">:</span> <span class="n">nusii</span><span class="o">.</span><span class="n">ChoiceTypeRadio</span><span class="p">,</span> <span class="c">// or nusii.ChoiceTypeCheckbox, or nusii.ChoiceTypeNone</span>
+<span class="p">})</span>
 </code></pre></div>
 <p>A line item can be an option your client chooses from, rather than a fixed part of the price. This is controlled by the <code>choice_type</code> attribute, which is returned with every line item and can be set when creating or updating one:</p>
 
@@ -4450,6 +4772,14 @@ Line items created via the API default to <code>choice_type: "none"</code>. Dele
 <span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">"YOUR_API_KEY"</span><span class="p">)</span>
 
 <span class="n">activities</span> <span class="o">=</span> <span class="n">nusii</span><span class="p">.</span><span class="n">proposal_activities</span><span class="p">.</span><span class="nb">list</span><span class="p">(</span><span class="n">proposal_id</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">page</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight go tab-go"><code><span class="k">import</span> <span class="s">"github.com/nusii/nusii-go"</span>
+
+<span class="n">n</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">nusii</span><span class="o">.</span><span class="n">New</span><span class="p">(</span><span class="n">nusii</span><span class="o">.</span><span class="n">WithAPIKey</span><span class="p">(</span><span class="s">"YOUR_API_KEY"</span><span class="p">))</span>
+
+<span class="n">activities</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">n</span><span class="o">.</span><span class="n">ProposalActivities</span><span class="o">.</span><span class="n">List</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">nusii</span><span class="o">.</span><span class="n">ProposalActivityListParams</span><span class="p">{</span>
+    <span class="n">ProposalID</span><span class="o">:</span> <span class="m">100</span><span class="p">,</span>
+    <span class="n">Page</span><span class="o">:</span>       <span class="m">1</span><span class="p">,</span>
+<span class="p">})</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -4551,6 +4881,11 @@ Line items created via the API default to <code>choice_type: "none"</code>. Dele
 <span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">"YOUR_API_KEY"</span><span class="p">)</span>
 
 <span class="n">activity</span> <span class="o">=</span> <span class="n">nusii</span><span class="p">.</span><span class="n">proposal_activities</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="mi">44</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight go tab-go"><code><span class="k">import</span> <span class="s">"github.com/nusii/nusii-go"</span>
+
+<span class="n">n</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">nusii</span><span class="o">.</span><span class="n">New</span><span class="p">(</span><span class="n">nusii</span><span class="o">.</span><span class="n">WithAPIKey</span><span class="p">(</span><span class="s">"YOUR_API_KEY"</span><span class="p">))</span>
+
+<span class="n">activity</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">n</span><span class="o">.</span><span class="n">ProposalActivities</span><span class="o">.</span><span class="n">Get</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="m">44</span><span class="p">)</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -4661,6 +4996,11 @@ Line items created via the API default to <code>choice_type: "none"</code>. Dele
 <span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">"YOUR_API_KEY"</span><span class="p">)</span>
 
 <span class="n">users</span> <span class="o">=</span> <span class="n">nusii</span><span class="p">.</span><span class="n">users</span><span class="p">.</span><span class="nb">list</span><span class="p">()</span>
+</code></pre></div><div class="highlight"><pre class="highlight go tab-go"><code><span class="k">import</span> <span class="s">"github.com/nusii/nusii-go"</span>
+
+<span class="n">n</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">nusii</span><span class="o">.</span><span class="n">New</span><span class="p">(</span><span class="n">nusii</span><span class="o">.</span><span class="n">WithAPIKey</span><span class="p">(</span><span class="s">"YOUR_API_KEY"</span><span class="p">))</span>
+
+<span class="n">users</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">n</span><span class="o">.</span><span class="n">Users</span><span class="o">.</span><span class="n">List</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="no">nil</span><span class="p">)</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -4711,6 +5051,11 @@ Line items created via the API default to <code>choice_type: "none"</code>. Dele
 <span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">"YOUR_API_KEY"</span><span class="p">)</span>
 
 <span class="n">themes</span> <span class="o">=</span> <span class="n">nusii</span><span class="p">.</span><span class="n">themes</span><span class="p">.</span><span class="nb">list</span><span class="p">()</span>
+</code></pre></div><div class="highlight"><pre class="highlight go tab-go"><code><span class="k">import</span> <span class="s">"github.com/nusii/nusii-go"</span>
+
+<span class="n">n</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">nusii</span><span class="o">.</span><span class="n">New</span><span class="p">(</span><span class="n">nusii</span><span class="o">.</span><span class="n">WithAPIKey</span><span class="p">(</span><span class="s">"YOUR_API_KEY"</span><span class="p">))</span>
+
+<span class="n">themes</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">n</span><span class="o">.</span><span class="n">Themes</span><span class="o">.</span><span class="n">List</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -4792,6 +5137,29 @@ Line items created via the API default to <code>choice_type: "none"</code>. Dele
         <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"</span><span class="si">{</span><span class="n">event</span><span class="p">[</span><span class="s">'proposal'</span><span class="p">][</span><span class="s">'title'</span><span class="p">]</span><span class="si">}</span><span class="s"> was accepted"</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="s">""</span><span class="p">,</span> <span class="mi">204</span>
+</code></pre></div><div class="highlight"><pre class="highlight go tab-go"><code><span class="c">// Receiving a webhook with net/http</span>
+<span class="k">import</span> <span class="p">(</span>
+    <span class="s">"io"</span>
+    <span class="s">"log"</span>
+    <span class="s">"net/http"</span>
+
+    <span class="s">"github.com/nusii/nusii-go"</span>
+<span class="p">)</span>
+
+<span class="n">http</span><span class="o">.</span><span class="n">HandleFunc</span><span class="p">(</span><span class="s">"POST /webhooks/nusii"</span><span class="p">,</span> <span class="k">func</span><span class="p">(</span><span class="n">w</span> <span class="n">http</span><span class="o">.</span><span class="n">ResponseWriter</span><span class="p">,</span> <span class="n">r</span> <span class="o">*</span><span class="n">http</span><span class="o">.</span><span class="n">Request</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">body</span><span class="p">,</span> <span class="n">_</span> <span class="o">:=</span> <span class="n">io</span><span class="o">.</span><span class="n">ReadAll</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">Body</span><span class="p">)</span>
+    <span class="n">event</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">nusii</span><span class="o">.</span><span class="n">ParseWebhookEvent</span><span class="p">(</span><span class="n">body</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">err</span> <span class="o">!=</span> <span class="no">nil</span> <span class="p">{</span>
+        <span class="n">http</span><span class="o">.</span><span class="n">Error</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">err</span><span class="o">.</span><span class="n">Error</span><span class="p">(),</span> <span class="n">http</span><span class="o">.</span><span class="n">StatusBadRequest</span><span class="p">)</span>
+        <span class="k">return</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">EventName</span> <span class="o">==</span> <span class="n">nusii</span><span class="o">.</span><span class="n">WebhookEventProposalAccepted</span> <span class="p">{</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"%s was accepted"</span><span class="p">,</span> <span class="o">*</span><span class="n">event</span><span class="o">.</span><span class="n">Proposal</span><span class="o">.</span><span class="n">Title</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="n">w</span><span class="o">.</span><span class="n">WriteHeader</span><span class="p">(</span><span class="n">http</span><span class="o">.</span><span class="n">StatusNoContent</span><span class="p">)</span>
+<span class="p">})</span>
 </code></pre></div><h2 id='webhook-endpoint-errors'>Webhook endpoint errors</h2>
 <p>We consider all responses with <code>2xx</code> as successful. Any other response is considered a failed delivery, so make sure your endpoint responds with a 2xx. If we receive a <code>410 GONE</code>, the endpoint will get removed from our database.</p>
 <h2 id='available-webhooks'>Available webhooks</h2>
@@ -4870,6 +5238,11 @@ Line items created via the API default to <code>choice_type: "none"</code>. Dele
 <span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">"YOUR_API_KEY"</span><span class="p">)</span>
 
 <span class="n">endpoints</span> <span class="o">=</span> <span class="n">nusii</span><span class="p">.</span><span class="n">webhook_endpoints</span><span class="p">.</span><span class="nb">list</span><span class="p">()</span>
+</code></pre></div><div class="highlight"><pre class="highlight go tab-go"><code><span class="k">import</span> <span class="s">"github.com/nusii/nusii-go"</span>
+
+<span class="n">n</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">nusii</span><span class="o">.</span><span class="n">New</span><span class="p">(</span><span class="n">nusii</span><span class="o">.</span><span class="n">WithAPIKey</span><span class="p">(</span><span class="s">"YOUR_API_KEY"</span><span class="p">))</span>
+
+<span class="n">endpoints</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">n</span><span class="o">.</span><span class="n">WebhookEndpoints</span><span class="o">.</span><span class="n">List</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="no">nil</span><span class="p">)</span>
 </code></pre></div>
 
 <blockquote>
@@ -4934,6 +5307,11 @@ Line items created via the API default to <code>choice_type: "none"</code>. Dele
 <p><span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">&quot;YOUR_API_KEY&quot;</span><span class="p">)</span></p>
 
 <p><span class="n">endpoint</span> <span class="o">=</span> <span class="n">nusii</span><span class="p">.</span><span class="n">webhook_endpoints</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight go tab-go"><code><span class="k">import</span> <span class="s">&quot;github.com/nusii/nusii-go&quot;</span></p>
+
+<p><span class="n">n</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">nusii</span><span class="o">.</span><span class="n">New</span><span class="p">(</span><span class="n">nusii</span><span class="o">.</span><span class="n">WithAPIKey</span><span class="p">(</span><span class="s">&quot;YOUR_API_KEY&quot;</span><span class="p">))</span></p>
+
+<p><span class="n">endpoint</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">n</span><span class="o">.</span><span class="n">WebhookEndpoints</span><span class="o">.</span><span class="n">Get</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="m">100</span><span class="p">)</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -4996,6 +5374,17 @@ Line items created via the API default to <code>choice_type: "none"</code>. Dele
     <span class="n">target_url</span><span class="o">=</span><span class="s">&quot;http://example.com&quot;</span><span class="p">,</span>
     <span class="n">events</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;proposal_created&quot;</span><span class="p">,</span> <span class="s">&quot;client_created&quot;</span><span class="p">],</span>
 <span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight go tab-go"><code><span class="k">import</span> <span class="s">&quot;github.com/nusii/nusii-go&quot;</span></p>
+
+<p><span class="n">n</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">nusii</span><span class="o">.</span><span class="n">New</span><span class="p">(</span><span class="n">nusii</span><span class="o">.</span><span class="n">WithAPIKey</span><span class="p">(</span><span class="s">&quot;YOUR_API_KEY&quot;</span><span class="p">))</span></p>
+
+<p><span class="n">endpoint</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">n</span><span class="o">.</span><span class="n">WebhookEndpoints</span><span class="o">.</span><span class="n">Create</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">nusii</span><span class="o">.</span><span class="n">WebhookEndpointCreateParams</span><span class="p">{</span>
+    <span class="n">TargetURL</span><span class="o">:</span> <span class="s">&quot;http://example.com&quot;</span><span class="p">,</span>
+    <span class="n">Events</span><span class="o">:</span> <span class="p">[]</span><span class="n">nusii</span><span class="o">.</span><span class="n">WebhookEventName</span><span class="p">{</span>
+        <span class="n">nusii</span><span class="o">.</span><span class="n">WebhookEventProposalCreated</span><span class="p">,</span>
+        <span class="n">nusii</span><span class="o">.</span><span class="n">WebhookEventClientCreated</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">})</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -5068,6 +5457,11 @@ Line items created via the API default to <code>choice_type: "none"</code>. Dele
 <p><span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">&quot;YOUR_API_KEY&quot;</span><span class="p">)</span></p>
 
 <p><span class="n">nusii</span><span class="p">.</span><span class="n">webhook_endpoints</span><span class="p">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight go tab-go"><code><span class="k">import</span> <span class="s">&quot;github.com/nusii/nusii-go&quot;</span></p>
+
+<p><span class="n">n</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">nusii</span><span class="o">.</span><span class="n">New</span><span class="p">(</span><span class="n">nusii</span><span class="o">.</span><span class="n">WithAPIKey</span><span class="p">(</span><span class="s">&quot;YOUR_API_KEY&quot;</span><span class="p">))</span></p>
+
+<p><span class="n">_</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="n">n</span><span class="o">.</span><span class="n">WebhookEndpoints</span><span class="o">.</span><span class="n">Delete</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="m">100</span><span class="p">)</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -5122,6 +5516,22 @@ Line items created via the API default to <code>choice_type: "none"</code>. Dele
 <p><span class="c1"># Or let the SDK fetch every page for you
 </span><span class="k">for</span> <span class="n">proposal</span> <span class="ow">in</span> <span class="n">nusii</span><span class="p">.</span><span class="n">proposals</span><span class="p">.</span><span class="n">list_all</span><span class="p">():</span>
     <span class="k">print</span><span class="p">(</span><span class="n">proposal</span><span class="p">[</span><span class="s">&quot;title&quot;</span><span class="p">])</span>
+</code></pre></div><div class="highlight"><pre class="highlight go tab-go"><code><span class="k">import</span> <span class="s">&quot;github.com/nusii/nusii-go&quot;</span></p>
+
+<p><span class="n">n</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">nusii</span><span class="o">.</span><span class="n">New</span><span class="p">(</span><span class="n">nusii</span><span class="o">.</span><span class="n">WithAPIKey</span><span class="p">(</span><span class="s">&quot;YOUR_API_KEY&quot;</span><span class="p">))</span></p>
+
+<p><span class="n">page</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">n</span><span class="o">.</span><span class="n">Proposals</span><span class="o">.</span><span class="n">List</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">nusii</span><span class="o">.</span><span class="n">ProposalListParams</span><span class="p">{</span><span class="n">Page</span><span class="o">:</span> <span class="m">2</span><span class="p">,</span> <span class="n">PerPage</span><span class="o">:</span> <span class="m">10</span><span class="p">})</span>
+<span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">Meta</span><span class="o">.</span><span class="n">TotalPages</span><span class="p">)</span> <span class="c">// 4</span></p>
+
+<p><span class="n">nextPage</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">page</span><span class="o">.</span><span class="n">NextPage</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span></p>
+
+<p><span class="c">// Or let the SDK fetch every page for you</span>
+<span class="k">for</span> <span class="n">proposal</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="k">range</span> <span class="n">n</span><span class="o">.</span><span class="n">Proposals</span><span class="o">.</span><span class="n">ListAll</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="no">nil</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="n">err</span> <span class="o">!=</span> <span class="no">nil</span> <span class="p">{</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">Fatal</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="o">*</span><span class="n">proposal</span><span class="o">.</span><span class="n">Title</span><span class="p">)</span>
+<span class="p">}</span>
 </code></pre></div><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="err">...</span><span class="p">},</span><span class="w">
@@ -5185,7 +5595,7 @@ Line items created via the API default to <code>choice_type: "none"</code>. Dele
 </tr>
 </tbody></table>
 
-<p>The <a href="#javascript-sdk">JavaScript SDK</a> and the <a href="#python-sdk">Python SDK</a> handle this for you: they wait for <code>Retry-After</code> and retry the request.</p>
+<p>The <a href="#javascript-sdk">JavaScript SDK</a>, the <a href="#python-sdk">Python SDK</a> and the <a href="#go-sdk">Go SDK</a> handle this for you: they wait for <code>Retry-After</code> and retry the request.</p>
 
 <h1 id='request-logs'>Request Logs</h1>
 
@@ -5274,6 +5684,7 @@ Line items created via the API default to <code>choice_type: "none"</code>. Dele
                 <a href="#" data-language-name="php">PHP</a>
                 <a href="#" data-language-name="javascript">JavaScript</a>
                 <a href="#" data-language-name="python">Python</a>
+                <a href="#" data-language-name="go">Go</a>
           </div>
       </div>
     </div>
