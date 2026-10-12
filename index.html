@@ -349,13 +349,24 @@
               </ul>
           </li>
           <li>
-            <a href="#nusii-cli" class="toc-h1 toc-link" data-title="Nusii CLI">Nusii CLI</a>
-          </li>
-          <li>
-            <a href="#javascript-sdk" class="toc-h1 toc-link" data-title="JavaScript SDK">JavaScript SDK</a>
-          </li>
-          <li>
-            <a href="#python-sdk" class="toc-h1 toc-link" data-title="Python SDK">Python SDK</a>
+            <a href="#sdks" class="toc-h1 toc-link" data-title="SDKs">SDKs</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#nusii-cli" class="toc-h2 toc-link" data-title="Nusii CLI">Nusii CLI</a>
+                  </li>
+                  <li>
+                    <a href="#ruby-sdk" class="toc-h2 toc-link" data-title="Ruby SDK">Ruby SDK</a>
+                  </li>
+                  <li>
+                    <a href="#php-sdk" class="toc-h2 toc-link" data-title="PHP SDK">PHP SDK</a>
+                  </li>
+                  <li>
+                    <a href="#javascript-sdk" class="toc-h2 toc-link" data-title="JavaScript SDK">JavaScript SDK</a>
+                  </li>
+                  <li>
+                    <a href="#python-sdk" class="toc-h2 toc-link" data-title="Python SDK">Python SDK</a>
+                  </li>
+              </ul>
           </li>
           <li>
             <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
@@ -569,13 +580,14 @@
           </li>
       </ul>
         <ul class="toc-footer">
-            <li><a href='https://app.nusii.com/settings/api'>Get your API Key</a></li>
-            <li><a href='https://app.nusii.com/settings/api'>Register an OAuth App</a></li>
-            <li><a href='openapi/v2.yaml'>OpenAPI Specification (YAML)</a></li>
-            <li><a href='https://github.com/Nusii/nusii-cli'>Nusii CLI on GitHub</a></li>
-            <li><a href='https://github.com/nusii/nusii-php'>Nusii PHP on GitHub</a></li>
-            <li><a href='https://github.com/Nusii/nusii-typescript'>Nusii JavaScript on GitHub</a></li>
-            <li><a href='https://github.com/Nusii/nusii-python'>Nusii Python on GitHub</a></li>
+            <li><a href='https://app.nusii.com/settings/api' target='_blank' rel='noopener'>Get your API Key</a></li>
+            <li><a href='https://app.nusii.com/settings/api' target='_blank' rel='noopener'>Register an OAuth App</a></li>
+            <li><a href='openapi/v2.yaml' target='_blank' rel='noopener'>OpenAPI Specification (YAML)</a></li>
+            <li><a href='https://github.com/Nusii/nusii-cli' target='_blank' rel='noopener'>Nusii CLI on GitHub</a></li>
+            <li><a href='https://github.com/Nusii/nusii-ruby' target='_blank' rel='noopener'>Nusii Ruby on GitHub</a></li>
+            <li><a href='https://github.com/Nusii/nusii-php' target='_blank' rel='noopener'>Nusii PHP on GitHub</a></li>
+            <li><a href='https://github.com/Nusii/nusii-typescript' target='_blank' rel='noopener'>Nusii JavaScript on GitHub</a></li>
+            <li><a href='https://github.com/Nusii/nusii-python' target='_blank' rel='noopener'>Nusii Python on GitHub</a></li>
         </ul>
     </div>
     <div class="page-wrapper">
@@ -827,7 +839,44 @@ If you're building an autonomous agent on the MCP server, keep a human in the lo
 </ul>
 
 <p>As with API logs, you can see the requests from the last 30 days, or 90 days on the Business and Enterprise plans. How long we store them is in our <a href="https://nusii.com/privacy/">privacy policy</a>. Owners and administrators see the whole account&#39;s requests; other roles see their own, or none, depending on their log permissions.</p>
-<h1 id='nusii-cli'>Nusii CLI</h1>
+<h1 id='sdks'>SDKs</h1>
+<p>Nusii&#39;s official SDKs are open source on GitHub. Pick the one for your language, or call the API directly with any HTTP client.</p>
+
+<table><thead>
+<tr>
+<th>SDK</th>
+<th>Install</th>
+<th>GitHub</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Nusii CLI</td>
+<td><code>brew install nusii/tap/nusii</code></td>
+<td><a href="https://github.com/Nusii/nusii-cli">Nusii/nusii-cli</a></td>
+</tr>
+<tr>
+<td>Ruby</td>
+<td><code>gem install nusii</code></td>
+<td><a href="https://github.com/Nusii/nusii-ruby">Nusii/nusii-ruby</a></td>
+</tr>
+<tr>
+<td>PHP</td>
+<td><code>composer require nusii/nusii-php</code></td>
+<td><a href="https://github.com/Nusii/nusii-php">Nusii/nusii-php</a></td>
+</tr>
+<tr>
+<td>JavaScript &amp; TypeScript</td>
+<td><code>npm install @nusii/nusii</code></td>
+<td><a href="https://github.com/Nusii/nusii-typescript">Nusii/nusii-typescript</a></td>
+</tr>
+<tr>
+<td>Python</td>
+<td><code>pip install nusii</code></td>
+<td><a href="https://github.com/Nusii/nusii-python">Nusii/nusii-python</a></td>
+</tr>
+</tbody></table>
+<div class="highlight"><pre class="highlight shell tab-shell--curl"><code><span class="c"># No SDK needed: every example also works with plain cURL.</span>
+</code></pre></div><h2 id='nusii-cli'>Nusii CLI</h2>
 <p>The <a href="https://github.com/Nusii/nusii-cli">Nusii CLI</a> is a command-line tool for the Nusii API. It can be used standalone or with AI coding agents like Claude Code, Codex, and others.</p>
 
 <p>It auto-detects piped output and returns JSON, supports <code>--no-input</code> for non-interactive use, and uses structured exit codes for automation.</p>
@@ -842,17 +891,24 @@ nusii auth login <span class="nt">--api-key</span> YOUR_API_KEY
 
 <span class="c"># Check auth status</span>
 nusii auth status
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell--curl"><code><span class="c"># The Nusii CLI is an alternative to using cURL.</span>
-<span class="c"># Install: brew install nusii/tap/nusii</span>
-</code></pre></div><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="c1"># The Nusii CLI is an alternative to the Ruby gem.</span>
-<span class="c1"># Install: brew install nusii/tap/nusii</span>
-</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="c1">// The Nusii CLI is an alternative to the PHP package.</span>
-<span class="c1">// Install: brew install nusii/tap/nusii</span>
-</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="c1">// The Nusii CLI is an alternative to the JavaScript SDK.</span>
-<span class="c1">// Install: brew install nusii/tap/nusii</span>
-</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="c1"># The Nusii CLI is an alternative to the Python SDK.
-# Install: brew install nusii/tap/nusii
-</span></code></pre></div><h1 id='javascript-sdk'>JavaScript SDK</h1>
+</code></pre></div><h2 id='ruby-sdk'>Ruby SDK</h2>
+<p>The <a href="https://github.com/Nusii/nusii-ruby">Nusii Ruby gem</a> is the official client for Ruby and Rails apps, published on RubyGems as <a href="https://rubygems.org/gems/nusii"><code>nusii</code></a>. Select the <strong>Ruby</strong> tab to see it in the examples of this reference.</p>
+<div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="c1"># Add to your Gemfile, then run `bundle`</span>
+<span class="c1"># gem 'nusii'</span>
+
+<span class="nb">require</span> <span class="s1">'nusii'</span>
+
+<span class="no">Nusii</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'YOUR_API_KEY'</span>
+<span class="no">Nusii</span><span class="p">.</span><span class="nf">user_agent</span> <span class="o">=</span> <span class="s1">'Your App Name (www.yourapp.com)'</span>
+</code></pre></div><h2 id='php-sdk'>PHP SDK</h2>
+<p>The <a href="https://github.com/Nusii/nusii-php">Nusii PHP SDK</a> is the official client for PHP 8.3 and newer, published on Packagist as <a href="https://packagist.org/packages/nusii/nusii-php"><code>nusii/nusii-php</code></a>. It uses <a href="https://docs.guzzlephp.org/">Guzzle</a> for HTTP requests. Select the <strong>PHP</strong> tab to see it in the examples of this reference.</p>
+<div class="highlight"><pre class="highlight php tab-php"><code><span class="c1">// Install via Composer</span>
+<span class="c1">// composer require nusii/nusii-php</span>
+
+<span class="kn">use</span> <span class="nc">Nusii\Nusii</span><span class="p">;</span>
+
+<span class="nv">$nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Nusii</span><span class="p">(</span><span class="s1">'YOUR_API_KEY'</span><span class="p">);</span>
+</code></pre></div><h2 id='javascript-sdk'>JavaScript SDK</h2>
 <p>The <a href="https://github.com/Nusii/nusii-typescript">Nusii JavaScript SDK</a> is the official client for Node.js, Bun, Deno and edge runtimes, published on npm as <a href="https://www.npmjs.com/package/@nusii/nusii"><code>@nusii/nusii</code></a>. It has TypeScript types for every request and response and no dependencies.</p>
 
 <p>It flattens the JSON:API responses into plain objects, pages through lists for you, retries rate limited requests, and throws a typed error for every failure. Select the <strong>JavaScript</strong> tab to see it in every example of this reference.</p>
@@ -864,17 +920,7 @@ nusii auth status
 <span class="kd">const</span> <span class="nx">nusii</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Nusii</span><span class="p">({</span> <span class="na">apiKey</span><span class="p">:</span> <span class="dl">'</span><span class="s1">YOUR_API_KEY</span><span class="dl">'</span> <span class="p">});</span>
 
 <span class="kd">const</span> <span class="p">{</span> <span class="na">data</span><span class="p">:</span> <span class="nx">proposals</span> <span class="p">}</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">nusii</span><span class="p">.</span><span class="nx">proposals</span><span class="p">.</span><span class="nx">list</span><span class="p">({</span> <span class="na">status</span><span class="p">:</span> <span class="dl">'</span><span class="s1">pending</span><span class="dl">'</span> <span class="p">});</span>
-</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="c1"># The JavaScript SDK is an alternative to the Python SDK.
-# Install: pip install nusii
-</span></code></pre></div><div class="highlight"><pre class="highlight shell tab-shell--curl"><code><span class="c"># The JavaScript SDK is an alternative to using cURL.</span>
-<span class="c"># Install: npm install @nusii/nusii</span>
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell--cli"><code><span class="c"># The JavaScript SDK is an alternative to the Nusii CLI.</span>
-<span class="c"># Install: npm install @nusii/nusii</span>
-</code></pre></div><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="c1"># The JavaScript SDK is an alternative to the Ruby gem.</span>
-<span class="c1"># Install: npm install @nusii/nusii</span>
-</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="c1">// The JavaScript SDK is an alternative to the PHP package.</span>
-<span class="c1">// Install: npm install @nusii/nusii</span>
-</code></pre></div><h1 id='python-sdk'>Python SDK</h1>
+</code></pre></div><h2 id='python-sdk'>Python SDK</h2>
 <p>The <a href="https://github.com/Nusii/nusii-python">Nusii Python SDK</a> is the official client for Python 3.10 and newer, published on PyPI as <a href="https://pypi.org/project/nusii/"><code>nusii</code></a>. It has type hints for every request and response, so editors autocomplete them and mypy or Pyright catch mistakes.</p>
 
 <p>It flattens the JSON:API responses into plain dictionaries, pages through lists for you, retries rate limited requests, and raises a typed exception for every failure. Select the <strong>Python</strong> tab to see it in every example of this reference.</p>
@@ -886,16 +932,6 @@ nusii auth status
 <span class="n">nusii</span> <span class="o">=</span> <span class="n">Nusii</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">"YOUR_API_KEY"</span><span class="p">)</span>
 
 <span class="n">proposals</span> <span class="o">=</span> <span class="n">nusii</span><span class="p">.</span><span class="n">proposals</span><span class="p">.</span><span class="nb">list</span><span class="p">(</span><span class="n">status</span><span class="o">=</span><span class="s">"pending"</span><span class="p">)</span>
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell--curl"><code><span class="c"># The Python SDK is an alternative to using cURL.</span>
-<span class="c"># Install: pip install nusii</span>
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell--cli"><code><span class="c"># The Python SDK is an alternative to the Nusii CLI.</span>
-<span class="c"># Install: pip install nusii</span>
-</code></pre></div><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="c1"># The Python SDK is an alternative to the Ruby gem.</span>
-<span class="c1"># Install: pip install nusii</span>
-</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="c1">// The Python SDK is an alternative to the PHP package.</span>
-<span class="c1">// Install: pip install nusii</span>
-</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="c1">// The Python SDK is an alternative to the JavaScript SDK.</span>
-<span class="c1">// Install: pip install nusii</span>
 </code></pre></div><h1 id='authentication'>Authentication</h1>
 <blockquote>
 <p>We offer a token based authentication. You can find your API access token <a href="https://app.nusii.com/settings/api">here</a>. Tokens need to be added in the HTTP_AUTHORIZATION header as <code>Token token=YOUR_API_KEY</code></p>
