@@ -2957,6 +2957,14 @@ nusii proposals list <span class="nt">--status</span> draft
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>This will return 200 OK and the current JSON representation of the proposal if the update was a success.</p>
+
+<aside class="warning">
+The status can't be changed with an update. A proposal becomes <code>pending</code> when you <a href="#send-a-proposal">send it</a>, and <code>accepted</code> or <code>rejected</code> when your client answers on the proposal page. A status change returns <code>422 Unprocessable Entity</code> with the error <code>status_not_writable</code>. Sending the current status back unchanged is fine.
+</aside>
+
+<aside class="notice">
+A proposal that is accepted, or that a client signed, is locked: updating or deleting it, and changing its sections, line items or taxes, returns <code>422 Unprocessable Entity</code> with the error <code>proposal_locked</code>. Unlock the proposal in Nusii to change it.
+</aside>
 <h3 id='http-request-4'>HTTP Request</h3>
 <p><code>PUT https://app.nusii.com/api/v2/proposals/:id</code></p>
 <h3 id='attributes-2'>Attributes</h3>
@@ -3032,7 +3040,7 @@ nusii proposals list <span class="nt">--status</span> draft
 <td>status</td>
 <td>no</td>
 <td>String</td>
-<td>Status of the proposal (<code>draft</code>, <code>pending</code>, <code>accepted</code>, <code>rejected</code>, or <code>clarification</code>).</td>
+<td>Read only: send the current status back or leave it out. A different status returns <code>422</code> with <code>status_not_writable</code>.</td>
 </tr>
 <tr>
 <td>payment_percentage</td>
@@ -3102,7 +3110,7 @@ nusii proposals list <span class="nt">--status</span> draft
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint deletes a specific proposal.</p>
+<p>This endpoint deletes a specific proposal. A locked proposal (accepted, or signed by a client) can&#39;t be deleted: the request returns <code>422 Unprocessable Entity</code> with the error <code>proposal_locked</code>.</p>
 <h3 id='http-request-5'>HTTP Request</h3>
 <p><code>DELETE https://app.nusii.com/api/v2/proposals/:id</code></p>
 <h2 id='archive-a-proposal'>Archive a proposal</h2><div class="highlight"><pre class="highlight shell tab-shell--curl"><code>curl <span class="nt">-X</span> PUT <span class="se">\</span>
@@ -5659,7 +5667,7 @@ Line items created via the API default to <code>choice_type: "none"</code>. Dele
 </tr>
 <tr>
 <td>422</td>
-<td>Unprocessable Entity -- The request was well-formed but could not be processed due to validation errors.</td>
+<td>Unprocessable Entity -- The request was well-formed but could not be processed: validation errors, a locked proposal (<code>proposal_locked</code>) or a status change in an update (<code>status_not_writable</code>).</td>
 </tr>
 <tr>
 <td>429</td>
