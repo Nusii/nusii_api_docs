@@ -10,13 +10,14 @@ language_tabs: # must be one of https://git.io/vQNgJ
   - python: Python
 
 toc_footers:
-  - <a href='https://app.nusii.com/settings/api'>Get your API Key</a>
-  - <a href='https://app.nusii.com/settings/api'>Register an OAuth App</a>
-  - <a href='openapi/v2.yaml'>OpenAPI Specification (YAML)</a>
-  - <a href='https://github.com/Nusii/nusii-cli'>Nusii CLI on GitHub</a>
-  - <a href='https://github.com/nusii/nusii-php'>Nusii PHP on GitHub</a>
-  - <a href='https://github.com/Nusii/nusii-typescript'>Nusii JavaScript on GitHub</a>
-  - <a href='https://github.com/Nusii/nusii-python'>Nusii Python on GitHub</a>
+  - <a href='https://app.nusii.com/settings/api' target='_blank' rel='noopener'>Get your API Key</a>
+  - <a href='https://app.nusii.com/settings/api' target='_blank' rel='noopener'>Register an OAuth App</a>
+  - <a href='openapi/v2.yaml' target='_blank' rel='noopener'>OpenAPI Specification (YAML)</a>
+  - <a href='https://github.com/Nusii/nusii-cli' target='_blank' rel='noopener'>Nusii CLI on GitHub</a>
+  - <a href='https://github.com/Nusii/nusii-ruby' target='_blank' rel='noopener'>Nusii Ruby on GitHub</a>
+  - <a href='https://github.com/Nusii/nusii-php' target='_blank' rel='noopener'>Nusii PHP on GitHub</a>
+  - <a href='https://github.com/Nusii/nusii-typescript' target='_blank' rel='noopener'>Nusii JavaScript on GitHub</a>
+  - <a href='https://github.com/Nusii/nusii-python' target='_blank' rel='noopener'>Nusii Python on GitHub</a>
 
 search: true
 
@@ -38,7 +39,23 @@ The complete API surface is available as a machine-readable [OpenAPI 3.1 specifi
 
 <%= partial("includes/mcp") %>
 
-# Nusii CLI
+# SDKs
+
+Nusii's official SDKs are open source on GitHub. Pick the one for your language, or call the API directly with any HTTP client.
+
+SDK | Install | GitHub
+--- | ------- | ------
+Nusii CLI | `brew install nusii/tap/nusii` | [Nusii/nusii-cli](https://github.com/Nusii/nusii-cli)
+Ruby | `gem install nusii` | [Nusii/nusii-ruby](https://github.com/Nusii/nusii-ruby)
+PHP | `composer require nusii/nusii-php` | [Nusii/nusii-php](https://github.com/Nusii/nusii-php)
+JavaScript & TypeScript | `npm install @nusii/nusii` | [Nusii/nusii-typescript](https://github.com/Nusii/nusii-typescript)
+Python | `pip install nusii` | [Nusii/nusii-python](https://github.com/Nusii/nusii-python)
+
+```shell--curl
+# No SDK needed: every example also works with plain cURL.
+```
+
+## Nusii CLI
 
 The [Nusii CLI](https://github.com/Nusii/nusii-cli) is a command-line tool for the Nusii API. It can be used standalone or with AI coding agents like Claude Code, Codex, and others.
 
@@ -58,32 +75,34 @@ nusii auth login --api-key YOUR_API_KEY
 nusii auth status
 ```
 
-```shell--curl
-# The Nusii CLI is an alternative to using cURL.
-# Install: brew install nusii/tap/nusii
-```
+## Ruby SDK
+
+The [Nusii Ruby gem](https://github.com/Nusii/nusii-ruby) is the official client for Ruby and Rails apps, published on RubyGems as [`nusii`](https://rubygems.org/gems/nusii). Select the **Ruby** tab to see it in the examples of this reference.
 
 ```ruby
-# The Nusii CLI is an alternative to the Ruby gem.
-# Install: brew install nusii/tap/nusii
+# Add to your Gemfile, then run `bundle`
+# gem 'nusii'
+
+require 'nusii'
+
+Nusii.api_key = 'YOUR_API_KEY'
+Nusii.user_agent = 'Your App Name (www.yourapp.com)'
 ```
+
+## PHP SDK
+
+The [Nusii PHP SDK](https://github.com/Nusii/nusii-php) is the official client for PHP 8.3 and newer, published on Packagist as [`nusii/nusii-php`](https://packagist.org/packages/nusii/nusii-php). It uses [Guzzle](https://docs.guzzlephp.org/) for HTTP requests. Select the **PHP** tab to see it in the examples of this reference.
 
 ```php
-// The Nusii CLI is an alternative to the PHP package.
-// Install: brew install nusii/tap/nusii
+// Install via Composer
+// composer require nusii/nusii-php
+
+use Nusii\Nusii;
+
+$nusii = new Nusii('YOUR_API_KEY');
 ```
 
-```javascript
-// The Nusii CLI is an alternative to the JavaScript SDK.
-// Install: brew install nusii/tap/nusii
-```
-
-```python
-# The Nusii CLI is an alternative to the Python SDK.
-# Install: brew install nusii/tap/nusii
-```
-
-# JavaScript SDK
+## JavaScript SDK
 
 The [Nusii JavaScript SDK](https://github.com/Nusii/nusii-typescript) is the official client for Node.js, Bun, Deno and edge runtimes, published on npm as [`@nusii/nusii`](https://www.npmjs.com/package/@nusii/nusii). It has TypeScript types for every request and response and no dependencies.
 
@@ -100,32 +119,7 @@ const nusii = new Nusii({ apiKey: 'YOUR_API_KEY' });
 const { data: proposals } = await nusii.proposals.list({ status: 'pending' });
 ```
 
-```python
-# The JavaScript SDK is an alternative to the Python SDK.
-# Install: pip install nusii
-```
-
-```shell--curl
-# The JavaScript SDK is an alternative to using cURL.
-# Install: npm install @nusii/nusii
-```
-
-```shell--cli
-# The JavaScript SDK is an alternative to the Nusii CLI.
-# Install: npm install @nusii/nusii
-```
-
-```ruby
-# The JavaScript SDK is an alternative to the Ruby gem.
-# Install: npm install @nusii/nusii
-```
-
-```php
-// The JavaScript SDK is an alternative to the PHP package.
-// Install: npm install @nusii/nusii
-```
-
-# Python SDK
+## Python SDK
 
 The [Nusii Python SDK](https://github.com/Nusii/nusii-python) is the official client for Python 3.10 and newer, published on PyPI as [`nusii`](https://pypi.org/project/nusii/). It has type hints for every request and response, so editors autocomplete them and mypy or Pyright catch mistakes.
 
@@ -140,31 +134,6 @@ from nusii import Nusii
 nusii = Nusii(api_key="YOUR_API_KEY")
 
 proposals = nusii.proposals.list(status="pending")
-```
-
-```shell--curl
-# The Python SDK is an alternative to using cURL.
-# Install: pip install nusii
-```
-
-```shell--cli
-# The Python SDK is an alternative to the Nusii CLI.
-# Install: pip install nusii
-```
-
-```ruby
-# The Python SDK is an alternative to the Ruby gem.
-# Install: pip install nusii
-```
-
-```php
-// The Python SDK is an alternative to the PHP package.
-// Install: pip install nusii
-```
-
-```javascript
-// The Python SDK is an alternative to the JavaScript SDK.
-// Install: pip install nusii
 ```
 
 # Authentication
