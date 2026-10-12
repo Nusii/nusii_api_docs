@@ -58,6 +58,32 @@ def nusii_webhook():
     return "", 204
 ```
 
+```go
+// Receiving a webhook with net/http
+import (
+	"io"
+	"log"
+	"net/http"
+
+	"github.com/nusii/nusii-go"
+)
+
+http.HandleFunc("POST /webhooks/nusii", func(w http.ResponseWriter, r *http.Request) {
+	body, _ := io.ReadAll(r.Body)
+	event, err := nusii.ParseWebhookEvent(body)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	if event.EventName == nusii.WebhookEventProposalAccepted {
+		log.Printf("%s was accepted", *event.Proposal.Title)
+	}
+
+	w.WriteHeader(http.StatusNoContent)
+})
+```
+
 ## Webhook endpoint errors
 
 We consider all responses with `2xx` as successful. Any other response is considered a failed delivery, so make sure your endpoint responds with a 2xx. If we receive a `410 GONE`, the endpoint will get removed from our database.
@@ -124,6 +150,14 @@ from nusii import Nusii
 nusii = Nusii(api_key="YOUR_API_KEY")
 
 endpoints = nusii.webhook_endpoints.list()
+```
+
+```go
+import "github.com/nusii/nusii-go"
+
+n, err := nusii.New(nusii.WithAPIKey("YOUR_API_KEY"))
+
+endpoints, err := n.WebhookEndpoints.List(ctx, nil)
 ```
 
 > The above command returns JSON structured like this:
@@ -206,6 +240,14 @@ from nusii import Nusii
 nusii = Nusii(api_key="YOUR_API_KEY")
 
 endpoint = nusii.webhook_endpoints.get(100)
+```
+
+```go
+import "github.com/nusii/nusii-go"
+
+n, err := nusii.New(nusii.WithAPIKey("YOUR_API_KEY"))
+
+endpoint, err := n.WebhookEndpoints.Get(ctx, 100)
 ```
 
 > The above command returns JSON structured like this:
@@ -294,6 +336,20 @@ endpoint = nusii.webhook_endpoints.create(
 )
 ```
 
+```go
+import "github.com/nusii/nusii-go"
+
+n, err := nusii.New(nusii.WithAPIKey("YOUR_API_KEY"))
+
+endpoint, err := n.WebhookEndpoints.Create(ctx, nusii.WebhookEndpointCreateParams{
+	TargetURL: "http://example.com",
+	Events: []nusii.WebhookEventName{
+		nusii.WebhookEventProposalCreated,
+		nusii.WebhookEventClientCreated,
+	},
+})
+```
+
 > The above command returns JSON structured like this:
 
 
@@ -374,6 +430,14 @@ from nusii import Nusii
 nusii = Nusii(api_key="YOUR_API_KEY")
 
 nusii.webhook_endpoints.delete(100)
+```
+
+```go
+import "github.com/nusii/nusii-go"
+
+n, err := nusii.New(nusii.WithAPIKey("YOUR_API_KEY"))
+
+_, err = n.WebhookEndpoints.Delete(ctx, 100)
 ```
 
 > The above command returns JSON structured like this:

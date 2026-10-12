@@ -65,6 +65,17 @@ templates = nusii.templates.list()
 nusii.templates.list(public_templates=True)
 ```
 
+```go
+import "github.com/nusii/nusii-go"
+
+n, err := nusii.New(nusii.WithAPIKey("YOUR_API_KEY"))
+
+templates, err := n.Templates.List(ctx, nil)
+
+// Nusii's public templates
+n.Templates.List(ctx, &nusii.TemplateListParams{PublicTemplates: true})
+```
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -148,6 +159,14 @@ from nusii import Nusii
 nusii = Nusii(api_key="YOUR_API_KEY")
 
 template = nusii.templates.get(12)
+```
+
+```go
+import "github.com/nusii/nusii-go"
+
+n, err := nusii.New(nusii.WithAPIKey("YOUR_API_KEY"))
+
+template, err := n.Templates.Get(ctx, 12)
 ```
 
 > The above command returns JSON structured like this:

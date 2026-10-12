@@ -8,6 +8,7 @@ language_tabs: # must be one of https://git.io/vQNgJ
   - php: PHP
   - javascript: JavaScript
   - python: Python
+  - go: Go
 
 toc_footers:
   - <a href='https://app.nusii.com/settings/api' target='_blank' rel='noopener'>Get your API Key</a>
@@ -18,6 +19,7 @@ toc_footers:
   - <a href='https://github.com/Nusii/nusii-php' target='_blank' rel='noopener'>Nusii PHP on GitHub</a>
   - <a href='https://github.com/Nusii/nusii-typescript' target='_blank' rel='noopener'>Nusii JavaScript on GitHub</a>
   - <a href='https://github.com/Nusii/nusii-python' target='_blank' rel='noopener'>Nusii Python on GitHub</a>
+  - <a href='https://github.com/Nusii/nusii-go' target='_blank' rel='noopener'>Nusii Go on GitHub</a>
 
 search: true
 
@@ -50,6 +52,7 @@ Ruby | `gem install nusii` | [Nusii/nusii-ruby](https://github.com/Nusii/nusii-r
 PHP | `composer require nusii/nusii-php` | [Nusii/nusii-php](https://github.com/Nusii/nusii-php)
 JavaScript & TypeScript | `npm install @nusii/nusii` | [Nusii/nusii-typescript](https://github.com/Nusii/nusii-typescript)
 Python | `pip install nusii` | [Nusii/nusii-python](https://github.com/Nusii/nusii-python)
+Go | `go get github.com/nusii/nusii-go` | [Nusii/nusii-go](https://github.com/Nusii/nusii-go)
 
 ```shell--curl
 # No SDK needed: every example also works with plain cURL.
@@ -136,6 +139,26 @@ nusii = Nusii(api_key="YOUR_API_KEY")
 proposals = nusii.proposals.list(status="pending")
 ```
 
+## Go SDK
+
+The [Nusii Go SDK](https://github.com/Nusii/nusii-go) is the official client for Go 1.24 and newer, installed with `go get github.com/nusii/nusii-go`. Every request and response is a Go struct, and it has no dependencies outside the standard library.
+
+It flattens the JSON:API responses into structs, pages through lists with range-over-func iterators, retries rate limited requests, and returns errors you can match with `errors.Is`. Select the **Go** tab to see it in every example of this reference. The examples use `ctx` for a `context.Context` and leave out error handling.
+
+```go
+// Install with go get
+// go get github.com/nusii/nusii-go
+
+import "github.com/nusii/nusii-go"
+
+n, err := nusii.New(nusii.WithAPIKey("YOUR_API_KEY"))
+if err != nil {
+	log.Fatal(err)
+}
+
+page, err := n.Proposals.List(ctx, &nusii.ProposalListParams{Status: nusii.ProposalStatusPending})
+```
+
 # Authentication
 
 > We offer a token based authentication. You can find your API access token [here](https://app.nusii.com/settings/api). Tokens need to be added in the HTTP_AUTHORIZATION header as `Token token=YOUR_API_KEY`
@@ -188,6 +211,16 @@ from nusii import Nusii
 
 nusii = Nusii(api_key="YOUR_API_KEY")
 # Or set the NUSII_API_KEY environment variable and call Nusii()
+```
+
+```go
+// Install with go get
+// go get github.com/nusii/nusii-go
+
+import "github.com/nusii/nusii-go"
+
+n, err := nusii.New(nusii.WithAPIKey("YOUR_API_KEY"))
+// Or set the NUSII_API_KEY environment variable and call nusii.New()
 ```
 
 > Make sure to replace `YOUR_API_KEY` with your API key.
@@ -284,6 +317,21 @@ digest = hashlib.sha256(code_verifier.encode()).digest()
 code_challenge = base64.urlsafe_b64encode(digest).rstrip(b"=").decode()
 ```
 
+```go
+import (
+	"crypto/rand"
+	"crypto/sha256"
+	"encoding/base64"
+)
+
+verifier := make([]byte, 64)
+rand.Read(verifier)
+codeVerifier := base64.RawURLEncoding.EncodeToString(verifier)
+
+digest := sha256.Sum256([]byte(codeVerifier))
+codeChallenge := base64.RawURLEncoding.EncodeToString(digest[:])
+```
+
 PKCE protects the authorization flow by ensuring the app that started the flow is the same one exchanging the code. Generate a random `code_verifier` and derive a `code_challenge` from it.
 
 ### Step 2: Redirect the User to Authorize
@@ -362,6 +410,22 @@ params = urlencode(
 
 auth_url = f"https://app.nusii.com/oauth/authorize?{params}"
 # Redirect the user to auth_url
+```
+
+```go
+import "net/url"
+
+params := url.Values{
+	"client_id":             {"YOUR_CLIENT_ID"},
+	"redirect_uri":          {"YOUR_REDIRECT_URI"},
+	"response_type":         {"code"},
+	"scope":                 {"read write"},
+	"code_challenge":        {codeChallenge},
+	"code_challenge_method": {"S256"},
+}
+
+authURL := "https://app.nusii.com/oauth/authorize?" + params.Encode()
+// Redirect the user to authURL
 ```
 
 Redirect the user's browser to the authorization URL. They'll be asked to sign in to Nusii (if not already) and approve your app's access.
@@ -476,6 +540,34 @@ access_token = tokens["access_token"]
 refresh_token = tokens["refresh_token"]
 ```
 
+```go
+import (
+	"encoding/json"
+	"log"
+	"net/http"
+	"net/url"
+)
+
+response, err := http.PostForm("https://app.nusii.com/oauth/token", url.Values{
+	"grant_type":    {"authorization_code"},
+	"code":          {"AUTHORIZATION_CODE"},
+	"redirect_uri":  {"YOUR_REDIRECT_URI"},
+	"client_id":     {"YOUR_CLIENT_ID"},
+	"client_secret": {"YOUR_CLIENT_SECRET"},
+	"code_verifier": {codeVerifier},
+})
+if err != nil {
+	log.Fatal(err)
+}
+defer response.Body.Close()
+
+var tokens struct {
+	AccessToken  string `json:"access_token"`
+	RefreshToken string `json:"refresh_token"`
+}
+err = json.NewDecoder(response.Body).Decode(&tokens)
+```
+
 > A successful response returns:
 
 ```json
@@ -564,6 +656,15 @@ from nusii import Nusii
 nusii = Nusii(access_token="YOUR_ACCESS_TOKEN")
 
 clients = nusii.clients.list()
+```
+
+```go
+import "github.com/nusii/nusii-go"
+
+// Use an OAuth access token instead of an API key
+n, err := nusii.New(nusii.WithAccessToken("YOUR_ACCESS_TOKEN"))
+
+clients, err := n.Clients.List(ctx, nil)
 ```
 
 Once you have an access token, include it in the `Authorization` header as a Bearer token:
@@ -657,6 +758,32 @@ new_access_token = tokens["access_token"]
 new_refresh_token = tokens["refresh_token"]
 ```
 
+```go
+import (
+	"encoding/json"
+	"log"
+	"net/http"
+	"net/url"
+)
+
+response, err := http.PostForm("https://app.nusii.com/oauth/token", url.Values{
+	"grant_type":    {"refresh_token"},
+	"refresh_token": {"YOUR_REFRESH_TOKEN"},
+	"client_id":     {"YOUR_CLIENT_ID"},
+	"client_secret": {"YOUR_CLIENT_SECRET"},
+})
+if err != nil {
+	log.Fatal(err)
+}
+defer response.Body.Close()
+
+var tokens struct {
+	AccessToken  string `json:"access_token"`
+	RefreshToken string `json:"refresh_token"`
+}
+err = json.NewDecoder(response.Body).Decode(&tokens)
+```
+
 > A successful response returns a new token pair:
 
 ```json
@@ -747,6 +874,19 @@ httpx.post(
         "client_secret": "YOUR_CLIENT_SECRET",
     },
 )
+```
+
+```go
+import (
+	"net/http"
+	"net/url"
+)
+
+_, err := http.PostForm("https://app.nusii.com/oauth/revoke", url.Values{
+	"token":         {"YOUR_ACCESS_TOKEN"},
+	"client_id":     {"YOUR_CLIENT_ID"},
+	"client_secret": {"YOUR_CLIENT_SECRET"},
+})
 ```
 
 Revoke a token when a user disconnects your app or you no longer need access. You can revoke either the access token or the refresh token.

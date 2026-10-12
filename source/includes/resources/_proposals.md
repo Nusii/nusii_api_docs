@@ -130,6 +130,29 @@ nusii.proposals.list(
 )
 ```
 
+```go
+import "github.com/nusii/nusii-go"
+
+n, err := nusii.New(nusii.WithAPIKey("YOUR_API_KEY"))
+
+// Get all proposals
+n.Proposals.List(ctx, &nusii.ProposalListParams{Page: 1})
+
+// Get only accepted proposals
+n.Proposals.List(ctx, &nusii.ProposalListParams{Status: nusii.ProposalStatusAccepted})
+
+// Get only draft proposals
+n.Proposals.List(ctx, &nusii.ProposalListParams{Status: nusii.ProposalStatusDraft})
+
+// Get proposals sent to a specific recipient
+n.Proposals.List(ctx, &nusii.ProposalListParams{RecipientEmail: "alice@example.com"})
+
+// Get proposals sent to any of multiple recipients
+n.Proposals.List(ctx, &nusii.ProposalListParams{
+	RecipientEmails: []string{"alice@example.com", "bob@example.com", "carol@example.com"},
+})
+```
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -237,6 +260,14 @@ nusii = Nusii(api_key="YOUR_API_KEY")
 proposal = nusii.proposals.get(100)
 ```
 
+```go
+import "github.com/nusii/nusii-go"
+
+n, err := nusii.New(nusii.WithAPIKey("YOUR_API_KEY"))
+
+proposal, err := n.Proposals.Get(ctx, 100)
+```
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -342,6 +373,17 @@ proposal = nusii.proposals.create(
     title="Webdesign yourwebsite.com",
     client_id=100,
 )
+```
+
+```go
+import "github.com/nusii/nusii-go"
+
+n, err := nusii.New(nusii.WithAPIKey("YOUR_API_KEY"))
+
+proposal, err := n.Proposals.Create(ctx, nusii.ProposalCreateParams{
+	Title:    nusii.String("Webdesign yourwebsite.com"),
+	ClientID: nusii.Int(100),
+})
 ```
 
 > The above command returns JSON structured like this:
@@ -455,6 +497,16 @@ nusii = Nusii(api_key="YOUR_API_KEY")
 proposal = nusii.proposals.update(100, title="Webdesign yourwebsite.com")
 ```
 
+```go
+import "github.com/nusii/nusii-go"
+
+n, err := nusii.New(nusii.WithAPIKey("YOUR_API_KEY"))
+
+proposal, err := n.Proposals.Update(ctx, 100, nusii.ProposalUpdateParams{
+	Title: nusii.String("Webdesign yourwebsite.com"),
+})
+```
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -559,6 +611,14 @@ nusii = Nusii(api_key="YOUR_API_KEY")
 nusii.proposals.delete(100)
 ```
 
+```go
+import "github.com/nusii/nusii-go"
+
+n, err := nusii.New(nusii.WithAPIKey("YOUR_API_KEY"))
+
+_, err = n.Proposals.Delete(ctx, 100)
+```
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -632,6 +692,14 @@ from nusii import Nusii
 nusii = Nusii(api_key="YOUR_API_KEY")
 
 nusii.proposals.archive(100)
+```
+
+```go
+import "github.com/nusii/nusii-go"
+
+n, err := nusii.New(nusii.WithAPIKey("YOUR_API_KEY"))
+
+_, err = n.Proposals.Archive(ctx, 100)
 ```
 
 > The above command returns JSON structured like this:
@@ -723,6 +791,17 @@ result = nusii.proposals.send(
 )
 ```
 
+```go
+import "github.com/nusii/nusii-go"
+
+n, err := nusii.New(nusii.WithAPIKey("YOUR_API_KEY"))
+
+result, err := n.Proposals.Send(ctx, 100, nusii.ProposalSendParams{
+	Email:   nusii.String("your_client@email.com"),
+	Subject: nusii.String("Your Proposal"),
+})
+```
+
 > Send to multiple recipients:
 
 ```shell--curl
@@ -801,6 +880,22 @@ result = nusii.proposals.send(
         {"name": "Bob", "email": "bob@example.com", "eligible_to_sign": False},
     ],
 )
+```
+
+```go
+import "github.com/nusii/nusii-go"
+
+n, err := nusii.New(nusii.WithAPIKey("YOUR_API_KEY"))
+
+result, err := n.Proposals.Send(ctx, 100, nusii.ProposalSendParams{
+	Subject:     nusii.String("Your Proposal"),
+	Message:     nusii.String("Please review the attached proposal."),
+	SenderEmail: nusii.String("sender@example.com"),
+	Recipients: []nusii.ProposalRecipient{
+		{Name: "Alice", Email: "alice@example.com", EligibleToSign: nusii.Bool(true)},
+		{Name: "Bob", Email: "bob@example.com", EligibleToSign: nusii.Bool(false)},
+	},
+})
 ```
 
 > The above command returns JSON structured like this:

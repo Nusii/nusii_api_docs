@@ -48,6 +48,14 @@ nusii = Nusii(api_key="YOUR_API_KEY")
 account = nusii.account.me()
 ```
 
+```go
+import "github.com/nusii/nusii-go"
+
+n, err := nusii.New(nusii.WithAPIKey("YOUR_API_KEY"))
+
+account, err := n.Account.Me(ctx)
+```
+
 > The above command returns JSON structured like this:
 
 ```json

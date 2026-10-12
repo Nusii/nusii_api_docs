@@ -39,6 +39,14 @@ nusii = Nusii(api_key="YOUR_API_KEY")
 themes = nusii.themes.list()
 ```
 
+```go
+import "github.com/nusii/nusii-go"
+
+n, err := nusii.New(nusii.WithAPIKey("YOUR_API_KEY"))
+
+themes, err := n.Themes.List(ctx)
+```
+
 > The above command returns JSON structured like this:
 
 ```json

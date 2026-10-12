@@ -42,6 +42,25 @@ for proposal in nusii.proposals.list_all():
     print(proposal["title"])
 ```
 
+```go
+import "github.com/nusii/nusii-go"
+
+n, err := nusii.New(nusii.WithAPIKey("YOUR_API_KEY"))
+
+page, err := n.Proposals.List(ctx, &nusii.ProposalListParams{Page: 2, PerPage: 10})
+fmt.Println(page.Meta.TotalPages) // 4
+
+nextPage, err := page.NextPage(ctx)
+
+// Or let the SDK fetch every page for you
+for proposal, err := range n.Proposals.ListAll(ctx, nil) {
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(*proposal.Title)
+}
+```
+
 
 ```json
 {

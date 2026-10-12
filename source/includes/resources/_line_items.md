@@ -48,6 +48,14 @@ nusii = Nusii(api_key="YOUR_API_KEY")
 line_items = nusii.line_items.list(100)
 ```
 
+```go
+import "github.com/nusii/nusii-go"
+
+n, err := nusii.New(nusii.WithAPIKey("YOUR_API_KEY"))
+
+lineItems, err := n.LineItems.List(ctx, 100)
+```
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -146,6 +154,16 @@ from nusii import Nusii
 nusii = Nusii(api_key="YOUR_API_KEY")
 
 line_item = nusii.line_items.create(100, name="Development Costs")
+```
+
+```go
+import "github.com/nusii/nusii-go"
+
+n, err := nusii.New(nusii.WithAPIKey("YOUR_API_KEY"))
+
+lineItem, err := n.LineItems.Create(ctx, 100, nusii.LineItemParams{
+	Name: nusii.String("Development Costs"),
+})
 ```
 
 > The above command returns JSON structured like this:
@@ -255,6 +273,16 @@ nusii = Nusii(api_key="YOUR_API_KEY")
 line_item = nusii.line_items.update(100, amount=10000)
 ```
 
+```go
+import "github.com/nusii/nusii-go"
+
+n, err := nusii.New(nusii.WithAPIKey("YOUR_API_KEY"))
+
+lineItem, err := n.LineItems.Update(ctx, 100, nusii.LineItemParams{
+	Amount: nusii.Int(10000),
+})
+```
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -360,6 +388,14 @@ nusii = Nusii(api_key="YOUR_API_KEY")
 nusii.line_items.delete(100)
 ```
 
+```go
+import "github.com/nusii/nusii-go"
+
+n, err := nusii.New(nusii.WithAPIKey("YOUR_API_KEY"))
+
+_, err = n.LineItems.Delete(ctx, 100)
+```
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -458,6 +494,19 @@ line_item = nusii.line_items.create(
 )
 ```
 
+```go
+import "github.com/nusii/nusii-go"
+
+n, err := nusii.New(nusii.WithAPIKey("YOUR_API_KEY"))
+
+lineItem, err := n.LineItems.Create(ctx, 458, nusii.LineItemParams{
+	Name:          nusii.String("Discovery & UX research"),
+	CostType:      nusii.CostTypeRange,
+	Amount:        nusii.Int(500000), // £5,000.00, the low end
+	MaximumAmount: nusii.Int(800000), // £8,000.00, the high end
+})
+```
+
 A line item with `cost_type` of `range` shows a price range, e.g. **£5,000.00 – £8,000.00**, instead of a single value. The existing `amount` is the low end of the range, and `maximum_amount` is the high end.
 
 - Both values are in cents. `maximum_amount` should be greater than or equal to `amount`.
@@ -525,6 +574,18 @@ line_item = nusii.line_items.create(
     amount=250000,
     choice_type="radio",  # or "checkbox", or "none"
 )
+```
+
+```go
+import "github.com/nusii/nusii-go"
+
+n, err := nusii.New(nusii.WithAPIKey("YOUR_API_KEY"))
+
+lineItem, err := n.LineItems.Create(ctx, 458, nusii.LineItemParams{
+	Name:       nusii.String("Premium support"),
+	Amount:     nusii.Int(250000),
+	ChoiceType: nusii.ChoiceTypeRadio, // or nusii.ChoiceTypeCheckbox, or nusii.ChoiceTypeNone
+})
 ```
 
 A line item can be an option your client chooses from, rather than a fixed part of the price. This is controlled by the `choice_type` attribute, which is returned with every line item and can be set when creating or updating one:

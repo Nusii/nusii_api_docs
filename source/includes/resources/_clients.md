@@ -59,6 +59,19 @@ nusii.clients.list(query="acme")
 nusii.clients.list(emails=["john@doe.com", "jane@doe.com"])
 ```
 
+```go
+import "github.com/nusii/nusii-go"
+
+n, err := nusii.New(nusii.WithAPIKey("YOUR_API_KEY"))
+
+// One page of clients, 25 per page by default
+clients, err := n.Clients.List(ctx, &nusii.ClientListParams{Page: 1})
+
+// Search, or filter by email
+n.Clients.List(ctx, &nusii.ClientListParams{Query: "acme"})
+n.Clients.List(ctx, &nusii.ClientListParams{Emails: []string{"john@doe.com", "jane@doe.com"}})
+```
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -162,6 +175,14 @@ nusii = Nusii(api_key="YOUR_API_KEY")
 client = nusii.clients.get(100)
 ```
 
+```go
+import "github.com/nusii/nusii-go"
+
+n, err := nusii.New(nusii.WithAPIKey("YOUR_API_KEY"))
+
+client, err := n.Clients.Get(ctx, 100)
+```
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -261,6 +282,19 @@ client = nusii.clients.create(
     surname="Doe",
     locale="en",
 )
+```
+
+```go
+import "github.com/nusii/nusii-go"
+
+n, err := nusii.New(nusii.WithAPIKey("YOUR_API_KEY"))
+
+client, err := n.Clients.Create(ctx, nusii.ClientCreateParams{
+	Email:   "john@doe.com",
+	Name:    "John",
+	Surname: nusii.String("Doe"),
+	Locale:  nusii.String("en"),
+})
 ```
 
 > The above command returns JSON structured like this:
@@ -382,6 +416,17 @@ client = nusii.clients.update(
 )
 ```
 
+```go
+import "github.com/nusii/nusii-go"
+
+n, err := nusii.New(nusii.WithAPIKey("YOUR_API_KEY"))
+
+client, err := n.Clients.Update(ctx, 100, nusii.ClientUpdateParams{
+	Email: nusii.String("john@doe.com"),
+	Name:  nusii.String("John Doe"),
+})
+```
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -486,6 +531,14 @@ from nusii import Nusii
 nusii = Nusii(api_key="YOUR_API_KEY")
 
 nusii.clients.delete(100)
+```
+
+```go
+import "github.com/nusii/nusii-go"
+
+n, err := nusii.New(nusii.WithAPIKey("YOUR_API_KEY"))
+
+_, err = n.Clients.Delete(ctx, 100)
 ```
 
 > The above command returns JSON structured like this:

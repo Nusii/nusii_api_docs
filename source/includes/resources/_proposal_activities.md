@@ -57,6 +57,17 @@ nusii = Nusii(api_key="YOUR_API_KEY")
 activities = nusii.proposal_activities.list(proposal_id=100, page=1)
 ```
 
+```go
+import "github.com/nusii/nusii-go"
+
+n, err := nusii.New(nusii.WithAPIKey("YOUR_API_KEY"))
+
+activities, err := n.ProposalActivities.List(ctx, &nusii.ProposalActivityListParams{
+	ProposalID: 100,
+	Page:       1,
+})
+```
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -167,6 +178,14 @@ from nusii import Nusii
 nusii = Nusii(api_key="YOUR_API_KEY")
 
 activity = nusii.proposal_activities.get(44)
+```
+
+```go
+import "github.com/nusii/nusii-go"
+
+n, err := nusii.New(nusii.WithAPIKey("YOUR_API_KEY"))
+
+activity, err := n.ProposalActivities.Get(ctx, 44)
 ```
 
 > The above command returns JSON structured like this:

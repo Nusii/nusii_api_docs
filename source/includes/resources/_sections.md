@@ -50,6 +50,15 @@ nusii = Nusii(api_key="YOUR_API_KEY")
 sections = nusii.sections.list(proposal_id=126, page=1)
 ```
 
+```go
+import "github.com/nusii/nusii-go"
+
+n, err := nusii.New(nusii.WithAPIKey("YOUR_API_KEY"))
+
+// Line items of cost sections are included as section.LineItems
+sections, err := n.Sections.List(ctx, &nusii.SectionListParams{ProposalID: 126, Page: 1})
+```
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -168,6 +177,14 @@ nusii = Nusii(api_key="YOUR_API_KEY")
 section = nusii.sections.get(100)
 ```
 
+```go
+import "github.com/nusii/nusii-go"
+
+n, err := nusii.New(nusii.WithAPIKey("YOUR_API_KEY"))
+
+section, err := n.Sections.Get(ctx, 100)
+```
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -276,6 +293,17 @@ section = nusii.sections.create(
     proposal_id=126,
     title="Introduction",
 )
+```
+
+```go
+import "github.com/nusii/nusii-go"
+
+n, err := nusii.New(nusii.WithAPIKey("YOUR_API_KEY"))
+
+section, err := n.Sections.Create(ctx, nusii.SectionParams{
+	ProposalID: nusii.Int(126),
+	Title:      nusii.String("Introduction"),
+})
 ```
 
 > The above command returns JSON structured like this:
@@ -403,6 +431,16 @@ nusii = Nusii(api_key="YOUR_API_KEY")
 section = nusii.sections.update(100, title="Introduction")
 ```
 
+```go
+import "github.com/nusii/nusii-go"
+
+n, err := nusii.New(nusii.WithAPIKey("YOUR_API_KEY"))
+
+section, err := n.Sections.Update(ctx, 100, nusii.SectionParams{
+	Title: nusii.String("Introduction"),
+})
+```
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -505,6 +543,14 @@ from nusii import Nusii
 nusii = Nusii(api_key="YOUR_API_KEY")
 
 nusii.sections.delete(100)
+```
+
+```go
+import "github.com/nusii/nusii-go"
+
+n, err := nusii.New(nusii.WithAPIKey("YOUR_API_KEY"))
+
+_, err = n.Sections.Delete(ctx, 100)
 ```
 
 > The above command returns JSON structured like this:
