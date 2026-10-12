@@ -2872,6 +2872,20 @@ paths:
                     - relationships
                 required:
                 - data
+        '422':
+          description: refuses to delete a proposal a client signed
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+                required:
+                - error
+                - message
     get:
       summary: show
       tags:
@@ -2951,13 +2965,17 @@ paths:
                           theme:
                             type: string
                           cover_image_url:
-                            type: 'null'
+                            type:
+                            - string
+                            - 'null'
                           empty_cover_image:
                             type: boolean
                           cover_opacity:
                             type: integer
                           cover_overlay_color:
-                            type: 'null'
+                            type:
+                            - string
+                            - 'null'
                           cover_overlay_dynamic_color:
                             type: 'null'
                           sender_name:
@@ -3144,6 +3162,11 @@ paths:
                 - errors
     put:
       summary: update
+      description: 'Updates the proposal. A status change is refused (422 status_not_writable):
+        a proposal becomes pending when you send it (PUT /api/v2/proposals/{id}/send_proposal)
+        and accepted or rejected when your client answers on the proposal page. The
+        current status can be sent back unchanged. A proposal a client signed, or
+        an accepted one, is locked (422 proposal_locked).'
       tags:
       - Api::V2::Proposal
       parameters:
@@ -3154,7 +3177,7 @@ paths:
           type: integer
       responses:
         '200':
-          description: returns http success
+          description: saves the other attributes
           content:
             application/vnd.api+json:
               schema:
@@ -3415,6 +3438,8 @@ paths:
                   type: object
                   properties:
                     title:
+                      type: string
+                    status:
                       type: string
                   required:
                   - title
@@ -3901,7 +3926,7 @@ paths:
                 required:
                 - data
         '422':
-          description: returns http unprocessable entity
+          description: refuses to add a tax
           content:
             application/vnd.api+json:
               schema:
@@ -3924,8 +3949,10 @@ paths:
                       required:
                       - source
                       - detail
-                required:
-                - errors
+                  error:
+                    type: string
+                  message:
+                    type: string
   "/api/v2/proposals/{proposal_id}/taxations/{id}":
     delete:
       summary: destroy
@@ -3979,6 +4006,20 @@ paths:
                     - attributes
                 required:
                 - data
+        '422':
+          description: refuses to remove a tax
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+                required:
+                - error
+                - message
     put:
       summary: update
       tags:
@@ -4032,7 +4073,7 @@ paths:
                 required:
                 - data
         '422':
-          description: returns http unprocessable entity
+          description: refuses to change a tax
           content:
             application/vnd.api+json:
               schema:
@@ -4055,8 +4096,10 @@ paths:
                       required:
                       - source
                       - detail
-                required:
-                - errors
+                  error:
+                    type: string
+                  message:
+                    type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
@@ -4331,6 +4374,8 @@ paths:
                       type: string
                     name:
                       type: string
+                    reusable:
+                      type: string
                 section_id:
                   type: string
       responses:
@@ -4418,10 +4463,103 @@ paths:
                         - total_formatted
                         - maximum_total_in_cents
                         - maximum_total_formatted
+                      relationships:
+                        type: object
+                        properties:
+                          line_items:
+                            type: object
+                            properties:
+                              data:
+                                type: array
+                                items:
+                                  type: object
+                                  properties:
+                                    id:
+                                      type: string
+                                    type:
+                                      type: string
+                                  required:
+                                  - id
+                                  - type
+                            required:
+                            - data
+                        required:
+                        - line_items
                     required:
                     - id
                     - type
                     - attributes
+                  included:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        type:
+                          type: string
+                        attributes:
+                          type: object
+                          properties:
+                            section_id:
+                              type: integer
+                            name:
+                              type: string
+                            position:
+                              type: integer
+                            cost_type:
+                              type: string
+                            recurring_type:
+                              type: 'null'
+                            per_type:
+                              type: 'null'
+                            choice_type:
+                              type: string
+                            quantity:
+                              type: 'null'
+                            updated_at:
+                              type: string
+                            created_at:
+                              type: string
+                            currency:
+                              type: string
+                            amount:
+                              type: integer
+                            amount_formatted:
+                              type: string
+                            amount_in_cents:
+                              type: integer
+                            maximum_amount_in_cents:
+                              type: 'null'
+                            maximum_amount_formatted:
+                              type: 'null'
+                            total_in_cents:
+                              type: integer
+                            total_formatted:
+                              type: string
+                          required:
+                          - section_id
+                          - name
+                          - position
+                          - cost_type
+                          - recurring_type
+                          - per_type
+                          - choice_type
+                          - quantity
+                          - updated_at
+                          - created_at
+                          - currency
+                          - amount
+                          - amount_formatted
+                          - amount_in_cents
+                          - maximum_amount_in_cents
+                          - maximum_amount_formatted
+                          - total_in_cents
+                          - total_formatted
+                      required:
+                      - id
+                      - type
+                      - attributes
                 required:
                 - data
         '422':

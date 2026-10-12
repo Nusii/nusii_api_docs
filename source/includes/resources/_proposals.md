@@ -540,6 +540,14 @@ proposal, err := n.Proposals.Update(ctx, 100, nusii.ProposalUpdateParams{
 
 This will return 200 OK and the current JSON representation of the proposal if the update was a success.
 
+<aside class="warning">
+The status can't be changed with an update. A proposal becomes <code>pending</code> when you <a href="#send-a-proposal">send it</a>, and <code>accepted</code> or <code>rejected</code> when your client answers on the proposal page. A status change returns <code>422 Unprocessable Entity</code> with the error <code>status_not_writable</code>. Sending the current status back unchanged is fine.
+</aside>
+
+<aside class="notice">
+A proposal that is accepted, or that a client signed, is locked: updating or deleting it, and changing its sections, line items or taxes, returns <code>422 Unprocessable Entity</code> with the error <code>proposal_locked</code>. Unlock the proposal in Nusii to change it.
+</aside>
+
 ### HTTP Request
 
 `PUT https://app.nusii.com/api/v2/proposals/:id`
@@ -558,7 +566,7 @@ report | no | Boolean | This turns the proposal into a report. Default: false
 exclude_total | no | Boolean | This excludes the total from the proposal. Default: false
 exclude_total_in_pdf | no | Boolean | This excludes the total from the proposal. Default: false
 theme | no | String | Theme of the proposal. Default: the account's default theme ('classic' if none is set)
-status | no | String | Status of the proposal (`draft`, `pending`, `accepted`, `rejected`, or `clarification`).
+status | no | String | Read only: send the current status back or leave it out. A different status returns `422` with `status_not_writable`.
 payment_percentage | no | Number | Percentage of the total requested as payment on acceptance.
 archived_at | no | DateTime | Archives the proposal when set.
 
@@ -640,7 +648,7 @@ _, err = n.Proposals.Delete(ctx, 100)
 }
 ```
 
-This endpoint deletes a specific proposal.
+This endpoint deletes a specific proposal. A locked proposal (accepted, or signed by a client) can't be deleted: the request returns `422 Unprocessable Entity` with the error `proposal_locked`.
 
 ### HTTP Request
 
