@@ -715,7 +715,11 @@
 </thead><tbody>
 <tr>
 <td><code>proposals_summary</code></td>
-<td>Proposal counts by status and the conversion rate over a period (a preset like <code>last_30_days</code>, or explicit <code>from</code>/<code>to</code> dates).</td>
+<td>Status counts and the conversion rate for the proposals created in a period (a preset like <code>last_30_days</code>, or explicit <code>from</code>/<code>to</code> dates).</td>
+</tr>
+<tr>
+<td><code>proposals_report</code></td>
+<td>The numbers of the app&#39;s Reports page for a period, optionally for one client or team member or without archived proposals: proposals sent, accepted, and rejected, the acceptance rate, clients won, one-time and recurring money won, the average deal, and the time to a yes, each against the period before, plus the numbers per team member. Members without the company reports get their own proposals only. Listed in <code>tools/list</code> only for accounts with the Reports page enabled.</td>
 </tr>
 <tr>
 <td><code>proposals_list</code></td>
@@ -787,7 +791,7 @@
 </tr>
 <tr>
 <td><code>update_proposal_settings</code></td>
-<td>Change a proposal&#39;s document settings — theme, table of contents, total visibility, read-only report mode, forced signature, the &quot;Prepared for&quot; line, the thank-you email, expiry and display dates, and the deposit share collected through Stripe on acceptance. Only the settings passed change; an empty string clears a date, and a deposit of <code>0</code> turns collection off.</td>
+<td>Change a proposal&#39;s document settings — theme, table of contents, total visibility, read-only report mode, forced signature, the &quot;Prepared for&quot; line, the thank-you email (on accounts with that feature enabled), expiry and display dates, and the deposit share collected through Stripe on acceptance. Only the settings passed change; an empty string clears a date, and a deposit of <code>0</code> turns collection off.</td>
 </tr>
 <tr>
 <td><code>update_section</code></td>
@@ -810,9 +814,10 @@
 <ul>
 <li>20 sections per <code>create_proposal</code> call, and 100 sections per proposal overall</li>
 <li>50 line items per section — <code>add_line_items</code> refuses additions that would pass it</li>
+<li>50 line items per <code>update_line_items</code> or <code>remove_line_items</code> call</li>
 <li>50,000 characters per section body</li>
 <li>10 taxes per <code>set_proposal_taxes</code> call</li>
-<li><code>clients_search</code> returns at most 20 matches; <code>templates_list</code> pages 50 at a time</li>
+<li><code>clients_search</code> returns at most 20 matches; <code>proposals_list</code> pages 20 at a time and <code>templates_list</code> 50</li>
 <li>Amounts are decimal strings (<code>&quot;1250.00&quot;</code>), never integers</li>
 </ul>
 
