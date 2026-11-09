@@ -71,7 +71,8 @@ Available to every connection (the `read` scope):
 
 Tool | Description
 ---- | -----------
-`proposals_summary` | Proposal counts by status and the conversion rate over a period (a preset like `last_30_days`, or explicit `from`/`to` dates).
+`proposals_summary` | Status counts and the conversion rate for the proposals created in a period (a preset like `last_30_days`, or explicit `from`/`to` dates).
+`proposals_report` | The numbers of the app's Reports page for a period, optionally for one client or team member or without archived proposals: proposals sent, accepted, and rejected, the acceptance rate, clients won, one-time and recurring money won, the average deal, and the time to a yes, each against the period before, plus the numbers per team member. Members without the company reports get their own proposals only. Listed in `tools/list` only for accounts with the Reports page enabled.
 `proposals_list` | Find existing proposals, newest first: searchable by title, document number, or client, filterable by status, with cursor pagination.
 `templates_list` | The account's templates (id, name, dates), optionally filtered by name, with cursor pagination.
 `template_details` | One template's full content: text sections, cost sections with line items, and the template total.
@@ -93,7 +94,7 @@ Tool | Description
 `remove_line_items` | Delete line items from a proposal. Totals recalculate automatically.
 `set_proposal_taxes` | Replace the set of taxes applied to a proposal: the account's saved taxes by id or name, ad-hoc name and percentage rates (a negative percentage acts as a discount), or an empty list to clear them.
 `attach_client_to_proposal` | Set or replace a proposal's client, with the same id/email resolution as create.
-`update_proposal_settings` | Change a proposal's document settings — theme, table of contents, total visibility, read-only report mode, forced signature, the "Prepared for" line, the thank-you email, expiry and display dates, and the deposit share collected through Stripe on acceptance. Only the settings passed change; an empty string clears a date, and a deposit of `0` turns collection off.
+`update_proposal_settings` | Change a proposal's document settings — theme, table of contents, total visibility, read-only report mode, forced signature, the "Prepared for" line, the thank-you email (on accounts with that feature enabled), expiry and display dates, and the deposit share collected through Stripe on acceptance. Only the settings passed change; an empty string clears a date, and a deposit of `0` turns collection off.
 `update_section` | Update a section's title, body, or position, and its flags: optional (the client chooses whether to take a cost section), a page break before the section, and showing the section's own subtotal. The body replaces the current HTML entirely — fetch it with `section_body` first.
 `create_section` | Add a text or cost section to a proposal, at an optional position.
 `remove_section` | Remove one whole section — text, or a cost section together with its pricing table. The same soft delete as deleting the section in the app or the v2 API, and totals recalculate; there is no undo over MCP.
@@ -104,9 +105,10 @@ A few caps to know about when building on the write tools:
 
 - 20 sections per `create_proposal` call, and 100 sections per proposal overall
 - 50 line items per section — `add_line_items` refuses additions that would pass it
+- 50 line items per `update_line_items` or `remove_line_items` call
 - 50,000 characters per section body
 - 10 taxes per `set_proposal_taxes` call
-- `clients_search` returns at most 20 matches; `templates_list` pages 50 at a time
+- `clients_search` returns at most 20 matches; `proposals_list` pages 20 at a time and `templates_list` 50
 - Amounts are decimal strings (`"1250.00"`), never integers
 
 ## Drafts only, never sent
