@@ -29,3 +29,6 @@ slate/
 
 # Claude Code local settings
 .claude/settings.local.json
+
+# Amp orb portals
+.amp/portals/*

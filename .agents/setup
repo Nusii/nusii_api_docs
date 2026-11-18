@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+# Prepares an Amp orb to build and serve these docs: Ruby from Gemfile.lock and the bundle.
+# Amp may rerun this on top of an older snapshot, so every step skips work already done.
+set -euo pipefail
+
+step() {
+	printf '\n==> %s\n' "$*"
+	SECONDS=0
+}
+done_step() { printf '    done in %ss\n' "$SECONDS"; }
+
+# Native gems (nokogiri, sassc, ffi, redcarpet) compile from source.
+step "System packages"
+missing=()
+for pkg in build-essential libffi-dev; do
+	dpkg-query -W -f='${Status}' "$pkg" 2>/dev/null | grep -q 'install ok installed' || missing+=("$pkg")
+done
+if ((${#missing[@]})); then
+	sudo apt-get update -qq
+	sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq "${missing[@]}"
+fi
+done_step
+
+step "mise"
+mise="$HOME/.local/bin/mise"
+[ -x "$mise" ] || curl -fsSL https://mise.run | MISE_INSTALL_PATH="$mise" sh
+"$mise" --version
+done_step
+
+# Install the Ruby that Gemfile.lock was generated with (a precompiled build, a few seconds) and make
+# it the default through mise shims. Amp keeps PATH entries from ~/.bash_profile in the snapshot.
+step "Ruby"
+ruby_version="$(awk '/^RUBY VERSION/ { getline; sub(/p[0-9]+$/, "", $2); print $2 }' Gemfile.lock)"
+"$mise" use --global --yes "ruby@$ruby_version"
+shims="$HOME/.local/share/mise/shims"
+profile_line="export PATH=\"$shims:\$PATH\" # mise shims (nusii_api_docs .agents/setup)"
+grep -Fqx "$profile_line" "$HOME/.bash_profile" 2>/dev/null || printf '\n%s\n' "$profile_line" >>"$HOME/.bash_profile"
+export PATH="$shims:$PATH"
+ruby --version
+done_step
+
+# Bundler switches to the version in Gemfile.lock on its own. Frozen, like CI, so setup never
+# rewrites the lockfile.
+step "Gems"
+BUNDLE_FROZEN=true bundle install --jobs "$(nproc)" --retry 3
+"$mise" reshim
+done_step
