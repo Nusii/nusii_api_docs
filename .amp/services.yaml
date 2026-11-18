@@ -1,0 +1,6 @@
+services:
+  docs:
+    command: bundle exec middleman server --port "$PORT" --bind-address 0.0.0.0
+    health: /
+    portal:
+      title: API docs
